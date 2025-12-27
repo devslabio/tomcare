@@ -3,7 +3,8 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Users, Clock, Heart, MapPin, Zap } from "lucide-react"
+import { Users, Clock, Heart, MapPin, Zap, Loader2, CheckCircle, AlertCircle } from "lucide-react"
+import { submitToGoogleForm, getGoogleFormConfig } from "@/lib/google-forms"
 
 interface VolunteerPosition {
   id: string
@@ -77,6 +78,9 @@ const volunteerPositions: VolunteerPosition[] = [
 export function VolunteerSection() {
   const [showForm, setShowForm] = useState(false)
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [errorMessage, setErrorMessage] = useState("")
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -86,11 +90,54 @@ export function VolunteerSection() {
     availability: "",
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log(formData)
-    setShowForm(false)
+    setIsSubmitting(true)
+    setErrorMessage("")
+
+    try {
+      // Try to submit to Google Forms first
+      const googleFormConfig = getGoogleFormConfig("volunteer")
+      
+      if (googleFormConfig) {
+        const result = await submitToGoogleForm(googleFormConfig, {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || "",
+          position: formData.position,
+          experience: formData.experience,
+          availability: formData.availability,
+        })
+
+        if (result.success) {
+          setSubmitStatus("success")
+          setTimeout(() => {
+            setFormData({ name: "", email: "", phone: "", position: "", experience: "", availability: "" })
+            setShowForm(false)
+            setSubmitStatus("idle")
+          }, 3000)
+          return
+        } else {
+          setSubmitStatus("error")
+          setErrorMessage(result.message || "Failed to submit application. Please try again.")
+        }
+      } else {
+        // Fallback: just log and close
+        console.log("Volunteer application:", formData)
+        setSubmitStatus("success")
+        setTimeout(() => {
+          setFormData({ name: "", email: "", phone: "", position: "", experience: "", availability: "" })
+          setShowForm(false)
+          setSubmitStatus("idle")
+        }, 2000)
+      }
+    } catch (error) {
+      setSubmitStatus("error")
+      setErrorMessage("An error occurred. Please try again later.")
+      console.error("Volunteer form error:", error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -202,94 +249,132 @@ export function VolunteerSection() {
             <div className="bg-white rounded-xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
               <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Volunteer Application Form</h3>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-semibold text-foreground mb-2">Full Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+              {submitStatus === "success" ? (
+                <div className="bg-accent/10 border border-accent rounded-lg p-6 text-center">
+                  <CheckCircle className="w-12 h-12 text-accent mx-auto mb-3" />
+                  <h3 className="font-serif font-bold text-lg text-accent mb-2">Thank you!</h3>
+                  <p className="text-muted-foreground">
+                    Your application has been submitted successfully. We'll get back to you soon.
+                  </p>
                 </div>
-
-                <div className="grid sm:grid-cols-2 gap-4">
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {submitStatus === "error" && (
+                    <div className="bg-destructive/10 border border-destructive rounded-lg p-4 flex gap-3">
+                      <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                      <div>
+                        <h3 className="font-semibold text-destructive">Error</h3>
+                        <p className="text-sm text-destructive/80">{errorMessage}</p>
+                      </div>
+                    </div>
+                  )}
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">Email</label>
+                    <label className="block text-sm font-semibold text-foreground mb-2">Full Name</label>
                     <input
-                      type="email"
+                      type="text"
                       required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                     />
                   </div>
+
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-foreground mb-2">Email</label>
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        disabled={isSubmitting}
+                        className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-foreground mb-2">Phone</label>
+                      <input
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        disabled={isSubmitting}
+                        className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      />
+                    </div>
+                  </div>
+
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">Phone</label>
-                    <input
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    <label className="block text-sm font-semibold text-foreground mb-2">Position</label>
+                    <select
+                      value={formData.position}
+                      onChange={(e) => setFormData({ ...formData, position: e.target.value })}
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                    >
+                      <option value="">Select a position</option>
+                      {volunteerPositions.map((pos) => (
+                        <option key={pos.id} value={pos.title}>
+                          {pos.title}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-foreground mb-2">Relevant Experience</label>
+                    <textarea
+                      value={formData.experience}
+                      onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
+                      rows={3}
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      placeholder="Tell us about your relevant experience and skills..."
                     />
                   </div>
-                </div>
 
-                <div>
-                  <label className="block text-sm font-semibold text-foreground mb-2">Position</label>
-                  <select
-                    value={formData.position}
-                    onChange={(e) => setFormData({ ...formData, position: e.target.value })}
-                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  >
-                    <option value="">Select a position</option>
-                    {volunteerPositions.map((pos) => (
-                      <option key={pos.id} value={pos.title}>
-                        {pos.title}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-foreground mb-2">Availability</label>
+                    <textarea
+                      value={formData.availability}
+                      onChange={(e) => setFormData({ ...formData, availability: e.target.value })}
+                      rows={2}
+                      disabled={isSubmitting}
+                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      placeholder="Describe your weekly availability..."
+                    />
+                  </div>
 
-                <div>
-                  <label className="block text-sm font-semibold text-foreground mb-2">Relevant Experience</label>
-                  <textarea
-                    value={formData.experience}
-                    onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
-                    rows={3}
-                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="Tell us about your relevant experience and skills..."
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-foreground mb-2">Availability</label>
-                  <textarea
-                    value={formData.availability}
-                    onChange={(e) => setFormData({ ...formData, availability: e.target.value })}
-                    rows={2}
-                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="Describe your weekly availability..."
-                  />
-                </div>
-
-                <div className="flex gap-4 pt-4">
-                  <button
-                    type="submit"
-                    className="flex-1 px-6 py-3 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition font-semibold"
-                  >
-                    Submit Application
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setShowForm(false)}
-                    className="flex-1 px-6 py-3 border-2 border-border text-foreground rounded-lg hover:bg-muted transition font-semibold"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
+                  <div className="flex gap-4 pt-4">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="flex-1 px-6 py-3 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition font-semibold disabled:opacity-50 flex items-center justify-center gap-2"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        "Submit Application"
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowForm(false)
+                        setSubmitStatus("idle")
+                        setErrorMessage("")
+                      }}
+                      disabled={isSubmitting}
+                      className="flex-1 px-6 py-3 border-2 border-border text-foreground rounded-lg hover:bg-muted transition font-semibold disabled:opacity-50"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
           </div>
         )}

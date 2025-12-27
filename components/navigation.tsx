@@ -3,11 +3,11 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react"
-import { Menu, X, ChevronDown, Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
+import { Menu, X, Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
+import { DonateButton } from "@/components/donate-button"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
@@ -57,28 +57,11 @@ export function Navigation() {
             <Link href="/about" className="text-foreground hover:text-primary transition">
               About Us
             </Link>
-            <div className="relative group">
-              <button className="flex items-center gap-1 text-foreground hover:text-primary transition">
-                Programs
-                <ChevronDown className="w-4 h-4" />
-              </button>
-              <div className="absolute left-0 mt-0 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2">
-                <Link href="/programs" className="block px-4 py-2 hover:bg-muted text-foreground">
-                  Our Programs
-                </Link>
-                <Link href="/search" className="block px-4 py-2 hover:bg-muted text-foreground">
-                  Search Programs
-                </Link>
-                <Link href="/programs#donate" className="block px-4 py-2 hover:bg-muted text-foreground">
-                  General Donation
-                </Link>
-                <Link href="/programs#donate" className="block px-4 py-2 hover:bg-muted text-foreground">
-                  Donate a Car
-                </Link>
-              </div>
-            </div>
-            <Link href="/team" className="text-foreground hover:text-primary transition">
-              Team
+            <Link href="/action" className="text-foreground hover:text-primary transition">
+              Our Action
+            </Link>
+            <Link href="/volunteer" className="text-foreground hover:text-primary transition">
+              Be Volunteer
             </Link>
             <Link href="/contact" className="text-foreground hover:text-primary transition">
               Contact
@@ -89,6 +72,7 @@ export function Navigation() {
             >
               Register
             </Link>
+            <DonateButton />
           </div>
 
           {/* Mobile Menu Button */}
@@ -103,33 +87,11 @@ export function Navigation() {
             <Link href="/about" className="block px-4 py-2 text-foreground hover:bg-muted rounded transition">
               About Us
             </Link>
-            <button
-              onClick={() => setOpenDropdown(openDropdown === "programs" ? null : "programs")}
-              className="w-full text-left px-4 py-2 flex items-center justify-between text-foreground hover:bg-muted rounded transition"
-            >
-              Programs
-              <ChevronDown
-                className={`w-4 h-4 transition-transform ${openDropdown === "programs" ? "rotate-180" : ""}`}
-              />
-            </button>
-            {openDropdown === "programs" && (
-              <div className="pl-4 space-y-1">
-                <Link href="/programs" className="block px-4 py-2 text-foreground hover:bg-muted rounded">
-                  Our Programs
-                </Link>
-                <Link href="/search" className="block px-4 py-2 text-foreground hover:bg-muted rounded">
-                  Search Programs
-                </Link>
-                <Link href="/programs#donate" className="block px-4 py-2 text-foreground hover:bg-muted rounded">
-                  General Donation
-                </Link>
-                <Link href="/programs#donate" className="block px-4 py-2 text-foreground hover:bg-muted rounded">
-                  Donate a Car
-                </Link>
-              </div>
-            )}
-            <Link href="/team" className="block px-4 py-2 text-foreground hover:bg-muted rounded transition">
-              Team
+            <Link href="/action" className="block px-4 py-2 text-foreground hover:bg-muted rounded transition">
+              Our Action
+            </Link>
+            <Link href="/volunteer" className="block px-4 py-2 text-foreground hover:bg-muted rounded transition">
+              Be Volunteer
             </Link>
             <Link href="/contact" className="block px-4 py-2 text-foreground hover:bg-muted rounded transition">
               Contact
@@ -140,6 +102,9 @@ export function Navigation() {
             >
               Register
             </Link>
+            <div className="px-4 py-2">
+              <DonateButton />
+            </div>
           </div>
         )}
       </div>

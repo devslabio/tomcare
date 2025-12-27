@@ -4,7 +4,15 @@ import { useState } from "react"
 import { getGoogleFormConfig, submitToGoogleForm } from "@/lib/google-forms"
 
 export default function TestFormPage() {
-  const [formData, setFormData] = useState({
+  const [formType, setFormType] = useState<"contact" | "volunteer">("contact")
+  const [contactFormData, setContactFormData] = useState({
+    name: "Test User",
+    email: "test@example.com",
+    phone: "+1234567890",
+    subject: "program-inquiry",
+    message: "This is a test message",
+  })
+  const [volunteerFormData, setVolunteerFormData] = useState({
     name: "Test User",
     email: "test@example.com",
     phone: "+1234567890",
@@ -19,10 +27,11 @@ export default function TestFormPage() {
     setIsSubmitting(true)
     setResult("Testing submission...\n\n")
     
-    const config = getGoogleFormConfig("volunteer")
+    const config = getGoogleFormConfig(formType)
     
     if (!config) {
-      setResult("❌ Google Form not configured. Please set NEXT_PUBLIC_GOOGLE_FORM_VOLUNTEER_URL in .env.local")
+      const envVar = formType === "contact" ? "NEXT_PUBLIC_GOOGLE_FORM_CONTACT_URL" : "NEXT_PUBLIC_GOOGLE_FORM_VOLUNTEER_URL"
+      setResult(`❌ Google Form not configured. Please set ${envVar} in .env.local`)
       setIsSubmitting(false)
       return
     }
@@ -35,6 +44,7 @@ export default function TestFormPage() {
     })
     setResult((prev) => prev + `\n📤 Submitting...\n\n`)
 
+    const formData = formType === "contact" ? contactFormData : volunteerFormData
     const submitResult = await submitToGoogleForm(config, formData)
     
     if (submitResult.success) {
@@ -49,18 +59,33 @@ export default function TestFormPage() {
     setIsSubmitting(false)
   }
 
+  const currentFormData = formType === "contact" ? contactFormData : volunteerFormData
+  const setCurrentFormData = formType === "contact" ? setContactFormData : setVolunteerFormData
+
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
         <h1 className="text-2xl font-bold mb-6">Google Form Submission Test</h1>
+        
+        <div className="mb-6">
+          <label className="block text-sm font-semibold mb-2">Form Type</label>
+          <select
+            value={formType}
+            onChange={(e) => setFormType(e.target.value as "contact" | "volunteer")}
+            className="w-full px-4 py-2 border rounded-lg"
+          >
+            <option value="contact">Contact Form</option>
+            <option value="volunteer">Volunteer Form</option>
+          </select>
+        </div>
         
         <div className="space-y-4 mb-6">
           <div>
             <label className="block text-sm font-semibold mb-2">Name</label>
             <input
               type="text"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              value={currentFormData.name}
+              onChange={(e) => setCurrentFormData({ ...currentFormData, name: e.target.value })}
               className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
@@ -69,8 +94,8 @@ export default function TestFormPage() {
             <label className="block text-sm font-semibold mb-2">Email</label>
             <input
               type="email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              value={currentFormData.email}
+              onChange={(e) => setCurrentFormData({ ...currentFormData, email: e.target.value })}
               className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
@@ -79,41 +104,64 @@ export default function TestFormPage() {
             <label className="block text-sm font-semibold mb-2">Phone</label>
             <input
               type="tel"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              value={currentFormData.phone}
+              onChange={(e) => setCurrentFormData({ ...currentFormData, phone: e.target.value })}
               className="w-full px-4 py-2 border rounded-lg"
             />
           </div>
           
-          <div>
-            <label className="block text-sm font-semibold mb-2">Position</label>
-            <input
-              type="text"
-              value={formData.position}
-              onChange={(e) => setFormData({ ...formData, position: e.target.value })}
-              className="w-full px-4 py-2 border rounded-lg"
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-semibold mb-2">Experience</label>
-            <textarea
-              value={formData.experience}
-              onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
-              className="w-full px-4 py-2 border rounded-lg"
-              rows={3}
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-semibold mb-2">Availability</label>
-            <input
-              type="text"
-              value={formData.availability}
-              onChange={(e) => setFormData({ ...formData, availability: e.target.value })}
-              className="w-full px-4 py-2 border rounded-lg"
-            />
-          </div>
+          {formType === "contact" ? (
+            <>
+              <div>
+                <label className="block text-sm font-semibold mb-2">Subject</label>
+                <input
+                  type="text"
+                  value={contactFormData.subject}
+                  onChange={(e) => setContactFormData({ ...contactFormData, subject: e.target.value })}
+                  className="w-full px-4 py-2 border rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-2">Message</label>
+                <textarea
+                  value={contactFormData.message}
+                  onChange={(e) => setContactFormData({ ...contactFormData, message: e.target.value })}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  rows={3}
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <label className="block text-sm font-semibold mb-2">Position</label>
+                <input
+                  type="text"
+                  value={volunteerFormData.position}
+                  onChange={(e) => setVolunteerFormData({ ...volunteerFormData, position: e.target.value })}
+                  className="w-full px-4 py-2 border rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-2">Experience</label>
+                <textarea
+                  value={volunteerFormData.experience}
+                  onChange={(e) => setVolunteerFormData({ ...volunteerFormData, experience: e.target.value })}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  rows={3}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-2">Availability</label>
+                <input
+                  type="text"
+                  value={volunteerFormData.availability}
+                  onChange={(e) => setVolunteerFormData({ ...volunteerFormData, availability: e.target.value })}
+                  className="w-full px-4 py-2 border rounded-lg"
+                />
+              </div>
+            </>
+          )}
         </div>
 
         <button
@@ -131,14 +179,14 @@ export default function TestFormPage() {
         )}
 
         <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <h3 className="font-semibold mb-2">🔍 How to Extract Entry IDs:</h3>
-          <ol className="list-decimal list-inside space-y-1 text-sm">
-            <li>Open your Google Form: <a href="https://docs.google.com/forms/d/e/1FAIpQLScUfpz7Ra8OiWuek6v-UBzNsvex3Q5PtBkOkpwv9mhZboznoA/viewform" target="_blank" className="text-blue-600 underline">View Form</a></li>
-            <li>Open browser console (F12)</li>
-            <li>Paste and run the script from <code className="bg-gray-200 px-1">scripts/extract-entry-ids.js</code></li>
-            <li>Copy the generated configuration to your <code className="bg-gray-200 px-1">.env.local</code> file</li>
-            <li>Restart your dev server</li>
-          </ol>
+          <h3 className="font-semibold mb-2">🔍 Troubleshooting:</h3>
+          <ul className="list-disc list-inside space-y-1 text-sm">
+            <li>Open browser console (F12) to see detailed submission logs</li>
+            <li>Verify the formResponse URL matches the form you're checking responses for</li>
+            <li>Make sure entry IDs match the form fields in order</li>
+            <li>Check that all required fields are filled</li>
+            <li>If submissions aren't appearing, the entry IDs might be incorrect - re-extract them using the script</li>
+          </ul>
         </div>
       </div>
     </div>

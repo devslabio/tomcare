@@ -32,34 +32,56 @@ export async function submitToGoogleForm(
     console.log("📤 Submitting to Google Forms:", config.formUrl)
     console.log("📋 Form data mapping:")
     
+    // Always include all entry IDs, even if empty (Google Forms may require this)
     Object.entries(data).forEach(([key, value]) => {
       const entryId = config.entryIds[key]
-      if (entryId && value) {
-        formData.append(entryId, String(value))
-        console.log(`  ${key} → ${entryId} = "${value}"`)
-      } else if (entryId && !value) {
-        console.warn(`  ⚠️ ${key} → ${entryId} is empty, skipping`)
+      if (entryId) {
+        // Always append, even if empty - Google Forms handles empty values
+        const stringValue = value ? String(value).trim() : ""
+        formData.append(entryId, stringValue)
+        if (stringValue) {
+          console.log(`  ${key} → ${entryId} = "${stringValue}"`)
+        } else {
+          console.log(`  ${key} → ${entryId} = "" (empty)`)
+        }
       } else {
         console.warn(`  ⚠️ ${key} has no entry ID mapping`)
       }
     })
+    
+    // Log all configured entry IDs to verify mapping
+    console.log("📝 All configured entry IDs:", config.entryIds)
 
     const formDataString = formData.toString()
     console.log("📦 Final form data:", formDataString)
 
-    // Submit to Google Forms
-    const response = await fetch(config.formUrl, {
-      method: "POST",
-      mode: "no-cors", // Google Forms doesn't allow CORS, so we use no-cors
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: formDataString,
-    })
+    // Submit to Google Forms using fetch with no-cors (iframe blocked by CSP)
+    console.log("🚀 Submitting to Google Forms using fetch...")
+    
+    try {
+      const response = await fetch(config.formUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: formDataString,
+      })
 
-    // With no-cors mode, we can't read the response, but if no error was thrown, assume success
-    console.log("✅ Form submission sent (no-cors mode - cannot verify response)")
-    return { success: true, message: "Form submitted successfully" }
+      // With no-cors mode, we can't read the response, but if no error was thrown, assume success
+      console.log("✅ Form submission sent via fetch (no-cors mode)")
+      console.log("💡 Note: If the entry doesn't appear in Google Forms, check:")
+      console.log("   1. Form settings - ensure 'Accepting responses' is ON")
+      console.log("   2. Form settings - ensure 'Require sign-in' is OFF")
+      console.log("   3. Field values match form expectations (especially dropdowns)")
+      console.log("   4. All required fields are filled correctly")
+      console.log("   5. Check Network tab in browser DevTools to see POST request status")
+      
+      return { success: true, message: "Form submitted successfully" }
+    } catch (fetchError) {
+      console.error("❌ Fetch error:", fetchError)
+      return { success: false, message: "Failed to submit form. Please try again." }
+    }
   } catch (error) {
     console.error("❌ Google Forms submission error:", error)
     return { success: false, message: "Failed to submit form. Please try again." }
@@ -80,8 +102,12 @@ export function getGoogleFormConfig(formType: "contact" | "volunteer"): GoogleFo
       message: process.env.NEXT_PUBLIC_GOOGLE_FORM_CONTACT_ENTRY_MESSAGE || "entry.4",
     }
 
+    console.log("🔍 getGoogleFormConfig('contact'):")
+    console.log("  - Form URL:", formUrl || "NOT SET")
+    console.log("  - Entry IDs:", entryIds)
+
     if (!formUrl) {
-      console.warn("Google Form contact URL not configured. Set NEXT_PUBLIC_GOOGLE_FORM_CONTACT_URL")
+      console.warn("❌ Google Form contact URL not configured. Set NEXT_PUBLIC_GOOGLE_FORM_CONTACT_URL")
       return null
     }
 

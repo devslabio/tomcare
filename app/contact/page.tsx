@@ -6,7 +6,7 @@ import { useState } from "react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Phone, Mail, MapPin, Clock, Loader2, CheckCircle, AlertCircle } from "lucide-react"
-import { submitToGoogleForm, getGoogleFormConfig } from "@/lib/google-forms"
+// Google Forms integration removed - contact form uses API route only
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -27,29 +27,7 @@ export default function ContactPage() {
     setErrorMessage("")
 
     try {
-      // Try to submit to Google Forms first
-      const googleFormConfig = getGoogleFormConfig("contact")
-      
-      if (googleFormConfig) {
-        const result = await submitToGoogleForm(googleFormConfig, {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || "",
-          subject: formData.subject,
-          message: formData.message,
-        })
-
-        if (result.success) {
-          setSubmitStatus("success")
-          setTimeout(() => {
-            setFormData({ name: "", email: "", phone: "", subject: "", message: "" })
-            setSubmitStatus("idle")
-          }, 3000)
-          return
-        }
-      }
-
-      // Fallback to API route if Google Forms not configured
+      // Submit to API route (Google Forms integration disabled for contact form)
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {

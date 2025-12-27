@@ -6,6 +6,7 @@ import { useState } from "react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { ChevronRight, Loader2, CheckCircle, AlertCircle } from "lucide-react"
+import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
 
 type RegistrationType = "recipient" | "applicant"
 
@@ -63,12 +64,21 @@ export default function RegisterPage() {
     const { name, value, type } = e.target
     if (type === "checkbox") {
       const checked = (e.target as HTMLInputElement).checked
-      setFormData((prev) => ({
-        ...prev,
-        needsAssistance: checked
-          ? [...prev.needsAssistance, value]
-          : prev.needsAssistance.filter((item) => item !== value),
-      }))
+      // Handle agreedToTerms checkbox separately
+      if (name === "agreedToTerms") {
+        setFormData((prev) => ({
+          ...prev,
+          agreedToTerms: checked,
+        }))
+      } else {
+        // Handle needsAssistance checkboxes
+        setFormData((prev) => ({
+          ...prev,
+          needsAssistance: checked
+            ? [...prev.needsAssistance, value]
+            : prev.needsAssistance.filter((item) => item !== value),
+        }))
+      }
     } else {
       setFormData((prev) => ({
         ...prev,
@@ -83,19 +93,20 @@ export default function RegisterPage() {
     setErrorMessage("")
 
     try {
-      const endpoint = formType === "recipient" ? "/api/recipients" : "/api/volunteers"
-
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      const formTypeLabel = formType === "recipient" ? "Recipient Registration" : "Applicant Registration"
+      // Format form data for email template
+      const emailParams = formatFormDataForEmail({
+        ...formData,
+        form_type: formTypeLabel,
+        registration_type: formType || "",
+        timestamp: new Date().toLocaleString(),
+        formatted_message: createFormattedMessage({ ...formData, form_type: formTypeLabel, registration_type: formType || "" }, formTypeLabel),
       })
 
-      const data = await response.json()
+      // Send email via EmailJS (auto-reply handled by EmailJS template Linked Template feature)
+      const result = await sendEmail("register", emailParams)
 
-      if (response.ok) {
+      if (result.success) {
         setSubmitStatus("success")
         // Reset form after 2 seconds
         setTimeout(() => {
@@ -127,7 +138,7 @@ export default function RegisterPage() {
         }, 3000)
       } else {
         setSubmitStatus("error")
-        setErrorMessage(data.message || "Registration failed. Please try again.")
+        setErrorMessage(result.message || "Registration failed. Please try again.")
       }
     } catch (error) {
       setSubmitStatus("error")

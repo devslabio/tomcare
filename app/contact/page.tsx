@@ -6,7 +6,7 @@ import { useState } from "react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Phone, Mail, MapPin, Clock, Loader2, CheckCircle, AlertCircle } from "lucide-react"
-// Google Forms integration removed - contact form uses API route only
+import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -27,18 +27,19 @@ export default function ContactPage() {
     setErrorMessage("")
 
     try {
-      // Submit to API route (Google Forms integration disabled for contact form)
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      const formType = "Contact Form"
+      // Format form data for email template
+      const emailParams = formatFormDataForEmail({
+        ...formData,
+        form_type: formType,
+        timestamp: new Date().toLocaleString(),
+        formatted_message: createFormattedMessage({ ...formData, form_type: formType }, formType),
       })
 
-      const data = await response.json()
+      // Send email via EmailJS (auto-reply handled by EmailJS template Linked Template feature)
+      const result = await sendEmail("contact", emailParams)
 
-      if (response.ok) {
+      if (result.success) {
         setSubmitStatus("success")
         setTimeout(() => {
           setFormData({ name: "", email: "", phone: "", subject: "", message: "" })
@@ -46,7 +47,7 @@ export default function ContactPage() {
         }, 3000)
       } else {
         setSubmitStatus("error")
-        setErrorMessage(data.message || "Failed to send message. Please try again.")
+        setErrorMessage(result.message || "Failed to send message. Please try again.")
       }
     } catch (error) {
       setSubmitStatus("error")

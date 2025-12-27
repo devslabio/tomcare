@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { Heart, X } from "lucide-react"
+import { Heart, X, Loader2 } from "lucide-react"
+import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
 
 interface DonateModalProps {
   isOpen: boolean
@@ -34,16 +35,56 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
     cause: "",
     frequency: "once",
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [errorMessage, setErrorMessage] = useState("")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle donation submission
-    console.log("Donation:", formData)
-    // Here you would integrate with payment processor
-    alert(`Thank you for your donation! Amount: $${formData.amount || formData.customAmount}, Cause: ${formData.cause}, Frequency: ${frequencies.find(f => f.value === formData.frequency)?.label}`)
-    onClose()
-    // Reset form
-    setFormData({ amount: "", customAmount: "", cause: "", frequency: "once" })
+    setIsSubmitting(true)
+    setErrorMessage("")
+
+    try {
+      const donationAmount = formData.amount || formData.customAmount
+      const frequencyLabel = frequencies.find((f) => f.value === formData.frequency)?.label || formData.frequency
+      const formType = "Donation Inquiry"
+
+      const donationData = {
+        amount: donationAmount ? `$${donationAmount}` : "",
+        custom_amount: formData.customAmount ? `$${formData.customAmount}` : "",
+        cause: formData.cause,
+        frequency: frequencyLabel,
+        form_type: formType,
+        timestamp: new Date().toLocaleString(),
+      }
+
+      // Format form data for email template
+      const emailParams = formatFormDataForEmail({
+        ...donationData,
+        formatted_message: createFormattedMessage(donationData, formType),
+      })
+
+      // Send email via EmailJS (auto-reply handled by EmailJS template Linked Template feature)
+      const result = await sendEmail("donate", emailParams)
+
+      if (result.success) {
+        setSubmitStatus("success")
+        setTimeout(() => {
+          setFormData({ amount: "", customAmount: "", cause: "", frequency: "once" })
+          setSubmitStatus("idle")
+          onClose()
+        }, 2000)
+      } else {
+        setSubmitStatus("error")
+        setErrorMessage(result.message || "Failed to submit donation. Please try again.")
+      }
+    } catch (error) {
+      setSubmitStatus("error")
+      setErrorMessage("An error occurred. Please try again later.")
+      console.error("Donation form error:", error)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (!isOpen) return null
@@ -65,8 +106,24 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Amount Selection */}
+        {submitStatus === "success" ? (
+          <div className="text-center py-8">
+            <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Heart className="w-8 h-8 text-accent" />
+            </div>
+            <h3 className="text-2xl font-serif font-bold text-foreground mb-2">Thank You!</h3>
+            <p className="text-muted-foreground">
+              We've received your donation inquiry and will contact you shortly.
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {submitStatus === "error" && (
+              <div className="bg-destructive/10 border border-destructive rounded-lg p-4">
+                <p className="text-sm text-destructive">{errorMessage}</p>
+              </div>
+            )}
+            {/* Amount Selection */}
           <div>
             <label className="block text-sm font-semibold text-foreground mb-3">How much would you like to donate?</label>
             <div className="grid grid-cols-3 gap-3 mb-3">
@@ -145,25 +202,36 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
             </div>
           </div>
 
-          {/* Submit Button */}
-          <div className="flex gap-4 pt-4">
-            <button
-              type="submit"
-              disabled={!formData.cause || (!formData.amount && !formData.customAmount)}
-              className="flex-1 px-6 py-4 bg-primary text-white rounded-lg hover:bg-primary/90 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              <Heart className="w-5 h-5" />
-              Donate Now
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-6 py-4 border-2 border-border text-foreground rounded-lg hover:bg-muted transition font-semibold"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+            {/* Submit Button */}
+            <div className="flex gap-4 pt-4">
+              <button
+                type="submit"
+                disabled={isSubmitting || !formData.cause || (!formData.amount && !formData.customAmount)}
+                className="flex-1 px-6 py-4 bg-primary text-white rounded-lg hover:bg-primary/90 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  <>
+                    <Heart className="w-5 h-5" />
+                    Donate Now
+                  </>
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={onClose}
+                disabled={isSubmitting}
+                className="px-6 py-4 border-2 border-border text-foreground rounded-lg hover:bg-muted transition font-semibold disabled:opacity-50"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        )}
       </div>
     </div>
   )

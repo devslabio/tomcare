@@ -4,7 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { Users, Clock, Heart, MapPin, Zap, Loader2, CheckCircle, AlertCircle } from "lucide-react"
-import { submitToGoogleForm, getGoogleFormConfig } from "@/lib/google-forms"
+import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
 
 interface VolunteerPosition {
   id: string
@@ -96,40 +96,40 @@ export function VolunteerSection() {
     setErrorMessage("")
 
     try {
-      // Try to submit to Google Forms first
-      const googleFormConfig = getGoogleFormConfig("volunteer")
+      const formType = "Volunteer Application"
       
-      if (googleFormConfig) {
-        const result = await submitToGoogleForm(googleFormConfig, {
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone || "",
-          position: formData.position,
-          experience: formData.experience,
-          availability: formData.availability,
-        })
+      // Create formatted message first
+      const formattedMsg = createFormattedMessage({ ...formData, form_type: formType }, formType)
+      
+      console.log("📝 Volunteer form data:", formData)
+      console.log("📝 Formatted message:", formattedMsg)
+      
+      // Format form data for email template - include both formatted_message and individual fields
+      const emailParams = formatFormDataForEmail({
+        ...formData,
+        form_type: formType,
+        timestamp: new Date().toLocaleString(),
+        formatted_message: formattedMsg,
+        // Also include individual fields as fallback for templates that don't use formatted_message
+        message: formattedMsg, // Some templates might use {{message}}
+        reply_message: formattedMsg, // Some templates might use {{reply_message}}
+      })
 
-        if (result.success) {
-          setSubmitStatus("success")
-          setTimeout(() => {
-            setFormData({ name: "", email: "", phone: "", position: "", experience: "", availability: "" })
-            setShowForm(false)
-            setSubmitStatus("idle")
-          }, 3000)
-          return
-        } else {
-          setSubmitStatus("error")
-          setErrorMessage(result.message || "Failed to submit application. Please try again.")
-        }
-      } else {
-        // Fallback: just log and close
-        console.log("Volunteer application:", formData)
+      console.log("📧 Email params being sent:", emailParams)
+
+      // Send email via EmailJS (auto-reply handled by EmailJS template Linked Template feature)
+      const result = await sendEmail("volunteer", emailParams)
+
+      if (result.success) {
         setSubmitStatus("success")
         setTimeout(() => {
           setFormData({ name: "", email: "", phone: "", position: "", experience: "", availability: "" })
           setShowForm(false)
           setSubmitStatus("idle")
-        }, 2000)
+        }, 3000)
+      } else {
+        setSubmitStatus("error")
+        setErrorMessage(result.message || "Failed to submit application. Please try again.")
       }
     } catch (error) {
       setSubmitStatus("error")

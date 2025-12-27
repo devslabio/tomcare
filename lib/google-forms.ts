@@ -28,12 +28,24 @@ export async function submitToGoogleForm(
     // Build form data with entry IDs
     const formData = new URLSearchParams()
     
+    // Log what we're sending for debugging
+    console.log("📤 Submitting to Google Forms:", config.formUrl)
+    console.log("📋 Form data mapping:")
+    
     Object.entries(data).forEach(([key, value]) => {
       const entryId = config.entryIds[key]
       if (entryId && value) {
         formData.append(entryId, String(value))
+        console.log(`  ${key} → ${entryId} = "${value}"`)
+      } else if (entryId && !value) {
+        console.warn(`  ⚠️ ${key} → ${entryId} is empty, skipping`)
+      } else {
+        console.warn(`  ⚠️ ${key} has no entry ID mapping`)
       }
     })
+
+    const formDataString = formData.toString()
+    console.log("📦 Final form data:", formDataString)
 
     // Submit to Google Forms
     const response = await fetch(config.formUrl, {
@@ -42,13 +54,14 @@ export async function submitToGoogleForm(
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: formData.toString(),
+      body: formDataString,
     })
 
     // With no-cors mode, we can't read the response, but if no error was thrown, assume success
+    console.log("✅ Form submission sent (no-cors mode - cannot verify response)")
     return { success: true, message: "Form submitted successfully" }
   } catch (error) {
-    console.error("Google Forms submission error:", error)
+    console.error("❌ Google Forms submission error:", error)
     return { success: false, message: "Failed to submit form. Please try again." }
   }
 }

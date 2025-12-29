@@ -144,7 +144,7 @@ export function VolunteerSection() {
   }
 
   return (
-    <section id="volunteer" className="py-16 md:py-24 bg-white">
+    <section id="volunteer" className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -157,16 +157,16 @@ export function VolunteerSection() {
 
         {/* Volunteer Benefits */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
-            <Heart className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-300" />
-            <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-300">
+          <div className="bg-white/80 backdrop-blur-md rounded-xl p-6 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1 group">
+            <Heart className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-200" />
+            <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-200">
               Make a Difference
             </h3>
             <p className="text-muted-foreground text-sm group-hover:text-white/90 transition-colors duration-300">
               Directly help newcomers and people in need achieve their goals and improve their lives.
             </p>
           </div>
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+          <div className="bg-white/80 backdrop-blur-md rounded-xl p-6 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1 group">
             <Users className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-300" />
             <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-300">
               Build Community
@@ -175,7 +175,7 @@ export function VolunteerSection() {
               Connect with like-minded individuals and expand your network.
             </p>
           </div>
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
+          <div className="bg-white/80 backdrop-blur-md rounded-xl p-6 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1 group">
             <Zap className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-300" />
             <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-300">
               Gain Experience
@@ -249,7 +249,7 @@ export function VolunteerSection() {
         {/* Volunteer Form Modal */}
         {showForm && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
               <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Volunteer Application Form</h3>
 
               {submitStatus === "success" ? (
@@ -270,7 +270,7 @@ export function VolunteerSection() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                     />
                   </div>
 
@@ -283,7 +283,7 @@ export function VolunteerSection() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         disabled={isSubmitting}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                        className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                       />
                     </div>
                     <div>
@@ -293,7 +293,7 @@ export function VolunteerSection() {
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         disabled={isSubmitting}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                        className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                       />
                     </div>
                   </div>
@@ -304,7 +304,7 @@ export function VolunteerSection() {
                       value={formData.position}
                       onChange={(e) => setFormData({ ...formData, position: e.target.value })}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                     >
                       <option value="">Select a position</option>
                       {volunteerPositions.map((pos) => (
@@ -322,7 +322,7 @@ export function VolunteerSection() {
                       onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
                       rows={3}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                       placeholder="Tell us about your relevant experience and skills..."
                     />
                   </div>
@@ -334,7 +334,7 @@ export function VolunteerSection() {
                       onChange={(e) => setFormData({ ...formData, availability: e.target.value })}
                       rows={2}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                       placeholder="Describe your weekly availability..."
                     />
                   </div>

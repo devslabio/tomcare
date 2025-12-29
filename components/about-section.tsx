@@ -12,7 +12,7 @@ export function AboutSection() {
   ]
 
   return (
-    <section id="about" className="py-16 md:py-24 bg-white">
+    <section id="about" className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
@@ -41,7 +41,7 @@ export function AboutSection() {
             </div>
           </div>
 
-          <div className="bg-muted rounded-xl p-8 space-y-6">
+          <div className="bg-muted rounded-lg p-8 content-spacing">
             <div className="border-l-4 border-accent pl-6">
               <h3 className="font-serif font-bold text-xl mb-2 text-foreground">Our Vision</h3>
               <p className="text-muted-foreground">

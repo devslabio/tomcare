@@ -168,7 +168,7 @@ export default function RegisterPage() {
                   setFormType("recipient")
                   setCurrentStep(1)
                 }}
-                className="bg-white rounded-xl p-8 border-2 border-border hover:border-primary transition text-left group"
+                className="bg-white rounded-lg p-8 border-2 border-border hover:border-primary transition-colors duration-200 text-left group"
               >
                 <div className="mb-4 text-4xl">🤝</div>
                 <h2 className="text-2xl font-serif font-bold mb-3 text-foreground group-hover:text-primary transition">
@@ -221,7 +221,7 @@ export default function RegisterPage() {
         <Navigation />
         <main className="min-h-screen bg-muted flex items-center justify-center py-12">
           <div className="max-w-md w-full">
-            <div className="bg-white rounded-xl p-8 text-center">
+            <div className="bg-white rounded-lg p-8 text-center">
               <CheckCircle className="w-16 h-16 text-accent mx-auto mb-4" />
               <h2 className="text-2xl font-serif font-bold mb-2 text-foreground">
                 {isRecipient ? "Registration Successful!" : "Application Submitted!"}
@@ -292,7 +292,7 @@ export default function RegisterPage() {
                       required
                       value={formData.firstName}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                   <div>
@@ -303,7 +303,7 @@ export default function RegisterPage() {
                       required
                       value={formData.lastName}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                 </div>
@@ -317,7 +317,7 @@ export default function RegisterPage() {
                       required
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                   <div>
@@ -328,7 +328,7 @@ export default function RegisterPage() {
                       required
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                 </div>
@@ -342,7 +342,7 @@ export default function RegisterPage() {
                       required
                       value={formData.dateOfBirth}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                   <div>
@@ -351,7 +351,7 @@ export default function RegisterPage() {
                       name="gender"
                       value={formData.gender}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     >
                       <option value="">Select</option>
                       <option value="male">Male</option>
@@ -409,7 +409,7 @@ export default function RegisterPage() {
                       required
                       value={formData.city}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                   <div>
@@ -420,7 +420,7 @@ export default function RegisterPage() {
                       required
                       value={formData.province}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                   <div>
@@ -431,7 +431,7 @@ export default function RegisterPage() {
                       required
                       value={formData.postalCode}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                 </div>
@@ -470,7 +470,7 @@ export default function RegisterPage() {
                         value={formData.situation}
                         onChange={handleInputChange}
                         placeholder="Please describe your situation and what you're looking for help with..."
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                       />
                     </div>
                   </>
@@ -487,7 +487,7 @@ export default function RegisterPage() {
                       value={formData.experience}
                       onChange={handleInputChange}
                       placeholder="Tell us about your skills, experience, and why you want to volunteer..."
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                 )}

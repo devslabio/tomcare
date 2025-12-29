@@ -40,6 +40,29 @@
   --chart-4: oklch(0.55 0.14 280);
   --chart-5: oklch(0.75 0.12 30);
   --radius: 0.5rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  
+  /* Animation speeds - reduced for better UX */
+  --transition-fast: 150ms;
+  --transition-base: 200ms;
+  --transition-slow: 300ms;
+  
+  /* Spacing scale - consistent spacing system */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  
+  /* Section spacing */
+  --section-padding-y: 4rem;
+  --section-padding-y-md: 6rem;
+  
   --sidebar: oklch(1 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.50 0.15 250);
@@ -120,17 +143,73 @@
   }
 }
 
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
+/* Typography - Consistent scale */
+h1 {
+  @apply font-serif font-bold text-4xl md:text-5xl lg:text-6xl leading-tight;
+}
+
+h2 {
+  @apply font-serif font-bold text-3xl md:text-4xl leading-tight;
+}
+
+h3 {
+  @apply font-serif font-bold text-2xl md:text-3xl leading-snug;
+}
+
+h4 {
+  @apply font-serif font-bold text-xl md:text-2xl leading-snug;
+}
+
+h5 {
+  @apply font-serif font-semibold text-lg md:text-xl leading-normal;
+}
+
 h6 {
-  @apply font-serif font-bold;
+  @apply font-serif font-semibold text-base md:text-lg leading-normal;
+}
+
+/* Body text */
+p {
+  @apply text-base leading-relaxed;
 }
 
 .text-balance {
   text-wrap: balance;
+}
+
+/* Consistent transitions - reduced speed */
+* {
+  transition-duration: var(--transition-base);
+  transition-timing-function: ease-in-out;
+}
+
+/* Standard border radius */
+.rounded {
+  border-radius: var(--radius-md);
+}
+
+.rounded-sm {
+  border-radius: var(--radius-sm);
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+.rounded-xl {
+  border-radius: var(--radius-xl);
+}
+
+/* Section spacing utilities */
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+.content-spacing {
+  @apply space-y-6;
+}
+
+.content-spacing-lg {
+  @apply space-y-8;
 }
 

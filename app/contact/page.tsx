@@ -88,7 +88,7 @@ export default function ContactPage() {
             {/* Contact Information */}
             <div className="lg:col-span-1 space-y-6">
               {/* Phone */}
-              <div className="bg-white rounded-xl p-6 border border-border">
+              <div className="bg-white rounded-lg p-6 border border-border">
                 <div className="flex items-center gap-4 mb-3">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                     <Phone className="w-6 h-6 text-primary" />
@@ -102,7 +102,7 @@ export default function ContactPage() {
               </div>
 
               {/* Email */}
-              <div className="bg-white rounded-xl p-6 border border-border">
+              <div className="bg-white rounded-lg p-6 border border-border">
                 <div className="flex items-center gap-4 mb-3">
                   <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center">
                     <Mail className="w-6 h-6 text-accent" />
@@ -119,7 +119,7 @@ export default function ContactPage() {
               </div>
 
               {/* Address */}
-              <div className="bg-white rounded-xl p-6 border border-border">
+              <div className="bg-white rounded-lg p-6 border border-border">
                 <div className="flex items-center gap-4 mb-3">
                   <div className="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center">
                     <MapPin className="w-6 h-6 text-secondary" />
@@ -130,7 +130,7 @@ export default function ContactPage() {
               </div>
 
               {/* Hours */}
-              <div className="bg-white rounded-xl p-6 border border-border">
+              <div className="bg-white rounded-lg p-6 border border-border">
                 <div className="flex items-center gap-4 mb-3">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                     <Clock className="w-6 h-6 text-primary" />
@@ -147,7 +147,7 @@ export default function ContactPage() {
             </div>
 
             {/* Contact Form */}
-            <div className="lg:col-span-2 bg-white rounded-xl p-8 border border-border">
+            <div className="lg:col-span-2 bg-white rounded-lg p-8 border border-border">
               <h2 className="text-2xl font-serif font-bold mb-6 text-foreground">Send us a Message</h2>
 
               {submitStatus === "success" ? (

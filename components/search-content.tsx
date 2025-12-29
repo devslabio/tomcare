@@ -80,7 +80,7 @@ export function SearchContent() {
   return (
     <>
       {/* Search Box */}
-      <div className="bg-white rounded-xl p-6 mb-8 shadow-sm">
+      <div className="bg-white rounded-xl p-6 mb-8 border border-border">
         <div className="flex gap-2">
           <div className="flex-1 relative">
             <Search className="absolute left-4 top-3 w-5 h-5 text-muted-foreground" />
@@ -126,7 +126,7 @@ export function SearchContent() {
               Found {filtered.length} program{filtered.length !== 1 ? "s" : ""}
             </p>
             {filtered.map((program) => (
-              <div key={program.id} className="bg-white rounded-xl p-6 border border-border hover:shadow-md transition">
+              <div key={program.id} className="bg-white rounded-xl p-6 border border-border hover:border-primary transition-colors duration-200">
                 <div className="flex justify-between items-start mb-3">
                   <h3 className="text-xl font-serif font-bold text-foreground">{program.name}</h3>
                   <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-semibold rounded-full">

@@ -28,7 +28,7 @@ export function TeamSection() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {teamMembers.map((member, index) => (
             <div key={index} className="group">
-              <div className="relative overflow-hidden bg-white/80 backdrop-blur-md rounded-2xl aspect-[3/4] mb-4 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+              <div className="relative overflow-hidden bg-white/80 backdrop-blur-md rounded-xl aspect-[3/4] mb-4 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-24 h-24 bg-primary/10 border-2 border-primary/30 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-white/20 group-hover:border-white/30 transition-all duration-300">
                     <span className="text-4xl font-bold text-primary group-hover:text-white transition-colors duration-300">

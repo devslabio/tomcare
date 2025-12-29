@@ -13,6 +13,9 @@ This folder contains all project documentation files.
 - **[VOLUNTEER_FORM_SETUP.md](./VOLUNTEER_FORM_SETUP.md)** - Volunteer form configuration
 - **[GOOGLE_FORMS_SETUP.md](./GOOGLE_FORMS_SETUP.md)** - Google Forms integration (optional)
 
+### Deployment
+- **[VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md)** - Step-by-step guide to deploy on Vercel
+
 ### Architecture & Standards
 - **[FORM_SUBMISSION_STANDARD.md](./FORM_SUBMISSION_STANDARD.md)** - Standardized form submission approach using EmailJS
 - **[API_ROUTES_STATUS.md](./API_ROUTES_STATUS.md)** - Status of API routes (currently unused, reserved for future Supabase integration)

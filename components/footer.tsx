@@ -41,107 +41,105 @@ export function Footer() {
       {/* Main Footer */}
       <div className="py-12 md:py-16 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
             {/* Brand & Contact */}
-            <div className="lg:col-span-2">
-              <div className="mb-4">
+            <div className="lg:col-span-1">
+              <div className="mb-6">
                 <Image 
                   src="/logo.svg" 
                   alt="TOMCARE Foundation" 
                   width={200}
                   height={40}
-                  className="h-8 w-auto"
+                  className="h-10 w-auto mb-4"
                 />
+                <p className="text-primary-foreground/90 text-sm font-medium mb-2">
+                  TOMCARE Foundation
+                </p>
+                <p className="text-primary-foreground/70 text-xs">
+                  Supporting newcomers to Canada and people in need
+                </p>
               </div>
-              <p className="text-primary-foreground/80 text-sm mb-4">
-                TOMCARE FOUNDATION
-              </p>
-              <p className="text-primary-foreground/80 text-sm mb-4">
-                Legal representative: Tom Ntambara
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 flex-shrink-0" />
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <Phone className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   <div>
-                    <h5 className="font-semibold">Tel:</h5>
-                    <a href="tel:4387733653" className="hover:text-accent transition">
-                      4387733653
+                    <p className="text-sm font-medium mb-1">Phone</p>
+                    <a href="tel:+14387733653" className="text-sm text-primary-foreground/80 hover:text-accent transition block">
+                      (438) 773-3653
                     </a>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 flex-shrink-0" />
+                <div className="flex items-start gap-3">
+                  <Mail className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   <div>
-                    <p>
-                      <span className="font-semibold">Email:</span>{" "}
-                      <a href="mailto:tomntambara@gmail.com" className="hover:text-accent transition">
-                        tomntambara@gmail.com
-                      </a>
-                    </p>
+                    <p className="text-sm font-medium mb-1">Email</p>
+                    <a href="mailto:tomntambara@gmail.com" className="text-sm text-primary-foreground/80 hover:text-accent transition block break-all">
+                      tomntambara@gmail.com
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Recent Appeals */}
+            {/* Quick Links */}
             <div>
-              <h3 className="font-semibold text-lg mb-4">Recent Appeals</h3>
-              <ul className="space-y-2 text-sm">
+              <h3 className="font-semibold text-lg mb-6">Quick Links</h3>
+              <ul className="space-y-3 text-sm">
                 <li>
-                  <Link href="/search" className="hover:text-accent transition">
-                    Newcomer Support
+                  <Link href="/about" className="text-primary-foreground/80 hover:text-accent transition block">
+                    About Us
                   </Link>
                 </li>
                 <li>
-                  <Link href="/search" className="hover:text-accent transition">
-                    Housing Assistance
+                  <Link href="/programs" className="text-primary-foreground/80 hover:text-accent transition block">
+                    Our Programs
                   </Link>
                 </li>
                 <li>
-                  <Link href="/search" className="hover:text-accent transition">
-                    Employment Programs
+                  <Link href="/volunteer" className="text-primary-foreground/80 hover:text-accent transition block">
+                    Volunteer
                   </Link>
                 </li>
                 <li>
-                  <Link href="/search" className="hover:text-accent transition">
-                    Mental Health Support
+                  <Link href="/contact" className="text-primary-foreground/80 hover:text-accent transition block">
+                    Contact Us
                   </Link>
                 </li>
                 <li>
-                  <Link href="/search" className="hover:text-accent transition">
-                    Disability Services
+                  <Link href="/blog" className="text-primary-foreground/80 hover:text-accent transition block">
+                    News & Updates
                   </Link>
                 </li>
               </ul>
             </div>
 
-            {/* About Us */}
+            {/* Our Services */}
             <div>
-              <h3 className="font-semibold text-lg mb-4">About Us</h3>
-              <ul className="space-y-2 text-sm">
+              <h3 className="font-semibold text-lg mb-6">Our Services</h3>
+              <ul className="space-y-3 text-sm">
                 <li>
-                  <Link href="#about" className="hover:text-accent transition">
-                    About Us
+                  <Link href="/programs" className="text-primary-foreground/80 hover:text-accent transition block">
+                    Newcomer Support
                   </Link>
                 </li>
                 <li>
-                  <Link href="/search" className="hover:text-accent transition">
-                    Our Programs
+                  <Link href="/programs" className="text-primary-foreground/80 hover:text-accent transition block">
+                    Housing Assistance
                   </Link>
                 </li>
                 <li>
-                  <Link href="/search" className="hover:text-accent transition">
-                    Our History
+                  <Link href="/programs" className="text-primary-foreground/80 hover:text-accent transition block">
+                    Employment Programs
                   </Link>
                 </li>
                 <li>
-                  <Link href="/blog" className="hover:text-accent transition">
-                    Latest News
+                  <Link href="/programs" className="text-primary-foreground/80 hover:text-accent transition block">
+                    Mental Health Support
                   </Link>
                 </li>
                 <li>
-                  <Link href="#volunteer" className="hover:text-accent transition">
-                    Become Volunteer
+                  <Link href="/programs" className="text-primary-foreground/80 hover:text-accent transition block">
+                    Disability Services
                   </Link>
                 </li>
               </ul>
@@ -149,25 +147,26 @@ export function Footer() {
 
             {/* Subscribe */}
             <div>
-              <h3 className="font-semibold text-lg mb-4">Subscribe</h3>
-              <p className="text-sm text-primary-foreground/80 mb-4">Be the first one to receive latest updates.</p>
-              <form onSubmit={handleSubscribe} className="space-y-2">
-                <div className="flex gap-2">
-                  <Input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
-                    required
-                    className="flex-1 bg-white/10 border-white/20 text-primary-foreground placeholder:text-primary-foreground/60 focus:ring-accent"
-                  />
-                  <button
-                    type="submit"
-                    className="px-4 py-2 bg-accent text-accent-foreground rounded-md hover:opacity-90 transition"
-                  >
-                    <Send className="w-5 h-5" />
-                  </button>
-                </div>
+              <h3 className="font-semibold text-lg mb-6">Stay Connected</h3>
+              <p className="text-sm text-primary-foreground/80 mb-6">
+                Subscribe to receive updates about our programs and events.
+              </p>
+              <form onSubmit={handleSubscribe} className="space-y-3">
+                <Input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  required
+                  className="w-full bg-white/10 border-white/20 text-primary-foreground placeholder:text-primary-foreground/60 focus:ring-accent"
+                />
+                <button
+                  type="submit"
+                  className="w-full px-4 py-2.5 bg-accent text-accent-foreground rounded-md hover:opacity-90 transition font-medium flex items-center justify-center gap-2"
+                >
+                  <Send className="w-4 h-4" />
+                  Subscribe
+                </button>
               </form>
             </div>
           </div>
@@ -177,21 +176,42 @@ export function Footer() {
       {/* Footer Bottom */}
       <div className="border-t border-primary-foreground/20 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-primary-foreground/80">
-              © 2025 <Link href="/" className="hover:text-accent transition">TOMCARE Foundation</Link>. All rights reserved.
-            </p>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="text-center md:text-left">
+              <p className="text-sm text-primary-foreground/80 mb-1">
+                © 2025 <Link href="/" className="hover:text-accent transition font-medium">TOMCARE Foundation</Link>. All rights reserved.
+              </p>
+              <p className="text-xs text-primary-foreground/60">
+                Legal representative: Tom Ntambara
+              </p>
+            </div>
             <div className="flex gap-4">
-              <Link href="#" className="text-primary-foreground/80 hover:text-accent transition">
+              <Link 
+                href="#" 
+                className="text-primary-foreground/80 hover:text-accent transition p-2 rounded-md hover:bg-white/10"
+                aria-label="Twitter"
+              >
                 <Twitter className="w-5 h-5" />
               </Link>
-              <Link href="#" className="text-primary-foreground/80 hover:text-accent transition">
+              <Link 
+                href="#" 
+                className="text-primary-foreground/80 hover:text-accent transition p-2 rounded-md hover:bg-white/10"
+                aria-label="Facebook"
+              >
                 <Facebook className="w-5 h-5" />
               </Link>
-              <Link href="#" className="text-primary-foreground/80 hover:text-accent transition">
+              <Link 
+                href="#" 
+                className="text-primary-foreground/80 hover:text-accent transition p-2 rounded-md hover:bg-white/10"
+                aria-label="LinkedIn"
+              >
                 <Linkedin className="w-5 h-5" />
               </Link>
-              <Link href="#" className="text-primary-foreground/80 hover:text-accent transition">
+              <Link 
+                href="#" 
+                className="text-primary-foreground/80 hover:text-accent transition p-2 rounded-md hover:bg-white/10"
+                aria-label="Instagram"
+              >
                 <Instagram className="w-5 h-5" />
               </Link>
             </div>

@@ -42,7 +42,7 @@ export function ObjectivesSection() {
     <section className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Objectives & Goals</h2>
+          <h2 className="mb-4">Objectives & Goals</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Our foundation is committed to supporting newcomers and people in need through comprehensive programs and
             services.
@@ -58,10 +58,10 @@ export function ObjectivesSection() {
               <div className="mb-4 text-primary group-hover:text-white transition-colors duration-300">
                 {objective.icon}
               </div>
-              <h3 className="font-serif font-bold text-xl mb-3 text-foreground group-hover:text-white transition-colors duration-300">
+              <h3 className="mb-4 group-hover:text-white transition-colors duration-300">
                 {objective.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed group-hover:text-white/90 transition-colors duration-300">
+              <p className="text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
                 {objective.description}
               </p>
             </div>

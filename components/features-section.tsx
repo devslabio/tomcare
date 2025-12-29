@@ -19,7 +19,7 @@ export function FeaturesSection() {
       icon: <Users className="w-12 h-12" />,
       title: "Become A Volunteer",
       description: "Make a direct impact by volunteering your time and skills to help those in need.",
-      link: "/team#volunteer",
+      link: "/volunteer",
     },
   ]
 
@@ -27,7 +27,7 @@ export function FeaturesSection() {
     <section className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">Charity With Difference</h2>
+          <h2>Charity With Difference</h2>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 items-stretch">
@@ -41,10 +41,10 @@ export function FeaturesSection() {
                   {feature.icon}
                 </div>
               </div>
-              <h3 className="font-serif font-bold text-xl mb-4 text-foreground group-hover:text-white transition-colors duration-300">
+              <h3 className="mb-4 group-hover:text-white transition-colors duration-300">
                 {feature.title}
               </h3>
-              <p className="mb-6 leading-relaxed text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
+              <p className="mb-6 text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
                 {feature.description}
               </p>
               <Link

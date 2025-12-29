@@ -18,13 +18,13 @@ export function AboutSection() {
           <div>
             <h2 className="mb-6">About TOMCARE Foundation</h2>
 
-            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+            <p className="text-lg text-muted-foreground mb-6">
               The Tomcare Foundation is a non-profit organization founded in 2024. The idea for the foundation came after
               realizing the many challenges faced by immigrants in Canada, including lack of information, poor living
               conditions, depression, and language barriers.
             </p>
 
-            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+            <p className="text-lg text-muted-foreground mb-6">
               The foundation primarily supports new arrivals at all stages of their settlement, including employment
               procedures in Quebec. It raises awareness among both the host society and immigrants about the principles
               and benefits of living together and strengthening social bonds. Tomcare has worked to mobilize immigrants
@@ -43,7 +43,7 @@ export function AboutSection() {
 
           <div className="bg-muted rounded-md p-8 content-spacing">
             <div className="border-l-4 border-accent pl-6">
-              <h3 className="font-serif font-bold text-xl mb-2 text-foreground">Our Vision</h3>
+              <h3 className="mb-2">Our Vision</h3>
               <p className="text-muted-foreground">
                 Our vision is to support newcomers in achieving easy and rapid integration into Canadian society while
                 also addressing the needs of individuals with impairments and those living in poverty.
@@ -51,7 +51,7 @@ export function AboutSection() {
             </div>
 
             <div className="border-l-4 border-primary pl-6">
-              <h3 className="font-serif font-bold text-xl mb-2 text-foreground">Our Mission</h3>
+              <h3 className="mb-2">Our Mission</h3>
               <p className="text-muted-foreground">
                 To provide clear and timely guidance to new arrivals and to assist individuals experiencing poverty or
                 physical impairments in accessing their basic needs. For newcomers in order to allow their adaptation and

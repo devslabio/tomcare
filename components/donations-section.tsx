@@ -1,9 +1,11 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
+import type React from "react"
 import { Heart, Zap, Award } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 interface DonationOption {
   id: string
@@ -52,7 +54,7 @@ export function DonationsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Make a Difference Today</h2>
+          <h2 className="mb-4">Make a Difference Today</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Your donation directly supports newcomers, people with disabilities, and those in need. Every contribution
             matters.
@@ -61,26 +63,20 @@ export function DonationsSection() {
 
         {/* Donation Type Tabs */}
         <div className="flex gap-4 justify-center mb-12">
-          <button
+          <Button
             onClick={() => setDonationType("general")}
-            className={`px-6 py-3 rounded-md font-semibold transition ${
-              donationType === "general"
-                ? "bg-primary text-primary-foreground"
-                : "bg-white text-foreground border border-border hover:bg-white/80"
-            }`}
+            variant={donationType === "general" ? "default" : "outline"}
+            className={donationType === "general" ? "" : "bg-white hover:bg-primary hover:text-white"}
           >
             General Donation
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => setDonationType("vehicle")}
-            className={`px-6 py-3 rounded-md font-semibold transition ${
-              donationType === "vehicle"
-                ? "bg-primary text-primary-foreground"
-                : "bg-white text-foreground border border-border hover:bg-white/80"
-            }`}
+            variant={donationType === "vehicle" ? "default" : "outline"}
+            className={donationType === "vehicle" ? "" : "bg-white hover:bg-primary hover:text-white"}
           >
             Donate a Car
-          </button>
+          </Button>
         </div>
 
         {donationType === "general" ? (
@@ -97,8 +93,8 @@ export function DonationsSection() {
                       : "bg-white border-2 border-border text-foreground hover:border-primary"
                   }`}
                 >
-                  <div className="text-4xl mb-3 flex justify-center">{option.icon}</div>
-                  <h3 className="font-serif font-bold text-xl mb-2">${option.amount}</h3>
+                  <div className="text-4xl mb-4 flex justify-center">{option.icon}</div>
+                  <h3 className="mb-2">${option.amount}</h3>
                   <p className="font-semibold mb-1">{option.label}</p>
                   <p
                     className={`text-sm ${selectedOption === option.id ? "text-primary-foreground/80" : "text-muted-foreground"}`}
@@ -111,16 +107,16 @@ export function DonationsSection() {
 
             {/* Custom Amount */}
             <div className="bg-white rounded-md p-8 mb-8">
-              <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Custom Amount</h3>
+              <h3 className="mb-6">Custom Amount</h3>
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1 relative">
-                  <span className="absolute left-4 top-3 text-2xl text-muted-foreground">$</span>
-                  <input
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl text-muted-foreground z-10">$</span>
+                  <Input
                     type="number"
                     placeholder="Enter custom amount"
                     value={customAmount}
                     onChange={(e) => setCustomAmount(e.target.value)}
-                    className="w-full pl-8 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="pl-8"
                   />
                 </div>
                 <button
@@ -138,7 +134,7 @@ export function DonationsSection() {
 
             {/* Payment Methods */}
             <div className="bg-white rounded-md p-8">
-              <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Secure Donation</h3>
+              <h3 className="mb-6">Secure Donation</h3>
               <p className="text-muted-foreground mb-6">
                 Your donation is secure and processed through trusted payment gateways. All donations are
                 tax-deductible.
@@ -159,7 +155,7 @@ export function DonationsSection() {
         ) : (
           // Vehicle Donation
           <div className="bg-white rounded-md p-8">
-            <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Donate Your Car</h3>
+            <h3 className="mb-6">Donate Your Car</h3>
             <p className="text-muted-foreground mb-8">
               Donating a car is a wonderful way to support our mission. We accept cars, trucks, motorcycles, and other
               vehicles in any condition. Car donations are tax-deductible and help us provide essential services to those

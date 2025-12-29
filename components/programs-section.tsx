@@ -1,5 +1,8 @@
-import type React from "react"
+import Link from "next/link"
 import { Users, Briefcase, BookOpen, Home, Heart, Accessibility, Globe, Computer } from "lucide-react"
+import type React from "react"
+
+import { Button } from "@/components/ui/button"
 
 interface Program {
   icon: React.ReactNode
@@ -101,7 +104,7 @@ export function ProgramsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Our Programs & Services</h2>
+          <h2 className="mb-4">Our Programs & Services</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             TOMCARE Foundation offers comprehensive programs designed to support newcomers, people with disabilities,
             and those in need.
@@ -118,10 +121,10 @@ export function ProgramsSection() {
               <div className="mb-4 text-primary group-hover:text-white transition-colors duration-300">
                 {program.icon}
               </div>
-              <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-300">
+              <h3 className="mb-2 group-hover:text-white transition-colors duration-300">
                 {program.title}
               </h3>
-              <p className="text-sm leading-relaxed mb-4 text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
+              <p className="text-sm mb-4 text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
                 {program.description}
               </p>
               <span className="inline-block px-3 py-1 bg-primary/10 text-primary border border-primary/30 text-xs font-semibold rounded-full group-hover:bg-white/20 group-hover:text-white group-hover:border-white/30 transition-all duration-300">
@@ -133,8 +136,8 @@ export function ProgramsSection() {
 
         {/* Schedule Section */}
         <div className="mt-16 bg-gradient-to-br from-primary to-primary/90 rounded-md p-8 border-2 border-white/20">
-          <h3 className="font-serif font-bold text-2xl mb-6 text-white">Donation Days Schedule</h3>
-          <div className="grid md:grid-cols-3 gap-6">
+          <h3 className="mb-6 text-white">Donation Days Schedule</h3>
+          <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white/10 backdrop-blur-sm rounded-md p-6 border-2 border-white/20">
               <h4 className="font-semibold text-lg mb-2 text-white">Monday - Wednesday</h4>
               <p className="text-white/90 mb-2">9:00 AM - 5:00 PM</p>
@@ -155,15 +158,17 @@ export function ProgramsSection() {
 
         {/* Recognition Section */}
         <div className="mt-12 bg-gradient-to-br from-primary to-primary/80 rounded-md p-8 border-2 border-white/20">
-          <h3 className="font-serif font-bold text-2xl mb-4 text-white">Certificate of Recognition</h3>
+          <h3 className="mb-4 text-white">Certificate of Recognition</h3>
           <p className="text-white/90 mb-6">
             All donors receive an official Certificate of Recognition acknowledging their generous contribution to
             TOMCARE Foundation. Your name will be featured on our website and in our annual report (unless you prefer
             anonymity).
           </p>
-          <button className="px-6 py-3 bg-white text-primary rounded-md hover:bg-white/90 transition-colors duration-200 font-semibold">
-            Learn More About Recognition
-          </button>
+          <Link href="/about">
+            <Button variant="outline" className="bg-white text-primary hover:bg-primary hover:text-white">
+              Learn More About Recognition
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

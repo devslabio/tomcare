@@ -1,7 +1,7 @@
 "use client"
 
-import Link from "next/link"
 import { useState, useEffect } from "react"
+import Link from "next/link"
 import { Play, Heart } from "lucide-react"
 
 interface Cause {
@@ -93,12 +93,12 @@ export function CausesSection() {
             <div>
               <div className="mb-6">
                 <h3 className="text-lg font-semibold text-white/90 mb-2">Help With Featured Cause</h3>
-                <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
+                <h2 className="text-white mb-4">
                   Support Newcomers<br />Integration Program
                 </h2>
               </div>
 
-              <p className="text-white/90 mb-8 leading-relaxed">{featuredCause.description}</p>
+              <p className="text-white/90 mb-8">{featuredCause.description}</p>
 
               {/* Progress Bar */}
               <div className="mb-6">

@@ -8,7 +8,7 @@ export function MissionGoalsSection() {
           <div className="inline-block mb-4">
             <h3 className="text-lg font-semibold text-primary mb-2">We Change Your Life & World</h3>
           </div>
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">Our Mission & Goals</h2>
+          <h2>Our Mission & Goals</h2>
         </div>
 
         <div className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-md p-8 md:p-12 border border-primary/20">
@@ -18,17 +18,17 @@ export function MissionGoalsSection() {
                 <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white">
                   <Target className="w-8 h-8" />
                 </div>
-                <h3 className="text-2xl font-serif font-bold text-foreground">
+                <h3>
                   Small Donations Make Bigger Impact<br />On Someone's Life, Act Today!
                 </h3>
               </div>
-              <p className="text-muted-foreground leading-relaxed mb-6">
+              <p className="text-muted-foreground mb-6">
                 Every contribution, no matter how small, creates a ripple effect of positive change. Together, we can
                 transform lives and build stronger communities for newcomers and those in need.
               </p>
             </div>
             <div className="bg-white rounded-md p-8 border border-border">
-              <h4 className="font-serif font-bold text-xl mb-6 text-foreground">Our Objectives & Goals</h4>
+              <h4 className="mb-6">Our Objectives & Goals</h4>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3">
                   <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">

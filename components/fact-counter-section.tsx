@@ -1,7 +1,7 @@
 "use client"
 
-import { DollarSign, Briefcase, Users, Award } from "lucide-react"
 import { useEffect, useState } from "react"
+import { DollarSign, Briefcase, Users, Award } from "lucide-react"
 
 interface Counter {
   icon: React.ReactNode
@@ -109,7 +109,7 @@ export function FactCounterSection() {
                     {counter.suffix}
                   </span>
                 </div>
-                <p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed group-hover:text-white/90 transition-colors duration-300">
+                <p className="text-sm text-muted-foreground whitespace-pre-line group-hover:text-white/90 transition-colors duration-300">
                   {counter.label}
                 </p>
               </div>
@@ -119,8 +119,8 @@ export function FactCounterSection() {
           {/* Video Box - Right Side (5 columns equivalent) */}
           <div className="flex items-center justify-center">
             <div className="relative w-full max-w-md">
-              <div className="aspect-square bg-gradient-to-br from-primary/20 to-accent/20 rounded-md flex items-center justify-center border-4 border-primary/30">
-                <button className="group">
+              <div className="aspect-square bg-gradient-to-br from-primary/20 to-accent/20 rounded-md flex flex-col items-center justify-center border-4 border-primary/30">
+                <button className="group flex flex-col items-center justify-center">
                   <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-200">
                     <svg
                       className="w-10 h-10 text-white ml-1"
@@ -132,7 +132,7 @@ export function FactCounterSection() {
                     </svg>
                   </div>
                   <div className="mt-4 text-center">
-                    <h5 className="font-serif font-bold text-lg text-foreground">Watch The Intro Video</h5>
+                    <h5>Watch The Intro Video</h5>
                   </div>
                 </button>
               </div>

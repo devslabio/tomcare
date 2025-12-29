@@ -96,11 +96,11 @@ export function TestimonialsSection() {
         <div className="flex-1 text-center md:text-left">
           <div className="mb-6">
             <Quote className="w-8 h-8 text-primary/30 mb-4" />
-            <h3 className="text-2xl font-serif font-bold mb-4 text-foreground">{testimonial.title}</h3>
-            <p className="text-muted-foreground leading-relaxed">{testimonial.content}</p>
+            <h3 className="mb-4">{testimonial.title}</h3>
+            <p className="text-muted-foreground">{testimonial.content}</p>
           </div>
           <div className="border-t border-border pt-4">
-            <h4 className="font-serif font-bold text-lg text-foreground">{testimonial.name}</h4>
+            <h4>{testimonial.name}</h4>
             <p className="text-sm text-muted-foreground">{testimonial.role}</p>
             <span className="text-sm text-muted-foreground">{testimonial.location}</span>
           </div>
@@ -134,9 +134,9 @@ export function TestimonialsSection() {
     <section id="testimonials" className="section-padding bg-muted relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Doctor Testimonials */}
-        <div className="mb-16">
+        <div className="mb-12">
           <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Doctor Testimony</h2>
+            <h2 className="mb-4">Doctor Testimony</h2>
             <p className="text-lg text-muted-foreground">Hear from healthcare providers who partner with us</p>
           </div>
           <div className="max-w-4xl mx-auto">
@@ -152,7 +152,7 @@ export function TestimonialsSection() {
         {/* Helped People Testimonials */}
         <div>
           <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Helped People Testimony</h2>
+            <h2 className="mb-4">Helped People Testimony</h2>
             <p className="text-lg text-muted-foreground">Stories from people we've supported</p>
           </div>
           <div className="max-w-4xl mx-auto">

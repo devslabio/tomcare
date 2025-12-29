@@ -5,7 +5,7 @@ export function TargetPeopleSection() {
     <section className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Target People</h2>
+          <h2 className="mb-4">Target People</h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             The nonprofit organization targets newcomers to Canada, as well as people with disabilities and other special
             needs from around the world, including non-immigrant Canadians who are already integrated but have disabilities
@@ -20,7 +20,7 @@ export function TargetPeopleSection() {
                 <Globe className="w-12 h-12" />
               </div>
             </div>
-            <h3 className="font-serif font-bold text-xl mb-4 text-foreground group-hover:text-white transition-colors duration-300">
+            <h3 className="mb-4 group-hover:text-white transition-colors duration-300">
               Newcomers to Canada
             </h3>
             <p className="text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
@@ -34,7 +34,7 @@ export function TargetPeopleSection() {
                 <Accessibility className="w-12 h-12" />
               </div>
             </div>
-            <h3 className="font-serif font-bold text-xl mb-4 text-foreground group-hover:text-white transition-colors duration-300">
+            <h3 className="mb-4 group-hover:text-white transition-colors duration-300">
               People with Disabilities
             </h3>
             <p className="text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
@@ -48,7 +48,7 @@ export function TargetPeopleSection() {
                 <Users className="w-12 h-12" />
               </div>
             </div>
-            <h3 className="font-serif font-bold text-xl mb-4 text-foreground group-hover:text-white transition-colors duration-300">
+            <h3 className="mb-4 group-hover:text-white transition-colors duration-300">
               Non-Immigrant Canadians
             </h3>
             <p className="text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
@@ -62,7 +62,7 @@ export function TargetPeopleSection() {
                 <Heart className="w-12 h-12" />
               </div>
             </div>
-            <h3 className="font-serif font-bold text-xl mb-4 text-foreground group-hover:text-white transition-colors duration-300">
+            <h3 className="mb-4 group-hover:text-white transition-colors duration-300">
               People in Need
             </h3>
             <p className="text-muted-foreground group-hover:text-white/90 transition-colors duration-300">

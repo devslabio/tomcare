@@ -20,7 +20,7 @@ const slides: Slide[] = [
     subtitle: "Change the life, Change the world",
     title: "Every Good\nAct Is A Charity",
     description: "Supporting newcomers to Canada and those in need with essential services, dignity, and hope.",
-    button1: { text: "how we help", link: "#about" },
+    button1: { text: "how we help", link: "/about" },
     button2: { text: "support us", link: "#donate" },
   },
   {
@@ -28,7 +28,7 @@ const slides: Slide[] = [
     subtitle: "Change the life, Change the world",
     title: "Building Stronger\nCommunities Together",
     description: "Together, we create stronger communities through compassion, support, and meaningful action.",
-    button1: { text: "how we help", link: "#about" },
+    button1: { text: "how we help", link: "/about" },
     button2: { text: "support us", link: "#donate" },
   },
   {
@@ -36,7 +36,7 @@ const slides: Slide[] = [
     subtitle: "Change the life, Change the world",
     title: "Empowering Lives\nThrough Service",
     description: "Every contribution makes a difference in helping newcomers integrate and thrive in their new home.",
-    button1: { text: "how we help", link: "#about" },
+    button1: { text: "how we help", link: "/about" },
     button2: { text: "support us", link: "#donate" },
   },
 ]
@@ -107,22 +107,28 @@ export function HeroSlider() {
           {slides.map((slide, index) => (
             <div
               key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
-                index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+              className={`absolute inset-0 transition-all duration-1500 ease-in-out ${
+                index === currentSlide 
+                  ? "opacity-100 z-10 translate-x-0" 
+                  : "opacity-0 z-0 translate-x-4"
               }`}
             >
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center relative">
                 <div className="grid md:grid-cols-2 gap-12 items-center justify-items-center w-full relative z-10">
                   {/* Text Content */}
-                  <div>
+                  <div className={`transition-all duration-1500 ease-in-out delay-300 ${
+                    index === currentSlide 
+                      ? "opacity-100 translate-y-0" 
+                      : "opacity-0 translate-y-4"
+                  }`}>
                     <h3 className="text-lg md:text-xl font-semibold mb-4 text-accent">{slide.subtitle}</h3>
                     <div className="mb-6">
-                      <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight whitespace-pre-line">
+                      <h2 className="leading-tight whitespace-pre-line">
                         {slide.title}
                       </h2>
                     </div>
                     <div className="w-20 h-1 bg-accent mb-6"></div>
-                    <p className="text-xl text-white/90 mb-8 leading-relaxed">{slide.description}</p>
+                    <p className="text-lg text-white/90 mb-8">{slide.description}</p>
                     <div className="flex flex-col sm:flex-row gap-4">
                       <Link
                         href={slide.button1.link}
@@ -142,9 +148,13 @@ export function HeroSlider() {
                   </div>
 
                   {/* Hero Image */}
-                  <div className="hidden md:flex items-center justify-center">
-                    <div className="relative w-full h-full">
-                      <div className="relative w-full h-full rounded-3xl overflow-hidden opacity-90">
+                  <div className={`hidden md:flex items-center justify-center transition-all duration-1500 ease-in-out delay-150 ${
+                    index === currentSlide 
+                      ? "opacity-100 translate-x-0 scale-100" 
+                      : "opacity-0 translate-x-4 scale-95"
+                  }`}>
+                    <div className="relative w-full">
+                      <div className="relative w-full h-[336px] md:h-[392px] rounded-3xl overflow-hidden opacity-90">
                         <img
                           src="/hero.png"
                           alt="TOMCARE Foundation - Partnership and Connection"

@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 import { Heart, X, Loader2 } from "lucide-react"
+
+import { Input } from "@/components/ui/input"
 import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
 
 interface DonateModalProps {
@@ -96,7 +98,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-3xl font-serif font-bold text-foreground">Make a Donation</h2>
+          <h2>Make a Donation</h2>
           <button
             onClick={onClose}
             className="text-muted-foreground hover:text-foreground transition"
@@ -111,7 +113,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
             <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <Heart className="w-8 h-8 text-accent" />
             </div>
-            <h3 className="text-2xl font-serif font-bold text-foreground mb-2">Thank You!</h3>
+            <h3 className="mb-2">Thank You!</h3>
             <p className="text-muted-foreground">
               We've received your donation inquiry and will contact you shortly.
             </p>
@@ -125,8 +127,8 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
             )}
             {/* Amount Selection */}
           <div>
-            <label className="block text-sm font-semibold text-foreground mb-3">How much would you like to donate?</label>
-            <div className="grid grid-cols-3 gap-3 mb-3">
+            <label className="block text-sm font-semibold text-foreground mb-4">How much would you like to donate?</label>
+            <div className="grid grid-cols-3 gap-4 mb-4">
               {[25, 50, 100, 200, 500, 1000].map((amount) => (
                 <button
                   key={amount}
@@ -147,8 +149,8 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
             <div className="mt-3">
               <label className="block text-sm font-semibold text-foreground mb-2">Or enter custom amount</label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
-                <input
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground z-10">$</span>
+                <Input
                   type="number"
                   min="1"
                   step="0.01"
@@ -157,7 +159,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
                     setFormData({ ...formData, customAmount: e.target.value, amount: "" })
                   }}
                   placeholder="Enter amount"
-                  className="w-full pl-8 pr-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="pl-8"
                 />
               </div>
             </div>
@@ -165,7 +167,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
 
           {/* Cause Selection */}
           <div>
-            <label className="block text-sm font-semibold text-foreground mb-3">For which cause?</label>
+            <label className="block text-sm font-semibold text-foreground mb-4">For which cause?</label>
             <select
               value={formData.cause}
               onChange={(e) => setFormData({ ...formData, cause: e.target.value })}
@@ -183,7 +185,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
 
           {/* Frequency Selection */}
           <div>
-            <label className="block text-sm font-semibold text-foreground mb-3">How often?</label>
+            <label className="block text-sm font-semibold text-foreground mb-4">How often?</label>
             <div className="grid grid-cols-2 gap-3">
               {frequencies.map((freq) => (
                 <button

@@ -44,7 +44,7 @@ export function DonationRecipientsSection() {
     <section className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">
+          <h2 className="mb-4">
             Where Your Donations Go
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -62,10 +62,10 @@ export function DonationRecipientsSection() {
               <div className="mb-6 text-primary group-hover:text-white transition-colors duration-300">
                 {group.icon}
               </div>
-              <h3 className="font-serif font-bold text-xl mb-4 text-foreground group-hover:text-white transition-colors duration-300">
+              <h3 className="mb-4 group-hover:text-white transition-colors duration-300">
                 {group.title}
               </h3>
-              <p className="leading-relaxed text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
+              <p className="text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
                 {group.description}
               </p>
             </div>
@@ -73,7 +73,7 @@ export function DonationRecipientsSection() {
         </div>
 
         <div className="mt-12 bg-gradient-to-br from-primary to-primary/90 rounded-md p-8 border-2 border-white/20 text-center">
-          <h3 className="font-serif font-bold text-2xl mb-4 text-white">Your Impact</h3>
+          <h3 className="mb-4 text-white">Your Impact</h3>
           <p className="text-white/90 max-w-2xl mx-auto">
             When you donate to TOMCARE Foundation, you're directly helping these vulnerable groups access essential
             services, healthcare, education, and support. Together, we create lasting positive change in our community.

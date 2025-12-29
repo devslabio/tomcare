@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { Twitter, Facebook, Instagram } from "lucide-react"
 
 interface TeamMember {
   name: string
@@ -22,7 +21,7 @@ export function TeamSection() {
           <div className="inline-block mb-4">
             <h3 className="text-lg font-semibold text-primary mb-2">We Change Your Life & World</h3>
           </div>
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">Meet Our Volunteers</h2>
+          <h2>Meet Our Volunteers</h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
@@ -36,21 +35,10 @@ export function TeamSection() {
                     </span>
                   </div>
                 </div>
-                {/* Hover overlay with social links */}
-                <div className="absolute inset-0 bg-primary/90 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 backdrop-blur-sm">
-                  <Link href="#" className="text-white hover:text-accent transition">
-                    <Twitter className="w-6 h-6" />
-                  </Link>
-                  <Link href="#" className="text-white hover:text-accent transition">
-                    <Facebook className="w-6 h-6" />
-                  </Link>
-                  <Link href="#" className="text-white hover:text-accent transition">
-                    <Instagram className="w-6 h-6" />
-                  </Link>
-                </div>
+                {/* Social links removed - add actual URLs when available */}
               </div>
               <div className="text-center">
-                <h3 className="font-serif font-bold text-xl mb-1 text-foreground">{member.name}</h3>
+                <h3 className="mb-1">{member.name}</h3>
                 <p className="text-muted-foreground">{member.role}</p>
               </div>
             </div>

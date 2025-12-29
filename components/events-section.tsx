@@ -1,8 +1,10 @@
 "use client"
 
-import Link from "next/link"
 import { useState } from "react"
+import Link from "next/link"
 import { Clock, Calendar } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
 
 interface Event {
   id: string
@@ -74,7 +76,7 @@ export function EventsSection() {
           <div>
             <div className="mb-6">
               <h3 className="text-lg font-semibold text-primary mb-2">Help With Featured Cause</h3>
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">
+              <h2>
                 Join Upcoming Events<br />Replays & Webinars
               </h2>
             </div>
@@ -91,7 +93,7 @@ export function EventsSection() {
                     <p className="text-sm text-white/80 mb-2">
                       Organized By: <span className="font-semibold text-white">{events[currentIndex].organizer}</span>
                     </p>
-                    <h3 className="font-serif font-bold text-xl mb-3 text-white">{events[currentIndex].title}</h3>
+                    <h3 className="mb-4 text-white">{events[currentIndex].title}</h3>
                     <div className="flex items-center gap-2 text-white/90">
                       <Clock className="w-4 h-4" />
                       <span className="text-sm">{events[currentIndex].time} - {events[currentIndex].location}</span>
@@ -102,12 +104,13 @@ export function EventsSection() {
 
               {/* Navigation */}
               <div className="flex justify-between items-center mt-4">
-                <button
+                <Button
                   onClick={prevEvent}
-                  className="px-4 py-2 bg-white text-primary rounded-md hover:bg-white/90 transition-colors duration-200 font-semibold"
+                  variant="outline"
+                  className="bg-white text-primary hover:bg-white/90"
                 >
                   Previous
-                </button>
+                </Button>
                 <div className="flex gap-2">
                   {events.map((_, index) => (
                     <button
@@ -119,12 +122,13 @@ export function EventsSection() {
                     />
                   ))}
                 </div>
-                <button
+                <Button
                   onClick={nextEvent}
-                  className="px-4 py-2 bg-white text-primary rounded-md hover:bg-white/90 transition-colors duration-200 font-semibold"
+                  variant="outline"
+                  className="bg-white text-primary hover:bg-white/90"
                 >
                   Next
-                </button>
+                </Button>
               </div>
             </div>
           </div>

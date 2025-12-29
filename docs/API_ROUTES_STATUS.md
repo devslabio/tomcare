@@ -47,7 +47,7 @@ All forms currently use **EmailJS** for submissions:
 - ✅ Registration Form (`app/register/page.tsx`) → EmailJS
 - ✅ Donation Forms (`components/donate-button.tsx`, `components/donations-section.tsx`) → EmailJS
 
-See `FORM_SUBMISSION_STANDARD.md` for details.
+See `docs/FORM_SUBMISSION_STANDARD.md` for details.
 
 ---
 

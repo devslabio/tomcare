@@ -54,7 +54,7 @@ export async function sendEmail(
       })
       return {
         success: false,
-        message: `Email template not configured. Please set NEXT_PUBLIC_EMAILJS_TEMPLATE_${templateId.toUpperCase()} in .env.local with your actual template ID from EmailJS dashboard. See QUICK_EMAILJS_SETUP.md for instructions.`,
+        message: `Email template not configured. Please set NEXT_PUBLIC_EMAILJS_TEMPLATE_${templateId.toUpperCase()} in .env.local with your actual template ID from EmailJS dashboard. See docs/QUICK_EMAILJS_SETUP.md for instructions.`,
       }
     }
 

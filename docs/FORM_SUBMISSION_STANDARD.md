@@ -114,9 +114,9 @@ The following are **not currently used** and can be removed or kept for future u
 
 ## References
 
-- EmailJS Setup: `QUICK_EMAILJS_SETUP.md`
+- EmailJS Setup: `docs/QUICK_EMAILJS_SETUP.md`
 - EmailJS Library: `lib/emailjs.ts`
-- Google Forms Setup: `GOOGLE_FORMS_SETUP.md` (if needed)
+- Google Forms Setup: `docs/GOOGLE_FORMS_SETUP.md` (if needed)
 
 ---
 

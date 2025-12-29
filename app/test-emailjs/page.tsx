@@ -50,7 +50,7 @@ export default function TestEmailJSPage() {
 
   return (
     <div className="min-h-screen bg-muted p-8">
-      <div className="max-w-4xl mx-auto bg-white rounded-xl p-8 shadow-lg">
+      <div className="max-w-4xl mx-auto bg-white rounded-xl p-8 border border-border">
         <h1 className="text-3xl font-serif font-bold mb-6 text-foreground">EmailJS Configuration Test</h1>
 
         <div className="space-y-6">

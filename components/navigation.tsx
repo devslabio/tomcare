@@ -9,7 +9,7 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
+    <header className="sticky top-0 z-50 bg-white border-b border-border">
       {/* Top Bar */}
       <div className="bg-primary text-primary-foreground py-2 text-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

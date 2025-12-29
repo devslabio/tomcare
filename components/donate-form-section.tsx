@@ -19,7 +19,7 @@ export function DonateFormSection() {
   return (
     <section className="py-16 md:py-24 bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-xl p-8 md:p-12 border border-border">
+        <div className="bg-white rounded-md p-8 md:p-12 border border-border">
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Quick Donate</h2>
             <p className="text-lg text-muted-foreground">Be a community of diverse people</p>
@@ -33,7 +33,7 @@ export function DonateFormSection() {
                 <select
                   value={formData.donation}
                   onChange={(e) => setFormData({ ...formData, donation: e.target.value })}
-                  className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white"
+                  className="w-full px-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-white"
                 >
                   <option value="">On Time Donation</option>
                   <option value="general">General Donation</option>
@@ -50,7 +50,7 @@ export function DonateFormSection() {
                 <select
                   value={formData.amount}
                   onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                  className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white"
+                  className="w-full px-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-white"
                 >
                   <option value="">Select Amount</option>
                   <option value="25">$25</option>
@@ -69,7 +69,7 @@ export function DonateFormSection() {
                 <select
                   value={formData.fundsType}
                   onChange={(e) => setFormData({ ...formData, fundsType: e.target.value })}
-                  className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white"
+                  className="w-full px-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-white"
                 >
                   <option value="">Select Funds Type</option>
                   <option value="one-time">One Time</option>
@@ -83,7 +83,7 @@ export function DonateFormSection() {
             <div className="text-center">
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-lg hover:opacity-90 transition font-semibold text-lg"
+                className="inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-md hover:opacity-90 transition font-semibold text-lg"
               >
                 <CheckCircle className="w-5 h-5" />
                 Donate Now

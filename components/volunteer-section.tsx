@@ -157,7 +157,7 @@ export function VolunteerSection() {
 
         {/* Volunteer Benefits */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white/80 backdrop-blur-md rounded-xl p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group">
+          <div className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group">
             <Heart className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-200" />
             <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-200">
               Make a Difference
@@ -166,7 +166,7 @@ export function VolunteerSection() {
               Directly help newcomers and people in need achieve their goals and improve their lives.
             </p>
           </div>
-          <div className="bg-white/80 backdrop-blur-md rounded-xl p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group">
+          <div className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group">
             <Users className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-200" />
             <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-200">
               Build Community
@@ -175,7 +175,7 @@ export function VolunteerSection() {
               Connect with like-minded individuals and expand your network.
             </p>
           </div>
-          <div className="bg-white/80 backdrop-blur-md rounded-xl p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group">
+          <div className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group">
             <Zap className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-200" />
             <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-300">
               Gain Experience
@@ -192,7 +192,7 @@ export function VolunteerSection() {
           {volunteerPositions.map((position) => (
             <div
               key={position.id}
-              className="bg-white/80 backdrop-blur-md rounded-xl p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group"
+              className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group"
             >
               <h4 className="font-serif font-bold text-lg mb-3 text-foreground group-hover:text-white transition-colors duration-300">
                 {position.title}
@@ -238,7 +238,7 @@ export function VolunteerSection() {
                   setShowForm(true)
                   setFormData((prev) => ({ ...prev, position: position.title }))
                 }}
-                className="w-full px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition font-semibold text-sm group-hover:bg-white group-hover:text-primary"
+                className="w-full px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition font-semibold text-sm group-hover:bg-white group-hover:text-primary"
               >
                 Apply Now
               </button>
@@ -249,7 +249,7 @@ export function VolunteerSection() {
         {/* Volunteer Form Modal */}
         {showForm && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-white rounded-md p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
               <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Volunteer Application Form</h3>
 
               {submitStatus === "success" ? (

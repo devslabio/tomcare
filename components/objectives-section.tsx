@@ -53,7 +53,7 @@ export function ObjectivesSection() {
           {objectives.map((objective, index) => (
             <div
               key={index}
-              className="bg-white/80 backdrop-blur-md rounded-xl p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group"
+              className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group"
             >
               <div className="mb-4 text-primary group-hover:text-white transition-colors duration-300">
                 {objective.icon}
@@ -68,7 +68,7 @@ export function ObjectivesSection() {
           ))}
         </div>
 
-        <div className="mt-12 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-8 border border-primary/20">
+        <div className="mt-12 bg-gradient-to-br from-primary/10 to-accent/10 rounded-md p-8 border border-primary/20">
           <p className="text-center text-muted-foreground">
             This NGO is important because it helps people in need to be helped.
           </p>

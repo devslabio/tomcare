@@ -168,7 +168,7 @@ export default function RegisterPage() {
                   setFormType("recipient")
                   setCurrentStep(1)
                 }}
-                className="bg-white rounded-lg p-8 border-2 border-border hover:border-primary transition-colors duration-200 text-left group"
+                className="bg-white rounded-md p-8 border-2 border-border hover:border-primary transition-colors duration-200 text-left group"
               >
                 <div className="mb-4 text-4xl">🤝</div>
                 <h2 className="text-2xl font-serif font-bold mb-3 text-foreground group-hover:text-primary transition">
@@ -190,7 +190,7 @@ export default function RegisterPage() {
                   setFormType("applicant")
                   setCurrentStep(1)
                 }}
-                className="bg-white rounded-lg p-8 border-2 border-border hover:border-accent transition-colors duration-200 text-left group"
+                className="bg-white rounded-md p-8 border-2 border-border hover:border-accent transition-colors duration-200 text-left group"
               >
                 <div className="mb-4 text-4xl">❤️</div>
                 <h2 className="text-2xl font-serif font-bold mb-3 text-foreground group-hover:text-accent transition">
@@ -221,7 +221,7 @@ export default function RegisterPage() {
         <Navigation />
         <main className="min-h-screen bg-muted flex items-center justify-center py-12">
           <div className="max-w-md w-full">
-            <div className="bg-white rounded-lg p-8 text-center">
+            <div className="bg-white rounded-md p-8 text-center">
               <CheckCircle className="w-16 h-16 text-accent mx-auto mb-4" />
               <h2 className="text-2xl font-serif font-bold mb-2 text-foreground">
                 {isRecipient ? "Registration Successful!" : "Application Submitted!"}
@@ -280,7 +280,7 @@ export default function RegisterPage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Step 1: Personal Information */}
             {currentStep === 1 && (
-              <div className="bg-white rounded-xl p-8 space-y-6">
+              <div className="bg-white rounded-md p-8 space-y-6">
                 <h2 className="text-2xl font-serif font-bold text-foreground">Personal Information</h2>
 
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -368,7 +368,7 @@ export default function RegisterPage() {
                     name="language"
                     value={formData.language}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   >
                     <option value="">Select</option>
                     <option value="english">English</option>
@@ -383,7 +383,7 @@ export default function RegisterPage() {
 
             {/* Step 2: Address & Details */}
             {currentStep === 2 && (
-              <div className="bg-white rounded-xl p-8 space-y-6">
+              <div className="bg-white rounded-md p-8 space-y-6">
                 <h2 className="text-2xl font-serif font-bold text-foreground">
                   {isRecipient ? "Address & Situation" : "Contact Information"}
                 </h2>
@@ -396,7 +396,7 @@ export default function RegisterPage() {
                     required
                     value={formData.address}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
 
@@ -446,7 +446,7 @@ export default function RegisterPage() {
                         {needsOptions.map((need) => (
                           <label
                             key={need}
-                            className="flex items-center gap-3 p-3 border border-border rounded-lg hover:bg-muted cursor-pointer"
+                            className="flex items-center gap-3 p-3 border border-border rounded-md hover:bg-muted cursor-pointer"
                           >
                             <input
                               type="checkbox"
@@ -496,10 +496,10 @@ export default function RegisterPage() {
 
             {/* Step 3: Confirmation */}
             {currentStep === 3 && (
-              <div className="bg-white rounded-xl p-8 space-y-6">
+              <div className="bg-white rounded-md p-8 space-y-6">
                 <h2 className="text-2xl font-serif font-bold text-foreground">Review & Confirm</h2>
 
-                <div className="bg-muted rounded-lg p-6 space-y-4">
+                <div className="bg-muted rounded-md p-6 space-y-4">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <p className="text-xs font-semibold text-muted-foreground">Name</p>
@@ -524,7 +524,7 @@ export default function RegisterPage() {
                   </div>
                 </div>
 
-                <label className="flex items-start gap-3 p-4 border border-border rounded-lg cursor-pointer hover:bg-muted">
+                <label className="flex items-start gap-3 p-4 border border-border rounded-md cursor-pointer hover:bg-muted">
                   <input
                     type="checkbox"
                     name="agreedToTerms"
@@ -549,7 +549,7 @@ export default function RegisterPage() {
               <button
                 type="button"
                 onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
-                className={`px-6 py-3 border-2 border-border text-foreground rounded-lg hover:bg-muted transition font-semibold ${
+                className={`px-6 py-3 border-2 border-border text-foreground rounded-md hover:bg-muted transition font-semibold ${
                   currentStep === 1 ? "opacity-50 cursor-not-allowed" : ""
                 }`}
                 disabled={currentStep === 1 || isSubmitting}
@@ -561,7 +561,7 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setCurrentStep(currentStep + 1)}
-                  className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition font-semibold disabled:opacity-50"
+                  className="px-6 py-3 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition font-semibold disabled:opacity-50"
                   disabled={isSubmitting}
                 >
                   Next

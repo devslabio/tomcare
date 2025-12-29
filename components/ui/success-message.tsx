@@ -11,7 +11,7 @@ export function SuccessMessage({ message, title = "Success", className }: Succes
   return (
     <div
       className={cn(
-        "bg-green-500/10 border border-green-500 rounded-lg p-4 flex gap-3",
+        "bg-green-500/10 border border-green-500 rounded-md p-4 flex gap-3",
         className
       )}
       role="alert"

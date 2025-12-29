@@ -52,11 +52,11 @@ export function BlogSection() {
         <div className="grid md:grid-cols-3 gap-8">
           {blogPosts.map((post) => (
             <article key={post.id} className="group">
-              <div className="relative overflow-hidden bg-white/80 backdrop-blur-md rounded-xl mb-4 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1">
+              <div className="relative overflow-hidden bg-white/80 backdrop-blur-md rounded-md mb-4 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1">
                 <div className="aspect-[4/3] bg-primary/10 flex items-center justify-center group-hover:bg-primary/80 transition-all duration-300">
                   <Plus className="w-16 h-16 text-primary/30 group-hover:text-white/30 transition-colors duration-300" />
                 </div>
-                <div className="absolute top-4 left-4 bg-primary text-white rounded-lg p-3 text-center min-w-[60px] group-hover:bg-white group-hover:text-primary transition-all duration-200">
+                <div className="absolute top-4 left-4 bg-primary text-white rounded-md p-3 text-center min-w-[60px] group-hover:bg-white group-hover:text-primary transition-all duration-200">
                   <div className="text-2xl font-bold">{post.date.day}</div>
                   <div className="text-xs font-semibold">{post.date.month}</div>
                 </div>
@@ -66,7 +66,7 @@ export function BlogSection() {
                   </Link>
                 </div>
               </div>
-              <div className="bg-white/80 backdrop-blur-md rounded-xl p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 group">
+              <div className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 group">
                 <h3 className="font-serif font-bold text-xl mb-3 text-foreground group-hover:text-white transition-colors duration-300">
                   <Link href={`/blog/${post.id}`}>{post.title}</Link>
                 </h3>

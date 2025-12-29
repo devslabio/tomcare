@@ -12,7 +12,7 @@ export function PartnerSection() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center gap-2 bg-primary text-white px-8 py-4 rounded-lg hover:opacity-90 transition-colors duration-200 font-semibold"
+            className="inline-flex items-center justify-center gap-2 bg-primary text-white px-8 py-4 rounded-md hover:opacity-90 transition-colors duration-200 font-semibold"
           >
             <Handshake className="w-5 h-5" />
             Get In Touch
@@ -24,7 +24,7 @@ export function PartnerSection() {
           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
             <div
               key={i}
-              className="bg-white/80 backdrop-blur-md rounded-xl p-8 flex items-center justify-center border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 h-32 group"
+              className="bg-white/80 backdrop-blur-md rounded-md p-8 flex items-center justify-center border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 h-32 group"
             >
               <div className="text-center">
                 <Handshake className="w-12 h-12 text-primary/50 mx-auto mb-2 group-hover:text-white/50 transition-colors duration-300" />

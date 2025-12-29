@@ -50,12 +50,12 @@ export default function TestEmailJSPage() {
 
   return (
     <div className="min-h-screen bg-muted p-8">
-      <div className="max-w-4xl mx-auto bg-white rounded-xl p-8 border border-border">
+      <div className="max-w-4xl mx-auto bg-white rounded-md p-8 border border-border">
         <h1 className="text-3xl font-serif font-bold mb-6 text-foreground">EmailJS Configuration Test</h1>
 
         <div className="space-y-6">
           {/* Configuration Display */}
-          <div className="bg-muted p-4 rounded-lg">
+          <div className="bg-muted p-4 rounded-md">
             <h2 className="font-semibold mb-2">Current Configuration</h2>
             <div className="space-y-1 text-sm font-mono">
               <div>
@@ -104,7 +104,7 @@ export default function TestEmailJSPage() {
             <button
               onClick={() => testEmail("contact")}
               disabled={testResult.status === "testing"}
-              className="px-4 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition disabled:opacity-50 flex items-center justify-center gap-2"
+              className="px-4 py-3 bg-primary text-white rounded-md hover:bg-primary/90 transition disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {testResult.status === "testing" ? (
                 <>
@@ -118,21 +118,21 @@ export default function TestEmailJSPage() {
             <button
               onClick={() => testEmail("volunteer")}
               disabled={testResult.status === "testing"}
-              className="px-4 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition disabled:opacity-50 flex items-center justify-center gap-2"
+              className="px-4 py-3 bg-primary text-white rounded-md hover:bg-primary/90 transition disabled:opacity-50 flex items-center justify-center gap-2"
             >
               Test Volunteer Template
             </button>
             <button
               onClick={() => testEmail("register")}
               disabled={testResult.status === "testing"}
-              className="px-4 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition disabled:opacity-50 flex items-center justify-center gap-2"
+              className="px-4 py-3 bg-primary text-white rounded-md hover:bg-primary/90 transition disabled:opacity-50 flex items-center justify-center gap-2"
             >
               Test Register Template
             </button>
             <button
               onClick={() => testEmail("donate")}
               disabled={testResult.status === "testing"}
-              className="px-4 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition disabled:opacity-50 flex items-center justify-center gap-2"
+              className="px-4 py-3 bg-primary text-white rounded-md hover:bg-primary/90 transition disabled:opacity-50 flex items-center justify-center gap-2"
             >
               Test Donate Template
             </button>
@@ -141,7 +141,7 @@ export default function TestEmailJSPage() {
           {/* Result Display */}
           {testResult.status !== "idle" && (
             <div
-              className={`p-4 rounded-lg flex gap-3 ${
+              className={`p-4 rounded-md flex gap-3 ${
                 testResult.status === "success"
                   ? "bg-accent/10 border border-accent"
                   : testResult.status === "error"
@@ -178,7 +178,7 @@ export default function TestEmailJSPage() {
           )}
 
           {/* Instructions */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div className="bg-blue-50 border border-blue-200 rounded-md p-4">
             <h3 className="font-semibold text-blue-900 mb-2">Setup Instructions</h3>
             <ol className="list-decimal list-inside space-y-1 text-sm text-blue-800">
               <li>Go to EmailJS Dashboard: https://dashboard.emailjs.com/</li>

@@ -41,7 +41,7 @@ export function AboutSection() {
             </div>
           </div>
 
-          <div className="bg-muted rounded-lg p-8 content-spacing">
+          <div className="bg-muted rounded-md p-8 content-spacing">
             <div className="border-l-4 border-accent pl-6">
               <h3 className="font-serif font-bold text-xl mb-2 text-foreground">Our Vision</h3>
               <p className="text-muted-foreground">
@@ -59,7 +59,7 @@ export function AboutSection() {
               </p>
             </div>
 
-            <div className="bg-primary/5 rounded-lg p-6 border border-primary/20">
+            <div className="bg-primary/5 rounded-md p-6 border border-primary/20">
               <p className="text-primary font-semibold">
                 "Service to others is the rent you pay for your room here on earth."
               </p>

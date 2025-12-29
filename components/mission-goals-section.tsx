@@ -27,7 +27,7 @@ export function MissionGoalsSection() {
                 transform lives and build stronger communities for newcomers and those in need.
               </p>
             </div>
-            <div className="bg-white rounded-xl p-8 border border-border">
+            <div className="bg-white rounded-md p-8 border border-border">
               <h4 className="font-serif font-bold text-xl mb-6 text-foreground">Our Objectives & Goals</h4>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3">

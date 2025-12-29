@@ -68,7 +68,7 @@ export function OtherServicesSection() {
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white/80 backdrop-blur-md rounded-xl p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group text-center"
+              className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group text-center"
             >
               <div className="flex justify-center mb-4">
                 <div className="text-primary group-hover:text-white transition-colors duration-300">

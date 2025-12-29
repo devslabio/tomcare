@@ -67,7 +67,7 @@ export function Navigation() {
             </Link>
             <Link
               href="/register"
-              className="bg-accent text-accent-foreground px-6 py-2 rounded-lg hover:opacity-90 transition font-medium"
+              className="bg-accent text-accent-foreground px-6 py-2 rounded-md hover:opacity-90 transition font-medium"
             >
               Register
             </Link>

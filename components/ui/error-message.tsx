@@ -11,7 +11,7 @@ export function ErrorMessage({ message, title = "Error", className }: ErrorMessa
   return (
     <div
       className={cn(
-        "bg-destructive/10 border border-destructive rounded-lg p-4 flex gap-3",
+        "bg-destructive/10 border border-destructive rounded-md p-4 flex gap-3",
         className
       )}
       role="alert"

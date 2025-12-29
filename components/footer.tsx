@@ -156,11 +156,11 @@ export function Footer() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
                     required
-                    className="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-primary-foreground placeholder:text-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="flex-1 px-4 py-2 rounded-md bg-white/10 border border-white/20 text-primary-foreground placeholder:text-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-accent"
                   />
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition"
+                    className="px-4 py-2 bg-accent text-accent-foreground rounded-md hover:opacity-90 transition"
                   >
                     <Send className="w-5 h-5" />
                   </button>

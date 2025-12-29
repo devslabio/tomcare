@@ -8,6 +8,7 @@ import { ErrorMessage } from "@/components/ui/error-message"
 import { SuccessMessage } from "@/components/ui/success-message"
 import { LoadingButton } from "@/components/ui/loading-button"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import type { VolunteerFormData, FormStatus } from "@/types/forms"
 
 interface VolunteerPosition {
@@ -265,36 +266,33 @@ export function VolunteerSection() {
                   {submitStatus === "error" && <ErrorMessage message={errorMessage} />}
                   <div>
                     <label className="block text-sm font-semibold text-foreground mb-2">Full Name</label>
-                    <input
+                    <Input
                       type="text"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                     />
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-semibold text-foreground mb-2">Email</label>
-                      <input
+                      <Input
                         type="email"
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         disabled={isSubmitting}
-                        className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-foreground mb-2">Phone</label>
-                      <input
+                      <Input
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         disabled={isSubmitting}
-                        className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                       />
                     </div>
                   </div>

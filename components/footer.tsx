@@ -5,6 +5,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { Mail, Phone, Facebook, Instagram, Twitter, Linkedin, Send } from "lucide-react"
 
+import { Input } from "@/components/ui/input"
+
 export function Footer() {
   const [email, setEmail] = useState("")
 
@@ -151,13 +153,13 @@ export function Footer() {
               <p className="text-sm text-primary-foreground/80 mb-4">Be the first one to receive latest updates.</p>
               <form onSubmit={handleSubscribe} className="space-y-2">
                 <div className="flex gap-2">
-                  <input
+                  <Input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
                     required
-                    className="flex-1 px-4 py-2 rounded-md bg-white/10 border border-white/20 text-primary-foreground placeholder:text-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="flex-1 bg-white/10 border-white/20 text-primary-foreground placeholder:text-primary-foreground/60 focus:ring-accent"
                   />
                   <button
                     type="submit"

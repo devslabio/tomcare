@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 import { Heart, X, Loader2 } from "lucide-react"
+
+import { Input } from "@/components/ui/input"
 import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
 
 interface DonateModalProps {
@@ -147,8 +149,8 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
             <div className="mt-3">
               <label className="block text-sm font-semibold text-foreground mb-2">Or enter custom amount</label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
-                <input
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground z-10">$</span>
+                <Input
                   type="number"
                   min="1"
                   step="0.01"
@@ -157,7 +159,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
                     setFormData({ ...formData, customAmount: e.target.value, amount: "" })
                   }}
                   placeholder="Enter amount"
-                  className="w-full pl-8 pr-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="pl-8"
                 />
               </div>
             </div>

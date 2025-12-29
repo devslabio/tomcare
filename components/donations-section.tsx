@@ -5,6 +5,7 @@ import type React from "react"
 import { Heart, Zap, Award } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 interface DonationOption {
   id: string
@@ -109,13 +110,13 @@ export function DonationsSection() {
               <h3 className="mb-6">Custom Amount</h3>
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1 relative">
-                  <span className="absolute left-4 top-3 text-2xl text-muted-foreground">$</span>
-                  <input
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl text-muted-foreground z-10">$</span>
+                  <Input
                     type="number"
                     placeholder="Enter custom amount"
                     value={customAmount}
                     onChange={(e) => setCustomAmount(e.target.value)}
-                    className="w-full pl-8 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="pl-8"
                   />
                 </div>
                 <button

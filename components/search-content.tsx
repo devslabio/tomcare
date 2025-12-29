@@ -3,6 +3,8 @@
 import { useState } from "react"
 import { Search, MapPin, Users } from "lucide-react"
 
+import { Input } from "@/components/ui/input"
+
 interface Program {
   id: number
   name: string
@@ -83,13 +85,13 @@ export function SearchContent() {
       <div className="bg-white rounded-md p-6 mb-8 border border-border">
         <div className="flex gap-2">
           <div className="flex-1 relative">
-            <Search className="absolute left-4 top-3 w-5 h-5 text-muted-foreground" />
-            <input
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground z-10" />
+            <Input
               type="text"
               placeholder="Search programs by name or keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              className="pl-12"
             />
           </div>
           <button className="px-6 py-3 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition font-semibold">

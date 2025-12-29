@@ -1,17 +1,19 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Lora } from "next/font/google"
+import { Poppins, Lora } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const inter = Inter({
+const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-poppins",
+  display: "swap", // Better performance
 })
 const lora = Lora({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  variable: "--font-lora",
 })
 
 export const metadata: Metadata = {
@@ -45,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${poppins.className} antialiased`}>
         {children}
         <Analytics />
       </body>

@@ -48,7 +48,7 @@ export function DonationsSection() {
   }
 
   return (
-    <section id="donate" className="py-16 md:py-24 bg-muted">
+    <section id="donate" className="section-padding bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -86,7 +86,7 @@ export function DonationsSection() {
         {donationType === "general" ? (
           <>
             {/* Quick Donation Options */}
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="grid md:grid-cols-3 gap-8 mb-8 items-stretch">
               {donationOptions.map((option) => (
                 <button
                   key={option.id}

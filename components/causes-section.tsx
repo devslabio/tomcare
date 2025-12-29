@@ -77,7 +77,7 @@ export function CausesSection() {
   return (
     <>
       {/* Featured Cause Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-primary via-primary to-primary/90 relative overflow-hidden">
+      <section className="section-padding bg-gradient-to-br from-primary via-primary to-primary/90 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Image Box */}

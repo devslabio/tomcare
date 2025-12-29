@@ -97,7 +97,7 @@ const programs: Program[] = [
 
 export function ProgramsSection() {
   return (
-    <section id="programs" className="py-16 md:py-24 bg-white">
+    <section id="programs" className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -109,7 +109,7 @@ export function ProgramsSection() {
         </div>
 
         {/* Programs Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
           {programs.map((program, index) => (
             <div
               key={index}

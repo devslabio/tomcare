@@ -87,12 +87,12 @@ export function FactCounterSection() {
   return (
     <section
       id="fact-counter"
-      className="py-16 md:py-24 bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 relative overflow-hidden"
+      className="section-padding bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Counters Grid - Left Side (7 columns equivalent) */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-8 items-stretch">
             {counters.map((counter, index) => (
               <div
                 key={index}

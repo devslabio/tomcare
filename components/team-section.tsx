@@ -16,7 +16,7 @@ const teamMembers: TeamMember[] = [
 
 export function TeamSection() {
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <div className="inline-block mb-4">
@@ -25,7 +25,7 @@ export function TeamSection() {
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">Meet Our Volunteers</h2>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
           {teamMembers.map((member, index) => (
             <div key={index} className="group">
               <div className="relative overflow-hidden bg-white/80 backdrop-blur-md rounded-md aspect-[3/4] mb-4 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1">

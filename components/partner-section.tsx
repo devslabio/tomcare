@@ -3,7 +3,7 @@ import { Handshake } from "lucide-react"
 
 export function PartnerSection() {
   return (
-    <section className="py-16 md:py-24 bg-muted">
+    <section className="section-padding bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Become Support Partner</h2>
@@ -20,7 +20,7 @@ export function PartnerSection() {
         </div>
 
         {/* Partner Logos - Placeholder */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12 items-stretch">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
             <div
               key={i}

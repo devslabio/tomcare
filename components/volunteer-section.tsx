@@ -188,7 +188,7 @@ export function VolunteerSection() {
 
         {/* Available Positions */}
         <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Available Volunteer Positions</h3>
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <div className="grid md:grid-cols-2 gap-8 mb-8 items-stretch">
           {volunteerPositions.map((position) => (
             <div
               key={position.id}

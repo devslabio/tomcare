@@ -131,7 +131,7 @@ export function TestimonialsSection() {
   )
 
   return (
-    <section id="testimonials" className="py-16 md:py-24 bg-muted relative overflow-hidden">
+    <section id="testimonials" className="section-padding bg-muted relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Doctor Testimonials */}
         <div className="mb-16">

@@ -107,14 +107,20 @@ export function HeroSlider() {
           {slides.map((slide, index) => (
             <div
               key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-1000 ${
-                index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+              className={`absolute inset-0 transition-all duration-1500 ease-in-out ${
+                index === currentSlide 
+                  ? "opacity-100 z-10 translate-x-0" 
+                  : "opacity-0 z-0 translate-x-4"
               }`}
             >
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center relative">
                 <div className="grid md:grid-cols-2 gap-12 items-center justify-items-center w-full relative z-10">
                   {/* Text Content */}
-                  <div>
+                  <div className={`transition-all duration-1500 ease-in-out delay-300 ${
+                    index === currentSlide 
+                      ? "opacity-100 translate-y-0" 
+                      : "opacity-0 translate-y-4"
+                  }`}>
                     <h3 className="text-lg md:text-xl font-semibold mb-4 text-accent">{slide.subtitle}</h3>
                     <div className="mb-6">
                       <h2 className="leading-tight whitespace-pre-line">
@@ -142,7 +148,11 @@ export function HeroSlider() {
                   </div>
 
                   {/* Hero Image */}
-                  <div className="hidden md:flex items-center justify-center">
+                  <div className={`hidden md:flex items-center justify-center transition-all duration-1500 ease-in-out delay-150 ${
+                    index === currentSlide 
+                      ? "opacity-100 translate-x-0 scale-100" 
+                      : "opacity-0 translate-x-4 scale-95"
+                  }`}>
                     <div className="relative w-full">
                       <div className="relative w-full h-[336px] md:h-[392px] rounded-3xl overflow-hidden opacity-90">
                         <img

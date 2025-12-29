@@ -3,9 +3,10 @@ import { useState } from "react"
 import type React from "react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
-import { ChevronRight, Loader2, CheckCircle } from "lucide-react"
+import { ChevronRight, CheckCircle } from "lucide-react"
 import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
 import { ErrorMessage } from "@/components/ui/error-message"
+import { LoadingButton } from "@/components/ui/loading-button"
 import type { RegistrationType, RegistrationFormData, FormStatus } from "@/types/forms"
 
 export default function RegisterPage() {
@@ -566,22 +567,15 @@ export default function RegisterPage() {
                   Next
                 </button>
               ) : (
-                <button
+                <LoadingButton
                   type="submit"
+                  isLoading={isSubmitting}
+                  loadingText="Submitting..."
                   disabled={!formData.agreedToTerms || isSubmitting}
-                  className={`px-6 py-3 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition font-semibold flex items-center gap-2 ${
-                    !formData.agreedToTerms || isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
+                  variant="default"
                 >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Submitting...
-                    </>
-                  ) : (
-                    "Complete Registration"
-                  )}
-                </button>
+                  Complete Registration
+                </LoadingButton>
               )}
             </div>
           </form>

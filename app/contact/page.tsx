@@ -7,6 +7,7 @@ import { Phone, Mail, MapPin, Clock } from "lucide-react"
 import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
 import { ErrorMessage } from "@/components/ui/error-message"
 import { SuccessMessage } from "@/components/ui/success-message"
+import { LoadingButton } from "@/components/ui/loading-button"
 import type { ContactFormData, FormStatus } from "@/types/forms"
 
 export default function ContactPage() {
@@ -230,20 +231,15 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  <button
+                  <LoadingButton
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full px-6 py-3 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition font-semibold flex items-center justify-center gap-2 disabled:opacity-50"
+                    isLoading={isSubmitting}
+                    loadingText="Sending..."
+                    className="w-full"
+                    variant="default"
                   >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      "Send Message"
-                    )}
-                  </button>
+                    Send Message
+                  </LoadingButton>
                 </form>
               )}
             </div>

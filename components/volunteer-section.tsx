@@ -1,10 +1,12 @@
 "use client"
 import { useState } from "react"
 import type React from "react"
-import { Users, Clock, Heart, MapPin, Zap, Loader2 } from "lucide-react"
+import { Users, Clock, Heart, MapPin, Zap } from "lucide-react"
 import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
 import { ErrorMessage } from "@/components/ui/error-message"
 import { SuccessMessage } from "@/components/ui/success-message"
+import { LoadingButton } from "@/components/ui/loading-button"
+import { Button } from "@/components/ui/button"
 import type { VolunteerFormData, FormStatus } from "@/types/forms"
 
 interface VolunteerPosition {
@@ -338,21 +340,16 @@ export function VolunteerSection() {
                   </div>
 
                   <div className="flex gap-4 pt-4">
-                    <button
+                    <LoadingButton
                       type="submit"
-                      disabled={isSubmitting}
-                      className="flex-1 px-6 py-3 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition font-semibold disabled:opacity-50 flex items-center justify-center gap-2"
+                      isLoading={isSubmitting}
+                      loadingText="Submitting..."
+                      className="flex-1"
+                      variant="default"
                     >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                          Submitting...
-                        </>
-                      ) : (
-                        "Submit Application"
-                      )}
-                    </button>
-                    <button
+                      Submit Application
+                    </LoadingButton>
+                    <Button
                       type="button"
                       onClick={() => {
                         setShowForm(false)
@@ -360,10 +357,11 @@ export function VolunteerSection() {
                         setErrorMessage("")
                       }}
                       disabled={isSubmitting}
-                      className="flex-1 px-6 py-3 border-2 border-border text-foreground rounded-lg hover:bg-muted transition font-semibold disabled:opacity-50"
+                      variant="outline"
+                      className="flex-1"
                     >
                       Cancel
-                    </button>
+                    </Button>
                   </div>
                 </form>
               )}

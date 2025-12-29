@@ -177,7 +177,7 @@ export function VolunteerSection() {
           </div>
           <div className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group">
             <Zap className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-200" />
-            <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-300">
+            <h3 className="mb-2 group-hover:text-white transition-colors duration-300">
               Gain Experience
             </h3>
             <p className="text-muted-foreground text-sm group-hover:text-white/90 transition-colors duration-200">

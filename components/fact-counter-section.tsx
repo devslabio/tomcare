@@ -119,8 +119,8 @@ export function FactCounterSection() {
           {/* Video Box - Right Side (5 columns equivalent) */}
           <div className="flex items-center justify-center">
             <div className="relative w-full max-w-md">
-              <div className="aspect-square bg-gradient-to-br from-primary/20 to-accent/20 rounded-md flex items-center justify-center border-4 border-primary/30">
-                <button className="group">
+              <div className="aspect-square bg-gradient-to-br from-primary/20 to-accent/20 rounded-md flex flex-col items-center justify-center border-4 border-primary/30">
+                <button className="group flex flex-col items-center justify-center">
                   <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-200">
                     <svg
                       className="w-10 h-10 text-white ml-1"

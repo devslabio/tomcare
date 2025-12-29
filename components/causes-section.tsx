@@ -118,7 +118,7 @@ export function CausesSection() {
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
-                  href="#donate"
+                  href="/programs#donate"
                   className="inline-flex items-center justify-center gap-2 bg-white text-primary px-8 py-4 rounded-md hover:bg-white/90 transition-colors duration-200 font-semibold"
                 >
                   <Heart className="w-5 h-5" />

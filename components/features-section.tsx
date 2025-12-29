@@ -49,7 +49,7 @@ export function FeaturesSection() {
               </p>
               <Link
                 href={feature.link}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors duration-200 font-semibold group-hover:bg-white group-hover:text-primary"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-md hover:bg-primary/90 hover:text-white transition-colors duration-200 font-semibold group-hover:bg-primary group-hover:text-white"
               >
                 Read More
               </Link>

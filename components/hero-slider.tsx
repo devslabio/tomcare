@@ -103,7 +103,7 @@ export function HeroSlider() {
 
       <div className="relative">
         {/* Slider Container */}
-        <div className="relative h-[600px] md:h-[700px] flex items-center">
+        <div className="relative h-[420px] md:h-[490px] flex items-center">
           {slides.map((slide, index) => (
             <div
               key={slide.id}

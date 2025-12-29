@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { Twitter, Facebook, Instagram } from "lucide-react"
 
 interface TeamMember {
   name: string
@@ -36,18 +35,7 @@ export function TeamSection() {
                     </span>
                   </div>
                 </div>
-                {/* Hover overlay with social links */}
-                <div className="absolute inset-0 bg-primary/90 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4 backdrop-blur-sm">
-                  <Link href="#" className="text-white hover:text-accent transition">
-                    <Twitter className="w-6 h-6" />
-                  </Link>
-                  <Link href="#" className="text-white hover:text-accent transition">
-                    <Facebook className="w-6 h-6" />
-                  </Link>
-                  <Link href="#" className="text-white hover:text-accent transition">
-                    <Instagram className="w-6 h-6" />
-                  </Link>
-                </div>
+                {/* Social links removed - add actual URLs when available */}
               </div>
               <div className="text-center">
                 <h3 className="mb-1">{member.name}</h3>

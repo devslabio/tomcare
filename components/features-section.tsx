@@ -19,7 +19,7 @@ export function FeaturesSection() {
       icon: <Users className="w-12 h-12" />,
       title: "Become A Volunteer",
       description: "Make a direct impact by volunteering your time and skills to help those in need.",
-      link: "/team#volunteer",
+      link: "/volunteer",
     },
   ]
 

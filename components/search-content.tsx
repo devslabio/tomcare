@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { Search, MapPin, Users } from "lucide-react"
 
 import { Input } from "@/components/ui/input"
@@ -149,9 +150,9 @@ export function SearchContent() {
                   </div>
                 </div>
 
-                <button className="mt-4 px-4 py-2 border-2 border-primary text-primary rounded-md hover:bg-primary hover:text-white transition font-semibold text-sm">
+                <Link href={`/search?category=${program.category}`} className="mt-4 inline-block px-4 py-2 border-2 border-primary text-primary rounded-md hover:bg-primary hover:text-white transition font-semibold text-sm text-center">
                   Learn More
-                </button>
+                </Link>
               </div>
             ))}
           </>

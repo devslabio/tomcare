@@ -61,14 +61,14 @@ export function BlogSection() {
                   <div className="text-xs font-semibold">{post.date.month}</div>
                 </div>
                 <div className="absolute inset-0 bg-primary/90 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                  <Link href={`/blog/${post.id}`} className="text-white">
+                  <Link href="/blog" className="text-white">
                     <Plus className="w-12 h-12" />
                   </Link>
                 </div>
               </div>
               <div className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 group">
                 <h3 className="mb-4 group-hover:text-white transition-colors duration-300">
-                  <Link href={`/blog/${post.id}`}>{post.title}</Link>
+                  <Link href="/blog">{post.title}</Link>
                 </h3>
                 <p className="mb-4 text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
                   {post.excerpt}

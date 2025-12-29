@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Users, Briefcase, BookOpen, Home, Heart, Accessibility, Globe, Computer } from "lucide-react"
 import type React from "react"
 
@@ -163,9 +164,11 @@ export function ProgramsSection() {
             TOMCARE Foundation. Your name will be featured on our website and in our annual report (unless you prefer
             anonymity).
           </p>
-          <Button variant="outline" className="bg-white text-primary hover:bg-primary hover:text-white">
-            Learn More About Recognition
-          </Button>
+          <Link href="/about">
+            <Button variant="outline" className="bg-white text-primary hover:bg-primary hover:text-white">
+              Learn More About Recognition
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

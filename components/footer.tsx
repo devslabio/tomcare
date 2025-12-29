@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Mail, Phone, Facebook, Instagram, Twitter, Linkedin, Send } from "lucide-react"
+import { Mail, Phone, Send } from "lucide-react"
 
 import { Input } from "@/components/ui/input"
 
@@ -182,36 +182,7 @@ export function Footer() {
                 Legal representative: Tom Ntambara
               </p>
             </div>
-            <div className="flex gap-4">
-              <Link 
-                href="#" 
-                className="text-primary-foreground/80 hover:text-accent transition p-2 rounded-md hover:bg-white/10"
-                aria-label="Twitter"
-              >
-                <Twitter className="w-5 h-5" />
-              </Link>
-              <Link 
-                href="#" 
-                className="text-primary-foreground/80 hover:text-accent transition p-2 rounded-md hover:bg-white/10"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-5 h-5" />
-              </Link>
-              <Link 
-                href="#" 
-                className="text-primary-foreground/80 hover:text-accent transition p-2 rounded-md hover:bg-white/10"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-5 h-5" />
-              </Link>
-              <Link 
-                href="#" 
-                className="text-primary-foreground/80 hover:text-accent transition p-2 rounded-md hover:bg-white/10"
-                aria-label="Instagram"
-              >
-                <Instagram className="w-5 h-5" />
-              </Link>
-            </div>
+            {/* Social media links removed - add actual URLs when available */}
           </div>
         </div>
       </div>

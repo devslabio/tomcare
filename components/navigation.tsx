@@ -2,7 +2,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X, Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { DonateButton } from "@/components/donate-button"
 
 export function Navigation() {
@@ -17,20 +17,7 @@ export function Navigation() {
             <div className="flex items-center gap-2">
               <span>Sponsor an orphan and feed the poor people with us</span>
             </div>
-            <div className="hidden md:flex items-center gap-4">
-              <Link href="#" className="hover:text-accent transition">
-                <Twitter className="w-4 h-4" />
-              </Link>
-              <Link href="#" className="hover:text-accent transition">
-                <Facebook className="w-4 h-4" />
-              </Link>
-              <Link href="#" className="hover:text-accent transition">
-                <Linkedin className="w-4 h-4" />
-              </Link>
-              <Link href="#" className="hover:text-accent transition">
-                <Instagram className="w-4 h-4" />
-              </Link>
-            </div>
+            {/* Social media links removed - add actual URLs when available */}
           </div>
         </div>
       </div>

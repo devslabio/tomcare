@@ -52,9 +52,6 @@ export function Footer() {
                   height={40}
                   className="h-10 w-auto mb-4"
                 />
-                <p className="text-primary-foreground/90 text-sm font-medium mb-2">
-                  TOMCARE Foundation
-                </p>
                 <p className="text-primary-foreground/70 text-xs">
                   Supporting newcomers to Canada and people in need
                 </p>

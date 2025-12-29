@@ -103,7 +103,7 @@ export function HeroSlider() {
 
       <div className="relative">
         {/* Slider Container */}
-        <div className="relative h-[420px] md:h-[490px] flex items-center">
+        <div className="relative h-[600px] md:h-[700px] flex items-center">
           {slides.map((slide, index) => (
             <div
               key={slide.id}
@@ -143,8 +143,8 @@ export function HeroSlider() {
 
                   {/* Hero Image */}
                   <div className="hidden md:flex items-center justify-center">
-                    <div className="relative w-full h-full">
-                      <div className="relative w-full h-full rounded-3xl overflow-hidden opacity-90">
+                    <div className="relative w-full">
+                      <div className="relative w-full h-[420px] md:h-[490px] rounded-3xl overflow-hidden opacity-90">
                         <img
                           src="/hero.png"
                           alt="TOMCARE Foundation - Partnership and Connection"

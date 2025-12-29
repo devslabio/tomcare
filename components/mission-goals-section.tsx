@@ -11,7 +11,7 @@ export function MissionGoalsSection() {
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">Our Mission & Goals</h2>
         </div>
 
-        <div className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl p-8 md:p-12 border border-primary/20">
+        <div className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-md p-8 md:p-12 border border-primary/20">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <div className="flex items-center gap-3 mb-6">

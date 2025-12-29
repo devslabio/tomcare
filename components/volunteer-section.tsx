@@ -1,10 +1,13 @@
 "use client"
-
-import type React from "react"
-
 import { useState } from "react"
-import { Users, Clock, Heart, MapPin, Zap, Loader2, CheckCircle, AlertCircle } from "lucide-react"
+import type React from "react"
+import { Users, Clock, Heart, MapPin, Zap } from "lucide-react"
 import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
+import { ErrorMessage } from "@/components/ui/error-message"
+import { SuccessMessage } from "@/components/ui/success-message"
+import { LoadingButton } from "@/components/ui/loading-button"
+import { Button } from "@/components/ui/button"
+import type { VolunteerFormData, FormStatus } from "@/types/forms"
 
 interface VolunteerPosition {
   id: string
@@ -79,9 +82,9 @@ export function VolunteerSection() {
   const [showForm, setShowForm] = useState(false)
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [submitStatus, setSubmitStatus] = useState<FormStatus>("idle")
   const [errorMessage, setErrorMessage] = useState("")
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<VolunteerFormData>({
     name: "",
     email: "",
     phone: "",
@@ -141,11 +144,11 @@ export function VolunteerSection() {
   }
 
   return (
-    <section id="volunteer" className="py-16 md:py-24 bg-white">
+    <section id="volunteer" className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Become a Volunteer</h2>
+          <h2 className="mb-4">Become a Volunteer</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Make a direct impact in your community. We offer flexible volunteer opportunities for people of all skills
             and backgrounds.
@@ -154,30 +157,30 @@ export function VolunteerSection() {
 
         {/* Volunteer Benefits */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
-            <Heart className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-300" />
-            <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-300">
+          <div className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group">
+            <Heart className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-200" />
+            <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-200">
               Make a Difference
             </h3>
-            <p className="text-muted-foreground text-sm group-hover:text-white/90 transition-colors duration-300">
+            <p className="text-muted-foreground text-sm group-hover:text-white/90 transition-colors duration-200">
               Directly help newcomers and people in need achieve their goals and improve their lives.
             </p>
           </div>
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
-            <Users className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-300" />
-            <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-300">
+          <div className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group">
+            <Users className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-200" />
+            <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-200">
               Build Community
             </h3>
-            <p className="text-muted-foreground text-sm group-hover:text-white/90 transition-colors duration-300">
+            <p className="text-muted-foreground text-sm group-hover:text-white/90 transition-colors duration-200">
               Connect with like-minded individuals and expand your network.
             </p>
           </div>
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group">
-            <Zap className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-300" />
+          <div className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group">
+            <Zap className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-200" />
             <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-300">
               Gain Experience
             </h3>
-            <p className="text-muted-foreground text-sm group-hover:text-white/90 transition-colors duration-300">
+            <p className="text-muted-foreground text-sm group-hover:text-white/90 transition-colors duration-200">
               Develop new skills and gain valuable experience that benefits your career.
             </p>
           </div>
@@ -185,11 +188,11 @@ export function VolunteerSection() {
 
         {/* Available Positions */}
         <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Available Volunteer Positions</h3>
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <div className="grid md:grid-cols-2 gap-8 mb-8 items-stretch">
           {volunteerPositions.map((position) => (
             <div
               key={position.id}
-              className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group"
+              className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group"
             >
               <h4 className="font-serif font-bold text-lg mb-3 text-foreground group-hover:text-white transition-colors duration-300">
                 {position.title}
@@ -235,7 +238,7 @@ export function VolunteerSection() {
                   setShowForm(true)
                   setFormData((prev) => ({ ...prev, position: position.title }))
                 }}
-                className="w-full px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition font-semibold text-sm shadow-lg group-hover:bg-white group-hover:text-primary group-hover:shadow-xl"
+                className="w-full px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition font-semibold text-sm group-hover:bg-white group-hover:text-primary"
               >
                 Apply Now
               </button>
@@ -246,28 +249,19 @@ export function VolunteerSection() {
         {/* Volunteer Form Modal */}
         {showForm && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-white rounded-md p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
               <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Volunteer Application Form</h3>
 
               {submitStatus === "success" ? (
-                <div className="bg-accent/10 border border-accent rounded-lg p-6 text-center">
-                  <CheckCircle className="w-12 h-12 text-accent mx-auto mb-3" />
-                  <h3 className="font-serif font-bold text-lg text-accent mb-2">Thank you!</h3>
-                  <p className="text-muted-foreground">
-                    Your application has been submitted successfully. We'll get back to you soon.
-                  </p>
+                <div className="text-center">
+                  <SuccessMessage
+                    title="Thank you!"
+                    message="Your application has been submitted successfully. We'll get back to you soon."
+                  />
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  {submitStatus === "error" && (
-                    <div className="bg-destructive/10 border border-destructive rounded-lg p-4 flex gap-3">
-                      <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-                      <div>
-                        <h3 className="font-semibold text-destructive">Error</h3>
-                        <p className="text-sm text-destructive/80">{errorMessage}</p>
-                      </div>
-                    </div>
-                  )}
+                  {submitStatus === "error" && <ErrorMessage message={errorMessage} />}
                   <div>
                     <label className="block text-sm font-semibold text-foreground mb-2">Full Name</label>
                     <input
@@ -276,7 +270,7 @@ export function VolunteerSection() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                     />
                   </div>
 
@@ -289,7 +283,7 @@ export function VolunteerSection() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         disabled={isSubmitting}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                        className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                       />
                     </div>
                     <div>
@@ -299,7 +293,7 @@ export function VolunteerSection() {
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         disabled={isSubmitting}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                        className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                       />
                     </div>
                   </div>
@@ -310,7 +304,7 @@ export function VolunteerSection() {
                       value={formData.position}
                       onChange={(e) => setFormData({ ...formData, position: e.target.value })}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                     >
                       <option value="">Select a position</option>
                       {volunteerPositions.map((pos) => (
@@ -328,7 +322,7 @@ export function VolunteerSection() {
                       onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
                       rows={3}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                       placeholder="Tell us about your relevant experience and skills..."
                     />
                   </div>
@@ -340,27 +334,22 @@ export function VolunteerSection() {
                       onChange={(e) => setFormData({ ...formData, availability: e.target.value })}
                       rows={2}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                       placeholder="Describe your weekly availability..."
                     />
                   </div>
 
                   <div className="flex gap-4 pt-4">
-                    <button
+                    <LoadingButton
                       type="submit"
-                      disabled={isSubmitting}
-                      className="flex-1 px-6 py-3 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition font-semibold disabled:opacity-50 flex items-center justify-center gap-2"
+                      isLoading={isSubmitting}
+                      loadingText="Submitting..."
+                      className="flex-1"
+                      variant="default"
                     >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                          Submitting...
-                        </>
-                      ) : (
-                        "Submit Application"
-                      )}
-                    </button>
-                    <button
+                      Submit Application
+                    </LoadingButton>
+                    <Button
                       type="button"
                       onClick={() => {
                         setShowForm(false)
@@ -368,10 +357,11 @@ export function VolunteerSection() {
                         setErrorMessage("")
                       }}
                       disabled={isSubmitting}
-                      className="flex-1 px-6 py-3 border-2 border-border text-foreground rounded-lg hover:bg-muted transition font-semibold disabled:opacity-50"
+                      variant="outline"
+                      className="flex-1"
                     >
                       Cancel
-                    </button>
+                    </Button>
                   </div>
                 </form>
               )}

@@ -64,7 +64,7 @@ export default function TestFormPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
+      <div className="max-w-2xl mx-auto bg-white rounded-md border border-border p-8">
         <h1 className="text-2xl font-bold mb-6">Google Form Submission Test</h1>
         
         <div className="mb-6">
@@ -72,7 +72,7 @@ export default function TestFormPage() {
           <select
             value={formType}
             onChange={(e) => setFormType(e.target.value as "contact" | "volunteer")}
-            className="w-full px-4 py-2 border rounded-lg"
+            className="w-full px-4 py-2 border rounded-md"
           >
             <option value="contact">Contact Form</option>
             <option value="volunteer">Volunteer Form</option>
@@ -86,7 +86,7 @@ export default function TestFormPage() {
               type="text"
               value={currentFormData.name}
               onChange={(e) => setCurrentFormData({ ...currentFormData, name: e.target.value })}
-              className="w-full px-4 py-2 border rounded-lg"
+              className="w-full px-4 py-2 border rounded-md"
             />
           </div>
           
@@ -96,7 +96,7 @@ export default function TestFormPage() {
               type="email"
               value={currentFormData.email}
               onChange={(e) => setCurrentFormData({ ...currentFormData, email: e.target.value })}
-              className="w-full px-4 py-2 border rounded-lg"
+              className="w-full px-4 py-2 border rounded-md"
             />
           </div>
           
@@ -106,7 +106,7 @@ export default function TestFormPage() {
               type="tel"
               value={currentFormData.phone}
               onChange={(e) => setCurrentFormData({ ...currentFormData, phone: e.target.value })}
-              className="w-full px-4 py-2 border rounded-lg"
+              className="w-full px-4 py-2 border rounded-md"
             />
           </div>
           
@@ -118,7 +118,7 @@ export default function TestFormPage() {
                   type="text"
                   value={contactFormData.subject}
                   onChange={(e) => setContactFormData({ ...contactFormData, subject: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-lg"
+                  className="w-full px-4 py-2 border rounded-md"
                 />
               </div>
               <div>
@@ -126,7 +126,7 @@ export default function TestFormPage() {
                 <textarea
                   value={contactFormData.message}
                   onChange={(e) => setContactFormData({ ...contactFormData, message: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-lg"
+                  className="w-full px-4 py-2 border rounded-md"
                   rows={3}
                 />
               </div>
@@ -139,7 +139,7 @@ export default function TestFormPage() {
                   type="text"
                   value={volunteerFormData.position}
                   onChange={(e) => setVolunteerFormData({ ...volunteerFormData, position: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-lg"
+                  className="w-full px-4 py-2 border rounded-md"
                 />
               </div>
               <div>
@@ -147,7 +147,7 @@ export default function TestFormPage() {
                 <textarea
                   value={volunteerFormData.experience}
                   onChange={(e) => setVolunteerFormData({ ...volunteerFormData, experience: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-lg"
+                  className="w-full px-4 py-2 border rounded-md"
                   rows={3}
                 />
               </div>
@@ -157,7 +157,7 @@ export default function TestFormPage() {
                   type="text"
                   value={volunteerFormData.availability}
                   onChange={(e) => setVolunteerFormData({ ...volunteerFormData, availability: e.target.value })}
-                  className="w-full px-4 py-2 border rounded-lg"
+                  className="w-full px-4 py-2 border rounded-md"
                 />
               </div>
             </>
@@ -167,18 +167,18 @@ export default function TestFormPage() {
         <button
           onClick={handleTest}
           disabled={isSubmitting}
-          className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          className="w-full px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
         >
           {isSubmitting ? "Testing..." : "Test Submission"}
         </button>
 
         {result && (
-          <div className="mt-6 p-4 bg-gray-100 rounded-lg">
+          <div className="mt-6 p-4 bg-gray-100 rounded-md">
             <pre className="whitespace-pre-wrap text-sm font-mono">{result}</pre>
           </div>
         )}
 
-        <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+        <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
           <h3 className="font-semibold mb-2">🔍 Troubleshooting:</h3>
           <ul className="list-disc list-inside space-y-1 text-sm">
             <li>Open browser console (F12) to see detailed submission logs</li>

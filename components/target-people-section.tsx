@@ -2,7 +2,7 @@ import { Users, Accessibility, Globe, Heart } from "lucide-react"
 
 export function TargetPeopleSection() {
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Target People</h2>
@@ -13,8 +13,8 @@ export function TargetPeopleSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl p-8 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group text-center">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
+          <div className="bg-white/80 backdrop-blur-md rounded-md p-8 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group text-center">
             <div className="flex justify-center mb-6">
               <div className="text-primary group-hover:text-white transition-colors duration-300">
                 <Globe className="w-12 h-12" />
@@ -28,7 +28,7 @@ export function TargetPeopleSection() {
             </p>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl p-8 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group text-center">
+          <div className="bg-white/80 backdrop-blur-md rounded-md p-8 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group text-center">
             <div className="flex justify-center mb-6">
               <div className="text-primary group-hover:text-white transition-colors duration-300">
                 <Accessibility className="w-12 h-12" />
@@ -42,7 +42,7 @@ export function TargetPeopleSection() {
             </p>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl p-8 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group text-center">
+          <div className="bg-white/80 backdrop-blur-md rounded-md p-8 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group text-center">
             <div className="flex justify-center mb-6">
               <div className="text-primary group-hover:text-white transition-colors duration-300">
                 <Users className="w-12 h-12" />
@@ -56,7 +56,7 @@ export function TargetPeopleSection() {
             </p>
           </div>
 
-          <div className="bg-white/80 backdrop-blur-md rounded-2xl p-8 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group text-center">
+          <div className="bg-white/80 backdrop-blur-md rounded-md p-8 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group text-center">
             <div className="flex justify-center mb-6">
               <div className="text-primary group-hover:text-white transition-colors duration-300">
                 <Heart className="w-12 h-12" />

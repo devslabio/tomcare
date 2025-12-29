@@ -1,23 +1,22 @@
 "use client"
-
-import type React from "react"
-
 import { useState } from "react"
+import type React from "react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
-import { ChevronRight, Loader2, CheckCircle, AlertCircle } from "lucide-react"
+import { ChevronRight, CheckCircle } from "lucide-react"
 import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
-
-type RegistrationType = "recipient" | "applicant"
+import { ErrorMessage } from "@/components/ui/error-message"
+import { LoadingButton } from "@/components/ui/loading-button"
+import type { RegistrationType, RegistrationFormData, FormStatus } from "@/types/forms"
 
 export default function RegisterPage() {
   const [formType, setFormType] = useState<RegistrationType | null>(null)
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [submitStatus, setSubmitStatus] = useState<FormStatus>("idle")
   const [errorMessage, setErrorMessage] = useState("")
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<RegistrationFormData>({
     // Personal Info
     firstName: "",
     lastName: "",
@@ -169,7 +168,7 @@ export default function RegisterPage() {
                   setFormType("recipient")
                   setCurrentStep(1)
                 }}
-                className="bg-white rounded-xl p-8 border-2 border-border hover:border-primary transition text-left group"
+                className="bg-white rounded-md p-8 border-2 border-border hover:border-primary transition-colors duration-200 text-left group"
               >
                 <div className="mb-4 text-4xl">🤝</div>
                 <h2 className="text-2xl font-serif font-bold mb-3 text-foreground group-hover:text-primary transition">
@@ -191,7 +190,7 @@ export default function RegisterPage() {
                   setFormType("applicant")
                   setCurrentStep(1)
                 }}
-                className="bg-white rounded-xl p-8 border-2 border-border hover:border-accent transition text-left group"
+                className="bg-white rounded-md p-8 border-2 border-border hover:border-accent transition-colors duration-200 text-left group"
               >
                 <div className="mb-4 text-4xl">❤️</div>
                 <h2 className="text-2xl font-serif font-bold mb-3 text-foreground group-hover:text-accent transition">
@@ -222,7 +221,7 @@ export default function RegisterPage() {
         <Navigation />
         <main className="min-h-screen bg-muted flex items-center justify-center py-12">
           <div className="max-w-md w-full">
-            <div className="bg-white rounded-xl p-8 text-center">
+            <div className="bg-white rounded-md p-8 text-center">
               <CheckCircle className="w-16 h-16 text-accent mx-auto mb-4" />
               <h2 className="text-2xl font-serif font-bold mb-2 text-foreground">
                 {isRecipient ? "Registration Successful!" : "Application Submitted!"}
@@ -273,19 +272,15 @@ export default function RegisterPage() {
           </div>
 
           {submitStatus === "error" && (
-            <div className="mb-6 bg-destructive/10 border border-destructive rounded-xl p-4 flex gap-3">
-              <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-semibold text-destructive">Error</h3>
-                <p className="text-sm text-destructive/80">{errorMessage}</p>
-              </div>
+            <div className="mb-6">
+              <ErrorMessage message={errorMessage} />
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Step 1: Personal Information */}
             {currentStep === 1 && (
-              <div className="bg-white rounded-xl p-8 space-y-6">
+              <div className="bg-white rounded-md p-8 space-y-6">
                 <h2 className="text-2xl font-serif font-bold text-foreground">Personal Information</h2>
 
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -297,7 +292,7 @@ export default function RegisterPage() {
                       required
                       value={formData.firstName}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                   <div>
@@ -308,7 +303,7 @@ export default function RegisterPage() {
                       required
                       value={formData.lastName}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                 </div>
@@ -322,7 +317,7 @@ export default function RegisterPage() {
                       required
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                   <div>
@@ -333,7 +328,7 @@ export default function RegisterPage() {
                       required
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                 </div>
@@ -347,7 +342,7 @@ export default function RegisterPage() {
                       required
                       value={formData.dateOfBirth}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                   <div>
@@ -356,7 +351,7 @@ export default function RegisterPage() {
                       name="gender"
                       value={formData.gender}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     >
                       <option value="">Select</option>
                       <option value="male">Male</option>
@@ -373,7 +368,7 @@ export default function RegisterPage() {
                     name="language"
                     value={formData.language}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   >
                     <option value="">Select</option>
                     <option value="english">English</option>
@@ -388,7 +383,7 @@ export default function RegisterPage() {
 
             {/* Step 2: Address & Details */}
             {currentStep === 2 && (
-              <div className="bg-white rounded-xl p-8 space-y-6">
+              <div className="bg-white rounded-md p-8 space-y-6">
                 <h2 className="text-2xl font-serif font-bold text-foreground">
                   {isRecipient ? "Address & Situation" : "Contact Information"}
                 </h2>
@@ -401,7 +396,7 @@ export default function RegisterPage() {
                     required
                     value={formData.address}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
 
@@ -414,7 +409,7 @@ export default function RegisterPage() {
                       required
                       value={formData.city}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                   <div>
@@ -425,7 +420,7 @@ export default function RegisterPage() {
                       required
                       value={formData.province}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                   <div>
@@ -436,7 +431,7 @@ export default function RegisterPage() {
                       required
                       value={formData.postalCode}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                 </div>
@@ -451,7 +446,7 @@ export default function RegisterPage() {
                         {needsOptions.map((need) => (
                           <label
                             key={need}
-                            className="flex items-center gap-3 p-3 border border-border rounded-lg hover:bg-muted cursor-pointer"
+                            className="flex items-center gap-3 p-3 border border-border rounded-md hover:bg-muted cursor-pointer"
                           >
                             <input
                               type="checkbox"
@@ -475,7 +470,7 @@ export default function RegisterPage() {
                         value={formData.situation}
                         onChange={handleInputChange}
                         placeholder="Please describe your situation and what you're looking for help with..."
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                       />
                     </div>
                   </>
@@ -492,7 +487,7 @@ export default function RegisterPage() {
                       value={formData.experience}
                       onChange={handleInputChange}
                       placeholder="Tell us about your skills, experience, and why you want to volunteer..."
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
                 )}
@@ -501,10 +496,10 @@ export default function RegisterPage() {
 
             {/* Step 3: Confirmation */}
             {currentStep === 3 && (
-              <div className="bg-white rounded-xl p-8 space-y-6">
+              <div className="bg-white rounded-md p-8 space-y-6">
                 <h2 className="text-2xl font-serif font-bold text-foreground">Review & Confirm</h2>
 
-                <div className="bg-muted rounded-lg p-6 space-y-4">
+                <div className="bg-muted rounded-md p-6 space-y-4">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <p className="text-xs font-semibold text-muted-foreground">Name</p>
@@ -529,7 +524,7 @@ export default function RegisterPage() {
                   </div>
                 </div>
 
-                <label className="flex items-start gap-3 p-4 border border-border rounded-lg cursor-pointer hover:bg-muted">
+                <label className="flex items-start gap-3 p-4 border border-border rounded-md cursor-pointer hover:bg-muted">
                   <input
                     type="checkbox"
                     name="agreedToTerms"
@@ -554,7 +549,7 @@ export default function RegisterPage() {
               <button
                 type="button"
                 onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}
-                className={`px-6 py-3 border-2 border-border text-foreground rounded-lg hover:bg-muted transition font-semibold ${
+                className={`px-6 py-3 border-2 border-border text-foreground rounded-md hover:bg-muted transition font-semibold ${
                   currentStep === 1 ? "opacity-50 cursor-not-allowed" : ""
                 }`}
                 disabled={currentStep === 1 || isSubmitting}
@@ -566,28 +561,21 @@ export default function RegisterPage() {
                 <button
                   type="button"
                   onClick={() => setCurrentStep(currentStep + 1)}
-                  className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition font-semibold disabled:opacity-50"
+                  className="px-6 py-3 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition font-semibold disabled:opacity-50"
                   disabled={isSubmitting}
                 >
                   Next
                 </button>
               ) : (
-                <button
+                <LoadingButton
                   type="submit"
+                  isLoading={isSubmitting}
+                  loadingText="Submitting..."
                   disabled={!formData.agreedToTerms || isSubmitting}
-                  className={`px-6 py-3 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition font-semibold flex items-center gap-2 ${
-                    !formData.agreedToTerms || isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                  }`}
+                  variant="default"
                 >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Submitting...
-                    </>
-                  ) : (
-                    "Complete Registration"
-                  )}
-                </button>
+                  Complete Registration
+                </LoadingButton>
               )}
             </div>
           </form>

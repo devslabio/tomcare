@@ -12,11 +12,11 @@ export function AboutSection() {
   ]
 
   return (
-    <section id="about" className="py-16 md:py-24 bg-white">
+    <section id="about" className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-foreground">About TOMCARE Foundation</h2>
+            <h2 className="mb-6">About TOMCARE Foundation</h2>
 
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
               The Tomcare Foundation is a non-profit organization founded in 2024. The idea for the foundation came after
@@ -41,7 +41,7 @@ export function AboutSection() {
             </div>
           </div>
 
-          <div className="bg-muted rounded-xl p-8 space-y-6">
+          <div className="bg-muted rounded-md p-8 content-spacing">
             <div className="border-l-4 border-accent pl-6">
               <h3 className="font-serif font-bold text-xl mb-2 text-foreground">Our Vision</h3>
               <p className="text-muted-foreground">
@@ -59,7 +59,7 @@ export function AboutSection() {
               </p>
             </div>
 
-            <div className="bg-primary/5 rounded-lg p-6 border border-primary/20">
+            <div className="bg-primary/5 rounded-md p-6 border border-primary/20">
               <p className="text-primary font-semibold">
                 "Service to others is the rent you pay for your room here on earth."
               </p>

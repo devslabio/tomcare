@@ -24,17 +24,17 @@ export function FeaturesSection() {
   ]
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">Charity With Difference</h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 items-stretch">
           {features.map((feature, index) => (
             <div
               key={index}
-              className="text-center bg-white/80 backdrop-blur-md rounded-2xl p-8 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group"
+              className="text-center bg-white/80 backdrop-blur-md rounded-md p-8 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group"
             >
               <div className="flex justify-center mb-6">
                 <div className="w-24 h-24 bg-primary/10 text-primary border-2 border-primary/30 rounded-full flex items-center justify-center group-hover:bg-white/20 group-hover:text-white group-hover:border-white/30 transition-all duration-300">
@@ -49,7 +49,7 @@ export function FeaturesSection() {
               </p>
               <Link
                 href={feature.link}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition font-semibold shadow-lg group-hover:bg-white group-hover:text-primary group-hover:shadow-xl"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors duration-200 font-semibold group-hover:bg-white group-hover:text-primary"
               >
                 Read More
               </Link>

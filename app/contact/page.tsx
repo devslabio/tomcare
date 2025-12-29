@@ -1,15 +1,20 @@
 "use client"
-
-import type React from "react"
-
 import { useState } from "react"
+import type React from "react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
-import { Phone, Mail, MapPin, Clock, Loader2, CheckCircle, AlertCircle } from "lucide-react"
+import { Phone, Mail, MapPin, Clock } from "lucide-react"
 import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
+import { ErrorMessage } from "@/components/ui/error-message"
+import { SuccessMessage } from "@/components/ui/success-message"
+import { LoadingButton } from "@/components/ui/loading-button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
+import type { ContactFormData, FormStatus } from "@/types/forms"
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
     phone: "",
@@ -18,7 +23,7 @@ export default function ContactPage() {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [submitStatus, setSubmitStatus] = useState<FormStatus>("idle")
   const [errorMessage, setErrorMessage] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -83,7 +88,7 @@ export default function ContactPage() {
             {/* Contact Information */}
             <div className="lg:col-span-1 space-y-6">
               {/* Phone */}
-              <div className="bg-white rounded-xl p-6 border border-border">
+              <div className="bg-white rounded-md p-6 border border-border">
                 <div className="flex items-center gap-4 mb-3">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                     <Phone className="w-6 h-6 text-primary" />
@@ -97,7 +102,7 @@ export default function ContactPage() {
               </div>
 
               {/* Email */}
-              <div className="bg-white rounded-xl p-6 border border-border">
+              <div className="bg-white rounded-md p-6 border border-border">
                 <div className="flex items-center gap-4 mb-3">
                   <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center">
                     <Mail className="w-6 h-6 text-accent" />
@@ -114,7 +119,7 @@ export default function ContactPage() {
               </div>
 
               {/* Address */}
-              <div className="bg-white rounded-xl p-6 border border-border">
+              <div className="bg-white rounded-md p-6 border border-border">
                 <div className="flex items-center gap-4 mb-3">
                   <div className="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center">
                     <MapPin className="w-6 h-6 text-secondary" />
@@ -125,7 +130,7 @@ export default function ContactPage() {
               </div>
 
               {/* Hours */}
-              <div className="bg-white rounded-xl p-6 border border-border">
+              <div className="bg-white rounded-md p-6 border border-border">
                 <div className="flex items-center gap-4 mb-3">
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                     <Clock className="w-6 h-6 text-primary" />
@@ -142,77 +147,72 @@ export default function ContactPage() {
             </div>
 
             {/* Contact Form */}
-            <div className="lg:col-span-2 bg-white rounded-xl p-8 border border-border">
+            <div className="lg:col-span-2 bg-white rounded-md p-8 border border-border">
               <h2 className="text-2xl font-serif font-bold mb-6 text-foreground">Send us a Message</h2>
 
               {submitStatus === "success" ? (
-                <div className="bg-accent/10 border border-accent rounded-lg p-6 text-center">
-                  <CheckCircle className="w-12 h-12 text-accent mx-auto mb-3" />
-                  <h3 className="font-serif font-bold text-lg text-accent mb-2">Thank you!</h3>
-                  <p className="text-muted-foreground">
-                    We've received your message and will get back to you as soon as possible.
-                  </p>
+                <div className="text-center">
+                  <SuccessMessage
+                    title="Thank you!"
+                    message="We've received your message and will get back to you as soon as possible."
+                  />
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  {submitStatus === "error" && (
-                    <div className="bg-destructive/10 border border-destructive rounded-lg p-4 flex gap-3">
-                      <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-                      <div>
-                        <h3 className="font-semibold text-destructive">Error</h3>
-                        <p className="text-sm text-destructive/80">{errorMessage}</p>
-                      </div>
-                    </div>
-                  )}
+                  {submitStatus === "error" && <ErrorMessage message={errorMessage} />}
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold text-foreground mb-2">Name</label>
-                      <input
+                      <Label htmlFor="name">Name</Label>
+                      <Input
+                        id="name"
                         type="text"
                         name="name"
                         required
                         value={formData.name}
                         onChange={handleInputChange}
                         disabled={isSubmitting}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                        className="mt-2"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-foreground mb-2">Email</label>
-                      <input
+                      <Label htmlFor="email">Email</Label>
+                      <Input
+                        id="email"
                         type="email"
                         name="email"
                         required
                         value={formData.email}
                         onChange={handleInputChange}
                         disabled={isSubmitting}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                        className="mt-2"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">Phone</label>
-                    <input
+                    <Label htmlFor="phone">Phone</Label>
+                    <Input
+                      id="phone"
                       type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      className="mt-2"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">Subject</label>
+                    <Label htmlFor="subject">Subject</Label>
                     <select
+                      id="subject"
                       name="subject"
                       required
                       value={formData.subject}
                       onChange={handleInputChange}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      className="mt-2 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       <option value="">Select a subject</option>
                       <option value="program-inquiry">Program Inquiry</option>
@@ -225,33 +225,29 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">Message</label>
-                    <textarea
+                    <Label htmlFor="message">Message</Label>
+                    <Textarea
+                      id="message"
                       name="message"
                       required
                       rows={5}
                       value={formData.message}
                       onChange={handleInputChange}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      className="mt-2"
                       placeholder="How can we help you?"
                     />
                   </div>
 
-                  <button
+                  <LoadingButton
                     type="submit"
-                    disabled={isSubmitting}
-                    className="w-full px-6 py-3 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition font-semibold flex items-center justify-center gap-2 disabled:opacity-50"
+                    isLoading={isSubmitting}
+                    loadingText="Sending..."
+                    className="w-full"
+                    variant="default"
                   >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      "Send Message"
-                    )}
-                  </button>
+                    Send Message
+                  </LoadingButton>
                 </form>
               )}
             </div>

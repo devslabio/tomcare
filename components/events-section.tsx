@@ -60,12 +60,12 @@ export function EventsSection() {
   }
 
   return (
-    <section className="py-16 md:py-24 bg-muted">
+    <section className="section-padding bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Image Box */}
           <div className="relative">
-            <div className="aspect-[4/3] bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center border-2 border-white/20 shadow-xl">
+            <div className="aspect-[4/3] bg-gradient-to-br from-primary to-primary/80 rounded-md flex items-center justify-center border-2 border-white/20">
               <Calendar className="w-32 h-32 text-white/30" />
             </div>
           </div>
@@ -81,9 +81,9 @@ export function EventsSection() {
 
             {/* Event Carousel */}
             <div className="relative">
-              <div className="bg-gradient-to-br from-primary to-primary/80 rounded-2xl p-6 border-2 border-white/20 shadow-xl">
+              <div className="bg-gradient-to-br from-primary to-primary/80 rounded-md p-6 border-2 border-white/20">
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="bg-white text-primary rounded-lg p-4 text-center min-w-[80px] shadow-lg">
+                  <div className="bg-white text-primary rounded-md p-4 text-center min-w-[80px]">
                     <div className="text-3xl font-bold">{events[currentIndex].date.day}</div>
                     <div className="text-sm font-semibold">{events[currentIndex].date.month}</div>
                   </div>
@@ -104,7 +104,7 @@ export function EventsSection() {
               <div className="flex justify-between items-center mt-4">
                 <button
                   onClick={prevEvent}
-                  className="px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition font-semibold shadow-lg"
+                  className="px-4 py-2 bg-white text-primary rounded-md hover:bg-white/90 transition-colors duration-200 font-semibold"
                 >
                   Previous
                 </button>
@@ -121,7 +121,7 @@ export function EventsSection() {
                 </div>
                 <button
                   onClick={nextEvent}
-                  className="px-4 py-2 bg-white text-primary rounded-lg hover:bg-white/90 transition font-semibold shadow-lg"
+                  className="px-4 py-2 bg-white text-primary rounded-md hover:bg-white/90 transition-colors duration-200 font-semibold"
                 >
                   Next
                 </button>

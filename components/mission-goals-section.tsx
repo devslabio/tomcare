@@ -2,7 +2,7 @@ import { Target, Heart, Users } from "lucide-react"
 
 export function MissionGoalsSection() {
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <div className="inline-block mb-4">
@@ -11,7 +11,7 @@ export function MissionGoalsSection() {
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">Our Mission & Goals</h2>
         </div>
 
-        <div className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl p-8 md:p-12 border border-primary/20">
+        <div className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-md p-8 md:p-12 border border-primary/20">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <div className="flex items-center gap-3 mb-6">
@@ -27,7 +27,7 @@ export function MissionGoalsSection() {
                 transform lives and build stronger communities for newcomers and those in need.
               </p>
             </div>
-            <div className="bg-white rounded-xl p-8 border border-border">
+            <div className="bg-white rounded-md p-8 border border-border">
               <h4 className="font-serif font-bold text-xl mb-6 text-foreground">Our Objectives & Goals</h4>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3">

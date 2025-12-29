@@ -41,7 +41,7 @@ const recipientGroups: RecipientGroup[] = [
 
 export function DonationRecipientsSection() {
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">
@@ -53,11 +53,11 @@ export function DonationRecipientsSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {recipientGroups.map((group, index) => (
             <div
               key={index}
-              className="bg-white/80 backdrop-blur-md rounded-2xl p-8 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group"
+              className="bg-white/80 backdrop-blur-md rounded-md p-8 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group"
             >
               <div className="mb-6 text-primary group-hover:text-white transition-colors duration-300">
                 {group.icon}
@@ -72,7 +72,7 @@ export function DonationRecipientsSection() {
           ))}
         </div>
 
-        <div className="mt-12 bg-gradient-to-br from-primary to-primary/90 rounded-2xl p-8 border-2 border-white/20 text-center shadow-xl">
+        <div className="mt-12 bg-gradient-to-br from-primary to-primary/90 rounded-md p-8 border-2 border-white/20 text-center">
           <h3 className="font-serif font-bold text-2xl mb-4 text-white">Your Impact</h3>
           <p className="text-white/90 max-w-2xl mx-auto">
             When you donate to TOMCARE Foundation, you're directly helping these vulnerable groups access essential

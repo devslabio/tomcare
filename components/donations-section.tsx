@@ -48,7 +48,7 @@ export function DonationsSection() {
   }
 
   return (
-    <section id="donate" className="py-16 md:py-24 bg-muted">
+    <section id="donate" className="section-padding bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -63,7 +63,7 @@ export function DonationsSection() {
         <div className="flex gap-4 justify-center mb-12">
           <button
             onClick={() => setDonationType("general")}
-            className={`px-6 py-3 rounded-lg font-semibold transition ${
+            className={`px-6 py-3 rounded-md font-semibold transition ${
               donationType === "general"
                 ? "bg-primary text-primary-foreground"
                 : "bg-white text-foreground border border-border hover:bg-white/80"
@@ -73,7 +73,7 @@ export function DonationsSection() {
           </button>
           <button
             onClick={() => setDonationType("vehicle")}
-            className={`px-6 py-3 rounded-lg font-semibold transition ${
+            className={`px-6 py-3 rounded-md font-semibold transition ${
               donationType === "vehicle"
                 ? "bg-primary text-primary-foreground"
                 : "bg-white text-foreground border border-border hover:bg-white/80"
@@ -86,14 +86,14 @@ export function DonationsSection() {
         {donationType === "general" ? (
           <>
             {/* Quick Donation Options */}
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="grid md:grid-cols-3 gap-8 mb-8 items-stretch">
               {donationOptions.map((option) => (
                 <button
                   key={option.id}
                   onClick={() => setSelectedOption(option.id)}
-                  className={`p-6 rounded-xl transition-all ${
+                  className={`p-6 rounded-md transition-all ${
                     selectedOption === option.id
-                      ? "bg-primary text-primary-foreground shadow-lg scale-105"
+                      ? "bg-primary text-primary-foreground scale-105"
                       : "bg-white border-2 border-border text-foreground hover:border-primary"
                   }`}
                 >
@@ -110,7 +110,7 @@ export function DonationsSection() {
             </div>
 
             {/* Custom Amount */}
-            <div className="bg-white rounded-xl p-8 mb-8">
+            <div className="bg-white rounded-md p-8 mb-8">
               <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Custom Amount</h3>
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1 relative">
@@ -120,7 +120,7 @@ export function DonationsSection() {
                     placeholder="Enter custom amount"
                     value={customAmount}
                     onChange={(e) => setCustomAmount(e.target.value)}
-                    className="w-full pl-8 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                    className="w-full pl-8 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
                   />
                 </div>
                 <button
@@ -129,7 +129,7 @@ export function DonationsSection() {
                       handleDonate(Number.parseFloat(customAmount))
                     }
                   }}
-                  className="px-8 py-3 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition font-semibold whitespace-nowrap"
+                  className="px-8 py-3 bg-accent text-accent-foreground rounded-md hover:opacity-90 transition font-semibold whitespace-nowrap"
                 >
                   Donate Now
                 </button>
@@ -137,20 +137,20 @@ export function DonationsSection() {
             </div>
 
             {/* Payment Methods */}
-            <div className="bg-white rounded-xl p-8">
+            <div className="bg-white rounded-md p-8">
               <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Secure Donation</h3>
               <p className="text-muted-foreground mb-6">
                 Your donation is secure and processed through trusted payment gateways. All donations are
                 tax-deductible.
               </p>
               <div className="grid sm:grid-cols-3 gap-4">
-                <button className="border-2 border-border rounded-lg p-4 hover:border-primary transition font-semibold text-foreground">
+                <button className="border-2 border-border rounded-md p-4 hover:border-primary transition font-semibold text-foreground">
                   Credit Card
                 </button>
-                <button className="border-2 border-border rounded-lg p-4 hover:border-primary transition font-semibold text-foreground">
+                <button className="border-2 border-border rounded-md p-4 hover:border-primary transition font-semibold text-foreground">
                   PayPal
                 </button>
-                <button className="border-2 border-border rounded-lg p-4 hover:border-primary transition font-semibold text-foreground">
+                <button className="border-2 border-border rounded-md p-4 hover:border-primary transition font-semibold text-foreground">
                   Bank Transfer
                 </button>
               </div>
@@ -158,7 +158,7 @@ export function DonationsSection() {
           </>
         ) : (
           // Vehicle Donation
-          <div className="bg-white rounded-xl p-8">
+          <div className="bg-white rounded-md p-8">
             <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Donate Your Car</h3>
             <p className="text-muted-foreground mb-8">
               Donating a car is a wonderful way to support our mission. We accept cars, trucks, motorcycles, and other
@@ -169,31 +169,31 @@ export function DonationsSection() {
               <input
                 type="text"
                 placeholder="Your Name"
-                className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                className="w-full px-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
               />
               <input
                 type="email"
                 placeholder="Your Email"
-                className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                className="w-full px-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
               />
               <input
                 type="tel"
                 placeholder="Your Phone"
-                className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                className="w-full px-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
               />
               <input
                 type="text"
                 placeholder="Vehicle Make & Model"
-                className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                className="w-full px-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
               />
               <textarea
                 placeholder="Additional Information"
                 rows={4}
-                className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                className="w-full px-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
               />
               <button
                 type="submit"
-                className="w-full px-6 py-3 bg-accent text-accent-foreground rounded-lg hover:opacity-90 transition font-semibold"
+                className="w-full px-6 py-3 bg-accent text-accent-foreground rounded-md hover:opacity-90 transition font-semibold"
               >
                 Submit Vehicle Donation
               </button>

@@ -39,7 +39,7 @@ export function ObjectivesSection() {
   ]
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Objectives & Goals</h2>
@@ -49,11 +49,11 @@ export function ObjectivesSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {objectives.map((objective, index) => (
             <div
               key={index}
-              className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group"
+              className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group"
             >
               <div className="mb-4 text-primary group-hover:text-white transition-colors duration-300">
                 {objective.icon}
@@ -68,7 +68,7 @@ export function ObjectivesSection() {
           ))}
         </div>
 
-        <div className="mt-12 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl p-8 border border-primary/20">
+        <div className="mt-12 bg-gradient-to-br from-primary/10 to-accent/10 rounded-md p-8 border border-primary/20">
           <p className="text-center text-muted-foreground">
             This NGO is important because it helps people in need to be helped.
           </p>

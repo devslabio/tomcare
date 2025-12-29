@@ -77,13 +77,13 @@ export function CausesSection() {
   return (
     <>
       {/* Featured Cause Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-primary via-primary to-primary/90 relative overflow-hidden">
+      <section className="section-padding bg-gradient-to-br from-primary via-primary to-primary/90 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Image Box */}
             <div className="relative">
-              <div className="bg-white rounded-xl p-4 shadow-lg">
-                <div className="aspect-[4/3] bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center">
+              <div className="bg-white rounded-md p-4 border border-border">
+                <div className="aspect-[4/3] bg-gradient-to-br from-primary/20 to-accent/20 rounded-md flex items-center justify-center">
                   <Heart className="w-24 h-24 text-primary/30" />
                 </div>
               </div>
@@ -119,12 +119,12 @@ export function CausesSection() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="#donate"
-                  className="inline-flex items-center justify-center gap-2 bg-white text-primary px-8 py-4 rounded-lg hover:bg-white/90 transition font-semibold shadow-lg"
+                  className="inline-flex items-center justify-center gap-2 bg-white text-primary px-8 py-4 rounded-md hover:bg-white/90 transition-colors duration-200 font-semibold"
                 >
                   <Heart className="w-5 h-5" />
                   Donate Now
                 </Link>
-                <button className="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-4 rounded-lg hover:bg-white/10 transition font-semibold">
+                <button className="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-4 rounded-md hover:bg-white/10 transition font-semibold">
                   <Play className="w-5 h-5" />
                   Watch Video
                 </button>

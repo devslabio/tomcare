@@ -80,7 +80,7 @@ export function SearchContent() {
   return (
     <>
       {/* Search Box */}
-      <div className="bg-white rounded-xl p-6 mb-8 shadow-sm">
+      <div className="bg-white rounded-md p-6 mb-8 border border-border">
         <div className="flex gap-2">
           <div className="flex-1 relative">
             <Search className="absolute left-4 top-3 w-5 h-5 text-muted-foreground" />
@@ -89,10 +89,10 @@ export function SearchContent() {
               placeholder="Search programs by name or keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full pl-12 pr-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
-          <button className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:opacity-90 transition font-semibold">
+          <button className="px-6 py-3 bg-primary text-primary-foreground rounded-md hover:opacity-90 transition font-semibold">
             Search
           </button>
         </div>
@@ -106,7 +106,7 @@ export function SearchContent() {
             <button
               key={category}
               onClick={() => setFilterCategory(category)}
-              className={`px-4 py-2 rounded-lg font-medium transition ${
+              className={`px-4 py-2 rounded-md font-medium transition ${
                 filterCategory === category
                   ? "bg-primary text-primary-foreground"
                   : "bg-white border border-border text-foreground hover:border-primary"
@@ -126,7 +126,7 @@ export function SearchContent() {
               Found {filtered.length} program{filtered.length !== 1 ? "s" : ""}
             </p>
             {filtered.map((program) => (
-              <div key={program.id} className="bg-white rounded-xl p-6 border border-border hover:shadow-md transition">
+              <div key={program.id} className="bg-white rounded-md p-6 border border-border hover:border-primary transition-colors duration-200">
                 <div className="flex justify-between items-start mb-3">
                   <h3 className="text-xl font-serif font-bold text-foreground">{program.name}</h3>
                   <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-semibold rounded-full">
@@ -147,14 +147,14 @@ export function SearchContent() {
                   </div>
                 </div>
 
-                <button className="mt-4 px-4 py-2 border-2 border-primary text-primary rounded-lg hover:bg-primary/5 transition font-semibold text-sm">
+                <button className="mt-4 px-4 py-2 border-2 border-primary text-primary rounded-md hover:bg-primary/5 transition font-semibold text-sm">
                   Learn More
                 </button>
               </div>
             ))}
           </>
         ) : (
-          <div className="bg-white rounded-xl p-12 text-center">
+          <div className="bg-white rounded-md p-12 text-center">
             <Search className="w-16 h-16 text-muted-foreground mx-auto mb-4 opacity-30" />
             <h3 className="text-xl font-serif font-bold text-foreground mb-2">No programs found</h3>
             <p className="text-muted-foreground">

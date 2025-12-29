@@ -80,7 +80,7 @@ export function TestimonialsSection() {
   }, [isAutoPlaying])
 
   const TestimonialCard = ({ testimonial, index, currentIndex, setIndex }: any) => (
-    <div className="bg-white rounded-2xl p-8 md:p-12 shadow-lg border border-border">
+    <div className="bg-white rounded-md p-8 md:p-12 border border-border">
       <div className="flex flex-col md:flex-row gap-8 items-center">
         <div className="flex-shrink-0">
           <div className="w-32 h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full flex items-center justify-center">
@@ -131,7 +131,7 @@ export function TestimonialsSection() {
   )
 
   return (
-    <section id="testimonials" className="py-16 md:py-24 bg-muted relative overflow-hidden">
+    <section id="testimonials" className="section-padding bg-muted relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Doctor Testimonials */}
         <div className="mb-16">

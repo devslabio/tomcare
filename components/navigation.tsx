@@ -1,8 +1,7 @@
 "use client"
-
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { useState } from "react"
 import { Menu, X, Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
 import { DonateButton } from "@/components/donate-button"
 
@@ -10,7 +9,7 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
+    <header className="sticky top-0 z-50 bg-white border-b border-border">
       {/* Top Bar */}
       <div className="bg-primary text-primary-foreground py-2 text-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,7 +67,7 @@ export function Navigation() {
             </Link>
             <Link
               href="/register"
-              className="bg-accent text-accent-foreground px-6 py-2 rounded-lg hover:opacity-90 transition font-medium"
+              className="bg-accent text-accent-foreground px-6 py-2 rounded-md hover:opacity-90 transition font-medium"
             >
               Register
             </Link>

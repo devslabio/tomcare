@@ -97,7 +97,7 @@ const programs: Program[] = [
 
 export function ProgramsSection() {
   return (
-    <section id="programs" className="py-16 md:py-24 bg-white">
+    <section id="programs" className="section-padding bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -109,11 +109,11 @@ export function ProgramsSection() {
         </div>
 
         {/* Programs Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
           {programs.map((program, index) => (
             <div
               key={index}
-              className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group"
+              className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group"
             >
               <div className="mb-4 text-primary group-hover:text-white transition-colors duration-300">
                 {program.icon}
@@ -132,20 +132,20 @@ export function ProgramsSection() {
         </div>
 
         {/* Schedule Section */}
-        <div className="mt-16 bg-gradient-to-br from-primary to-primary/90 rounded-2xl p-8 border-2 border-white/20 shadow-xl">
+        <div className="mt-16 bg-gradient-to-br from-primary to-primary/90 rounded-md p-8 border-2 border-white/20">
           <h3 className="font-serif font-bold text-2xl mb-6 text-white">Donation Days Schedule</h3>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border-2 border-white/20">
+            <div className="bg-white/10 backdrop-blur-sm rounded-md p-6 border-2 border-white/20">
               <h4 className="font-semibold text-lg mb-2 text-white">Monday - Wednesday</h4>
               <p className="text-white/90 mb-2">9:00 AM - 5:00 PM</p>
               <p className="text-sm text-white/80">General donations and support services</p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border-2 border-white/20">
+            <div className="bg-white/10 backdrop-blur-sm rounded-md p-6 border-2 border-white/20">
               <h4 className="font-semibold text-lg mb-2 text-white">Thursday</h4>
               <p className="text-white/90 mb-2">10:00 AM - 6:00 PM</p>
               <p className="text-sm text-white/80">Special extended hours for working individuals</p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border-2 border-white/20">
+            <div className="bg-white/10 backdrop-blur-sm rounded-md p-6 border-2 border-white/20">
               <h4 className="font-semibold text-lg mb-2 text-white">Saturday</h4>
               <p className="text-white/90 mb-2">10:00 AM - 3:00 PM</p>
               <p className="text-sm text-white/80">Weekend community events and activities</p>
@@ -154,14 +154,14 @@ export function ProgramsSection() {
         </div>
 
         {/* Recognition Section */}
-        <div className="mt-12 bg-gradient-to-br from-primary to-primary/80 rounded-2xl p-8 border-2 border-white/20 shadow-xl">
+        <div className="mt-12 bg-gradient-to-br from-primary to-primary/80 rounded-md p-8 border-2 border-white/20">
           <h3 className="font-serif font-bold text-2xl mb-4 text-white">Certificate of Recognition</h3>
           <p className="text-white/90 mb-6">
             All donors receive an official Certificate of Recognition acknowledging their generous contribution to
             TOMCARE Foundation. Your name will be featured on our website and in our annual report (unless you prefer
             anonymity).
           </p>
-          <button className="px-6 py-3 bg-white text-primary rounded-lg hover:bg-white/90 transition font-semibold shadow-lg">
+          <button className="px-6 py-3 bg-white text-primary rounded-md hover:bg-white/90 transition-colors duration-200 font-semibold">
             Learn More About Recognition
           </button>
         </div>

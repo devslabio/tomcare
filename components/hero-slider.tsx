@@ -126,14 +126,14 @@ export function HeroSlider() {
                     <div className="flex flex-col sm:flex-row gap-4">
                       <Link
                         href={slide.button1.link}
-                        className="inline-flex items-center justify-center gap-2 bg-accent text-accent-foreground px-8 py-4 rounded-lg hover:opacity-90 transition font-semibold text-lg"
+                        className="inline-flex items-center justify-center gap-2 bg-accent text-accent-foreground px-8 py-4 rounded-md hover:opacity-90 transition font-semibold text-lg"
                       >
                         <CheckCircle className="w-5 h-5" />
                         {slide.button1.text}
                       </Link>
                       <Link
                         href={slide.button2.link}
-                        className="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-4 rounded-lg hover:bg-white/10 transition font-semibold text-lg"
+                        className="inline-flex items-center justify-center gap-2 border-2 border-white text-white px-8 py-4 rounded-md hover:bg-white/10 transition font-semibold text-lg"
                       >
                         <CheckCircle className="w-5 h-5" />
                         {slide.button2.text}

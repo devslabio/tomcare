@@ -92,7 +92,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div
-        className="bg-white rounded-xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+        className="bg-white rounded-md p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-border"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-6">
@@ -119,7 +119,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
             {submitStatus === "error" && (
-              <div className="bg-destructive/10 border border-destructive rounded-lg p-4">
+              <div className="bg-destructive/10 border border-destructive rounded-md p-4">
                 <p className="text-sm text-destructive">{errorMessage}</p>
               </div>
             )}
@@ -134,7 +134,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
                   onClick={() => {
                     setFormData({ ...formData, amount: amount.toString(), customAmount: "" })
                   }}
-                  className={`px-4 py-3 rounded-lg font-semibold transition ${
+                  className={`px-4 py-3 rounded-md font-semibold transition ${
                     formData.amount === amount.toString()
                       ? "bg-primary text-white"
                       : "bg-muted text-foreground hover:bg-primary/10"
@@ -157,7 +157,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
                     setFormData({ ...formData, customAmount: e.target.value, amount: "" })
                   }}
                   placeholder="Enter amount"
-                  className="w-full pl-8 pr-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full pl-8 pr-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
             </div>
@@ -170,7 +170,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
               value={formData.cause}
               onChange={(e) => setFormData({ ...formData, cause: e.target.value })}
               required
-              className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white"
+              className="w-full px-4 py-3 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-white"
             >
               <option value="">Select a cause</option>
               {causes.map((cause) => (
@@ -190,7 +190,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
                   key={freq.value}
                   type="button"
                   onClick={() => setFormData({ ...formData, frequency: freq.value })}
-                  className={`px-4 py-3 rounded-lg font-semibold transition ${
+                  className={`px-4 py-3 rounded-md font-semibold transition ${
                     formData.frequency === freq.value
                       ? "bg-primary text-white"
                       : "bg-muted text-foreground hover:bg-primary/10"
@@ -207,7 +207,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
               <button
                 type="submit"
                 disabled={isSubmitting || !formData.cause || (!formData.amount && !formData.customAmount)}
-                className="flex-1 px-6 py-4 bg-primary text-white rounded-lg hover:bg-primary/90 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="flex-1 px-6 py-4 bg-primary text-white rounded-md hover:bg-primary/90 transition font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <>
@@ -225,7 +225,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
                 type="button"
                 onClick={onClose}
                 disabled={isSubmitting}
-                className="px-6 py-4 border-2 border-border text-foreground rounded-lg hover:bg-muted transition font-semibold disabled:opacity-50"
+                className="px-6 py-4 border-2 border-border text-foreground rounded-md hover:bg-muted transition font-semibold disabled:opacity-50"
               >
                 Cancel
               </button>
@@ -244,7 +244,7 @@ export function DonateButton() {
     <>
       <button
         onClick={() => setIsModalOpen(true)}
-        className="relative inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-2.5 rounded-lg hover:opacity-90 transition-all font-semibold shadow-lg overflow-hidden group hover:shadow-xl hover:scale-105"
+        className="relative inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-2.5 rounded-md hover:opacity-90 transition-all font-semibold overflow-hidden group hover:scale-105"
       >
         <span className="relative z-10 flex items-center gap-2">
           <Heart className="w-4 h-4 animate-pulse" />

@@ -31,7 +31,7 @@ export function HeroSection() {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                href="#donate"
+                href="/programs#donate"
                 className="inline-flex items-center justify-center gap-2 bg-accent text-accent-foreground px-8 py-4 rounded-md hover:opacity-90 transition-colors duration-200 font-semibold text-lg"
               >
                 Donate Now

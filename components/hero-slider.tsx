@@ -21,7 +21,7 @@ const slides: Slide[] = [
     title: "Every Good\nAct Is A Charity",
     description: "Supporting newcomers to Canada and those in need with essential services, dignity, and hope.",
     button1: { text: "how we help", link: "/about" },
-    button2: { text: "support us", link: "#donate" },
+    button2: { text: "support us", link: "/programs#donate" },
   },
   {
     id: 2,
@@ -29,7 +29,7 @@ const slides: Slide[] = [
     title: "Building Stronger\nCommunities Together",
     description: "Together, we create stronger communities through compassion, support, and meaningful action.",
     button1: { text: "how we help", link: "/about" },
-    button2: { text: "support us", link: "#donate" },
+    button2: { text: "support us", link: "/programs#donate" },
   },
   {
     id: 3,
@@ -37,7 +37,7 @@ const slides: Slide[] = [
     title: "Empowering Lives\nThrough Service",
     description: "Every contribution makes a difference in helping newcomers integrate and thrive in their new home.",
     button1: { text: "how we help", link: "/about" },
-    button2: { text: "support us", link: "#donate" },
+    button2: { text: "support us", link: "/programs#donate" },
   },
 ]
 

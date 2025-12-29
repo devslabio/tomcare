@@ -144,7 +144,7 @@ export function HeroSlider() {
                   {/* Hero Image */}
                   <div className="hidden md:flex items-center justify-center">
                     <div className="relative w-full">
-                      <div className="relative w-full h-[420px] md:h-[490px] rounded-3xl overflow-hidden opacity-90">
+                      <div className="relative w-full h-[336px] md:h-[392px] rounded-3xl overflow-hidden opacity-90">
                         <img
                           src="/hero.png"
                           alt="TOMCARE Foundation - Partnership and Connection"

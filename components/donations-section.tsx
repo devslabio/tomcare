@@ -1,9 +1,10 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
+import type React from "react"
 import { Heart, Zap, Award } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
 
 interface DonationOption {
   id: string
@@ -61,26 +62,20 @@ export function DonationsSection() {
 
         {/* Donation Type Tabs */}
         <div className="flex gap-4 justify-center mb-12">
-          <button
+          <Button
             onClick={() => setDonationType("general")}
-            className={`px-6 py-3 rounded-md font-semibold transition ${
-              donationType === "general"
-                ? "bg-primary text-primary-foreground"
-                : "bg-white text-foreground border border-border hover:bg-white/80"
-            }`}
+            variant={donationType === "general" ? "default" : "outline"}
+            className={donationType === "general" ? "" : "bg-white hover:bg-white/80"}
           >
             General Donation
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => setDonationType("vehicle")}
-            className={`px-6 py-3 rounded-md font-semibold transition ${
-              donationType === "vehicle"
-                ? "bg-primary text-primary-foreground"
-                : "bg-white text-foreground border border-border hover:bg-white/80"
-            }`}
+            variant={donationType === "vehicle" ? "default" : "outline"}
+            className={donationType === "vehicle" ? "" : "bg-white hover:bg-white/80"}
           >
             Donate a Car
-          </button>
+          </Button>
         </div>
 
         {donationType === "general" ? (

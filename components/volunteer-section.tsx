@@ -1,4 +1,5 @@
 "use client"
+
 import { useState } from "react"
 import type React from "react"
 import { Users, Clock, Heart, MapPin, Zap } from "lucide-react"
@@ -232,16 +233,16 @@ export function VolunteerSection() {
                 </div>
               </div>
 
-              <button
+              <Button
                 onClick={() => {
                   setSelectedPosition(position.id)
                   setShowForm(true)
                   setFormData((prev) => ({ ...prev, position: position.title }))
                 }}
-                className="w-full px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition font-semibold text-sm group-hover:bg-white group-hover:text-primary"
+                className="w-full text-sm group-hover:bg-white group-hover:text-primary"
               >
                 Apply Now
-              </button>
+              </Button>
             </div>
           ))}
         </div>

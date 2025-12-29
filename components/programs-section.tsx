@@ -1,5 +1,7 @@
-import type React from "react"
 import { Users, Briefcase, BookOpen, Home, Heart, Accessibility, Globe, Computer } from "lucide-react"
+import type React from "react"
+
+import { Button } from "@/components/ui/button"
 
 interface Program {
   icon: React.ReactNode
@@ -161,9 +163,9 @@ export function ProgramsSection() {
             TOMCARE Foundation. Your name will be featured on our website and in our annual report (unless you prefer
             anonymity).
           </p>
-          <button className="px-6 py-3 bg-white text-primary rounded-md hover:bg-white/90 transition-colors duration-200 font-semibold">
+          <Button variant="outline" className="bg-white text-primary hover:bg-white/90">
             Learn More About Recognition
-          </button>
+          </Button>
         </div>
       </div>
     </section>

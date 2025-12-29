@@ -1,7 +1,7 @@
 "use client"
 
-import { DollarSign, Briefcase, Users, Award } from "lucide-react"
 import { useEffect, useState } from "react"
+import { DollarSign, Briefcase, Users, Award } from "lucide-react"
 
 interface Counter {
   icon: React.ReactNode

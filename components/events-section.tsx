@@ -1,8 +1,10 @@
 "use client"
 
-import Link from "next/link"
 import { useState } from "react"
+import Link from "next/link"
 import { Clock, Calendar } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
 
 interface Event {
   id: string
@@ -102,12 +104,13 @@ export function EventsSection() {
 
               {/* Navigation */}
               <div className="flex justify-between items-center mt-4">
-                <button
+                <Button
                   onClick={prevEvent}
-                  className="px-4 py-2 bg-white text-primary rounded-md hover:bg-white/90 transition-colors duration-200 font-semibold"
+                  variant="outline"
+                  className="bg-white text-primary hover:bg-white/90"
                 >
                   Previous
-                </button>
+                </Button>
                 <div className="flex gap-2">
                   {events.map((_, index) => (
                     <button
@@ -119,12 +122,13 @@ export function EventsSection() {
                     />
                   ))}
                 </div>
-                <button
+                <Button
                   onClick={nextEvent}
-                  className="px-4 py-2 bg-white text-primary rounded-md hover:bg-white/90 transition-colors duration-200 font-semibold"
+                  variant="outline"
+                  className="bg-white text-primary hover:bg-white/90"
                 >
                   Next
-                </button>
+                </Button>
               </div>
             </div>
           </div>

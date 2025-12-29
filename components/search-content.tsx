@@ -149,7 +149,7 @@ export function SearchContent() {
                   </div>
                 </div>
 
-                <button className="mt-4 px-4 py-2 border-2 border-primary text-primary rounded-md hover:bg-primary/5 transition font-semibold text-sm">
+                <button className="mt-4 px-4 py-2 border-2 border-primary text-primary rounded-md hover:bg-primary hover:text-white transition font-semibold text-sm">
                   Learn More
                 </button>
               </div>

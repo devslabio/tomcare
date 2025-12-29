@@ -66,14 +66,14 @@ export function DonationsSection() {
           <Button
             onClick={() => setDonationType("general")}
             variant={donationType === "general" ? "default" : "outline"}
-            className={donationType === "general" ? "" : "bg-white hover:bg-white/80"}
+            className={donationType === "general" ? "" : "bg-white hover:bg-primary hover:text-white"}
           >
             General Donation
           </Button>
           <Button
             onClick={() => setDonationType("vehicle")}
             variant={donationType === "vehicle" ? "default" : "outline"}
-            className={donationType === "vehicle" ? "" : "bg-white hover:bg-white/80"}
+            className={donationType === "vehicle" ? "" : "bg-white hover:bg-primary hover:text-white"}
           >
             Donate a Car
           </Button>

@@ -163,7 +163,7 @@ export function ProgramsSection() {
             TOMCARE Foundation. Your name will be featured on our website and in our annual report (unless you prefer
             anonymity).
           </p>
-          <Button variant="outline" className="bg-white text-primary hover:bg-white/90">
+          <Button variant="outline" className="bg-white text-primary hover:bg-primary hover:text-white">
             Learn More About Recognition
           </Button>
         </div>

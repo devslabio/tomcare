@@ -8,6 +8,9 @@ import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib
 import { ErrorMessage } from "@/components/ui/error-message"
 import { SuccessMessage } from "@/components/ui/success-message"
 import { LoadingButton } from "@/components/ui/loading-button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
 import type { ContactFormData, FormStatus } from "@/types/forms"
 
 export default function ContactPage() {
@@ -160,52 +163,56 @@ export default function ContactPage() {
 
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold text-foreground mb-2">Name</label>
-                      <input
+                      <Label htmlFor="name">Name</Label>
+                      <Input
+                        id="name"
                         type="text"
                         name="name"
                         required
                         value={formData.name}
                         onChange={handleInputChange}
                         disabled={isSubmitting}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                        className="mt-2"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold text-foreground mb-2">Email</label>
-                      <input
+                      <Label htmlFor="email">Email</Label>
+                      <Input
+                        id="email"
                         type="email"
                         name="email"
                         required
                         value={formData.email}
                         onChange={handleInputChange}
                         disabled={isSubmitting}
-                        className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                        className="mt-2"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">Phone</label>
-                    <input
+                    <Label htmlFor="phone">Phone</Label>
+                    <Input
+                      id="phone"
                       type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      className="mt-2"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">Subject</label>
+                    <Label htmlFor="subject">Subject</Label>
                     <select
+                      id="subject"
                       name="subject"
                       required
                       value={formData.subject}
                       onChange={handleInputChange}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      className="mt-2 flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                     >
                       <option value="">Select a subject</option>
                       <option value="program-inquiry">Program Inquiry</option>
@@ -218,15 +225,16 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">Message</label>
-                    <textarea
+                    <Label htmlFor="message">Message</Label>
+                    <Textarea
+                      id="message"
                       name="message"
                       required
                       rows={5}
                       value={formData.message}
                       onChange={handleInputChange}
                       disabled={isSubmitting}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                      className="mt-2"
                       placeholder="How can we help you?"
                     />
                   </div>

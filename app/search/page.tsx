@@ -87,7 +87,7 @@ export default function SearchPage() {
           </div>
 
           {/* Search Box */}
-          <div className="bg-white rounded-xl p-6 mb-8 shadow-sm">
+          <div className="bg-white rounded-xl p-6 mb-8 border border-border">
             <div className="flex gap-2">
               <div className="flex-1 relative">
                 <Search className="absolute left-4 top-3 w-5 h-5 text-muted-foreground" />

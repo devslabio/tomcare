@@ -93,7 +93,7 @@ export function DonationsSection() {
                   onClick={() => setSelectedOption(option.id)}
                   className={`p-6 rounded-xl transition-all ${
                     selectedOption === option.id
-                      ? "bg-primary text-primary-foreground shadow-lg scale-105"
+                      ? "bg-primary text-primary-foreground scale-105"
                       : "bg-white border-2 border-border text-foreground hover:border-primary"
                   }`}
                 >

@@ -192,7 +192,7 @@ export function VolunteerSection() {
           {volunteerPositions.map((position) => (
             <div
               key={position.id}
-              className="bg-white/80 backdrop-blur-md rounded-xl p-6 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1 group"
+              className="bg-white/80 backdrop-blur-md rounded-xl p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group"
             >
               <h4 className="font-serif font-bold text-lg mb-3 text-foreground group-hover:text-white transition-colors duration-300">
                 {position.title}

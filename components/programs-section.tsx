@@ -113,7 +113,7 @@ export function ProgramsSection() {
           {programs.map((program, index) => (
             <div
               key={index}
-              className="bg-white/80 backdrop-blur-md rounded-2xl p-6 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group"
+              className="bg-white/80 backdrop-blur-md rounded-xl p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group"
             >
               <div className="mb-4 text-primary group-hover:text-white transition-colors duration-300">
                 {program.icon}
@@ -132,7 +132,7 @@ export function ProgramsSection() {
         </div>
 
         {/* Schedule Section */}
-        <div className="mt-16 bg-gradient-to-br from-primary to-primary/90 rounded-2xl p-8 border-2 border-white/20 shadow-xl">
+        <div className="mt-16 bg-gradient-to-br from-primary to-primary/90 rounded-xl p-8 border-2 border-white/20">
           <h3 className="font-serif font-bold text-2xl mb-6 text-white">Donation Days Schedule</h3>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border-2 border-white/20">
@@ -154,14 +154,14 @@ export function ProgramsSection() {
         </div>
 
         {/* Recognition Section */}
-        <div className="mt-12 bg-gradient-to-br from-primary to-primary/80 rounded-2xl p-8 border-2 border-white/20 shadow-xl">
+        <div className="mt-12 bg-gradient-to-br from-primary to-primary/80 rounded-xl p-8 border-2 border-white/20">
           <h3 className="font-serif font-bold text-2xl mb-4 text-white">Certificate of Recognition</h3>
           <p className="text-white/90 mb-6">
             All donors receive an official Certificate of Recognition acknowledging their generous contribution to
             TOMCARE Foundation. Your name will be featured on our website and in our annual report (unless you prefer
             anonymity).
           </p>
-          <button className="px-6 py-3 bg-white text-primary rounded-lg hover:bg-white/90 transition font-semibold shadow-lg">
+          <button className="px-6 py-3 bg-white text-primary rounded-lg hover:bg-white/90 transition-colors duration-200 font-semibold">
             Learn More About Recognition
           </button>
         </div>

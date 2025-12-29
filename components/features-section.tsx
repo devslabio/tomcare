@@ -34,7 +34,7 @@ export function FeaturesSection() {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="text-center bg-white/80 backdrop-blur-md rounded-2xl p-8 border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group"
+              className="text-center bg-white/80 backdrop-blur-md rounded-xl p-8 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group"
             >
               <div className="flex justify-center mb-6">
                 <div className="w-24 h-24 bg-primary/10 text-primary border-2 border-primary/30 rounded-full flex items-center justify-center group-hover:bg-white/20 group-hover:text-white group-hover:border-white/30 transition-all duration-300">
@@ -49,7 +49,7 @@ export function FeaturesSection() {
               </p>
               <Link
                 href={feature.link}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition font-semibold shadow-lg group-hover:bg-white group-hover:text-primary group-hover:shadow-xl"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors duration-200 font-semibold group-hover:bg-white group-hover:text-primary"
               >
                 Read More
               </Link>

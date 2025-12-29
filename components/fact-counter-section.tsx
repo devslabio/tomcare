@@ -96,7 +96,7 @@ export function FactCounterSection() {
             {counters.map((counter, index) => (
               <div
                 key={index}
-                className="bg-white/80 backdrop-blur-md rounded-2xl p-6 text-center border-2 border-primary/20 shadow-lg hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group"
+                className="bg-white/80 backdrop-blur-md rounded-xl p-6 text-center border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group"
               >
                 <div className="flex justify-center mb-4 text-primary group-hover:text-white transition-colors duration-300">
                   {counter.icon}
@@ -121,7 +121,7 @@ export function FactCounterSection() {
             <div className="relative w-full max-w-md">
               <div className="aspect-square bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl flex items-center justify-center border-4 border-primary/30">
                 <button className="group">
-                  <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-lg">
+                  <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-200">
                     <svg
                       className="w-10 h-10 text-white ml-1"
                       fill="currentColor"

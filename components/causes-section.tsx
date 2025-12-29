@@ -82,7 +82,7 @@ export function CausesSection() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Image Box */}
             <div className="relative">
-              <div className="bg-white rounded-xl p-4 shadow-lg">
+              <div className="bg-white rounded-xl p-4 border border-border">
                 <div className="aspect-[4/3] bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center">
                   <Heart className="w-24 h-24 text-primary/30" />
                 </div>
@@ -119,7 +119,7 @@ export function CausesSection() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   href="#donate"
-                  className="inline-flex items-center justify-center gap-2 bg-white text-primary px-8 py-4 rounded-lg hover:bg-white/90 transition font-semibold shadow-lg"
+                  className="inline-flex items-center justify-center gap-2 bg-white text-primary px-8 py-4 rounded-lg hover:bg-white/90 transition-colors duration-200 font-semibold"
                 >
                   <Heart className="w-5 h-5" />
                   Donate Now

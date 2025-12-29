@@ -6,17 +6,16 @@ import { Footer } from "@/components/footer"
 import { ChevronRight, Loader2, CheckCircle } from "lucide-react"
 import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
 import { ErrorMessage } from "@/components/ui/error-message"
-
-type RegistrationType = "recipient" | "applicant"
+import type { RegistrationType, RegistrationFormData, FormStatus } from "@/types/forms"
 
 export default function RegisterPage() {
   const [formType, setFormType] = useState<RegistrationType | null>(null)
   const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [submitStatus, setSubmitStatus] = useState<FormStatus>("idle")
   const [errorMessage, setErrorMessage] = useState("")
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<RegistrationFormData>({
     // Personal Info
     firstName: "",
     lastName: "",

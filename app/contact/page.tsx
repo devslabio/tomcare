@@ -3,13 +3,14 @@ import { useState } from "react"
 import type React from "react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
-import { Phone, Mail, MapPin, Clock, Loader2 } from "lucide-react"
+import { Phone, Mail, MapPin, Clock } from "lucide-react"
 import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
 import { ErrorMessage } from "@/components/ui/error-message"
 import { SuccessMessage } from "@/components/ui/success-message"
+import type { ContactFormData, FormStatus } from "@/types/forms"
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     email: "",
     phone: "",
@@ -18,7 +19,7 @@ export default function ContactPage() {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [submitStatus, setSubmitStatus] = useState<FormStatus>("idle")
   const [errorMessage, setErrorMessage] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {

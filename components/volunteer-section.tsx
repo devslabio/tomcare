@@ -5,6 +5,7 @@ import { Users, Clock, Heart, MapPin, Zap, Loader2 } from "lucide-react"
 import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
 import { ErrorMessage } from "@/components/ui/error-message"
 import { SuccessMessage } from "@/components/ui/success-message"
+import type { VolunteerFormData, FormStatus } from "@/types/forms"
 
 interface VolunteerPosition {
   id: string
@@ -79,9 +80,9 @@ export function VolunteerSection() {
   const [showForm, setShowForm] = useState(false)
   const [selectedPosition, setSelectedPosition] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+  const [submitStatus, setSubmitStatus] = useState<FormStatus>("idle")
   const [errorMessage, setErrorMessage] = useState("")
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<VolunteerFormData>({
     name: "",
     email: "",
     phone: "",

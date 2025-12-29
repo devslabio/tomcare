@@ -91,7 +91,7 @@ export function EventsSection() {
                     <p className="text-sm text-white/80 mb-2">
                       Organized By: <span className="font-semibold text-white">{events[currentIndex].organizer}</span>
                     </p>
-                    <h3 className="mb-3 text-white">{events[currentIndex].title}</h3>
+                    <h3 className="mb-4 text-white">{events[currentIndex].title}</h3>
                     <div className="flex items-center gap-2 text-white/90">
                       <Clock className="w-4 h-4" />
                       <span className="text-sm">{events[currentIndex].time} - {events[currentIndex].location}</span>

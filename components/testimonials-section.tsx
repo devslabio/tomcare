@@ -134,7 +134,7 @@ export function TestimonialsSection() {
     <section id="testimonials" className="section-padding bg-muted relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Doctor Testimonials */}
-        <div className="mb-16">
+        <div className="mb-12">
           <div className="text-center mb-8">
             <h2 className="mb-4">Doctor Testimony</h2>
             <p className="text-lg text-muted-foreground">Hear from healthcare providers who partner with us</p>

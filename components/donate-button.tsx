@@ -125,8 +125,8 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
             )}
             {/* Amount Selection */}
           <div>
-            <label className="block text-sm font-semibold text-foreground mb-3">How much would you like to donate?</label>
-            <div className="grid grid-cols-3 gap-3 mb-3">
+            <label className="block text-sm font-semibold text-foreground mb-4">How much would you like to donate?</label>
+            <div className="grid grid-cols-3 gap-4 mb-4">
               {[25, 50, 100, 200, 500, 1000].map((amount) => (
                 <button
                   key={amount}
@@ -165,7 +165,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
 
           {/* Cause Selection */}
           <div>
-            <label className="block text-sm font-semibold text-foreground mb-3">For which cause?</label>
+            <label className="block text-sm font-semibold text-foreground mb-4">For which cause?</label>
             <select
               value={formData.cause}
               onChange={(e) => setFormData({ ...formData, cause: e.target.value })}
@@ -183,7 +183,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
 
           {/* Frequency Selection */}
           <div>
-            <label className="block text-sm font-semibold text-foreground mb-3">How often?</label>
+            <label className="block text-sm font-semibold text-foreground mb-4">How often?</label>
             <div className="grid grid-cols-2 gap-3">
               {frequencies.map((freq) => (
                 <button

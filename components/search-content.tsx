@@ -127,7 +127,7 @@ export function SearchContent() {
             </p>
             {filtered.map((program) => (
               <div key={program.id} className="bg-white rounded-md p-6 border border-border hover:border-primary transition-colors duration-200">
-                <div className="flex justify-between items-start mb-3">
+                <div className="flex justify-between items-start mb-4">
                   <h3>{program.name}</h3>
                   <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-semibold rounded-full">
                     {program.category}

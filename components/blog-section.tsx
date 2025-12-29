@@ -67,7 +67,7 @@ export function BlogSection() {
                 </div>
               </div>
               <div className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 group">
-                <h3 className="mb-3 group-hover:text-white transition-colors duration-300">
+                <h3 className="mb-4 group-hover:text-white transition-colors duration-300">
                   <Link href={`/blog/${post.id}`}>{post.title}</Link>
                 </h3>
                 <p className="mb-4 text-muted-foreground group-hover:text-white/90 transition-colors duration-300">

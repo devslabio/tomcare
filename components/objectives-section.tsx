@@ -58,7 +58,7 @@ export function ObjectivesSection() {
               <div className="mb-4 text-primary group-hover:text-white transition-colors duration-300">
                 {objective.icon}
               </div>
-              <h3 className="mb-3 group-hover:text-white transition-colors duration-300">
+              <h3 className="mb-4 group-hover:text-white transition-colors duration-300">
                 {objective.title}
               </h3>
               <p className="text-muted-foreground group-hover:text-white/90 transition-colors duration-300">

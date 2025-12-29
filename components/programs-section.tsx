@@ -134,7 +134,7 @@ export function ProgramsSection() {
         {/* Schedule Section */}
         <div className="mt-16 bg-gradient-to-br from-primary to-primary/90 rounded-md p-8 border-2 border-white/20">
           <h3 className="mb-6 text-white">Donation Days Schedule</h3>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white/10 backdrop-blur-sm rounded-md p-6 border-2 border-white/20">
               <h4 className="font-semibold text-lg mb-2 text-white">Monday - Wednesday</h4>
               <p className="text-white/90 mb-2">9:00 AM - 5:00 PM</p>

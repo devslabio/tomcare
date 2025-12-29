@@ -97,7 +97,7 @@ export function DonationsSection() {
                       : "bg-white border-2 border-border text-foreground hover:border-primary"
                   }`}
                 >
-                  <div className="text-4xl mb-3 flex justify-center">{option.icon}</div>
+                  <div className="text-4xl mb-4 flex justify-center">{option.icon}</div>
                   <h3 className="mb-2">${option.amount}</h3>
                   <p className="font-semibold mb-1">{option.label}</p>
                   <p

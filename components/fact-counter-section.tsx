@@ -109,7 +109,7 @@ export function FactCounterSection() {
                     {counter.suffix}
                   </span>
                 </div>
-                <p className="text-sm text-muted-foreground whitespace-pre-line leading-relaxed group-hover:text-white/90 transition-colors duration-300">
+                <p className="text-sm text-muted-foreground whitespace-pre-line group-hover:text-white/90 transition-colors duration-300">
                   {counter.label}
                 </p>
               </div>

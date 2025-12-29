@@ -24,7 +24,7 @@ export function HeroSection() {
               Change Lives, Build Community
             </h1>
 
-            <p className="text-xl text-white/90 mb-8 leading-relaxed">
+            <p className="text-lg text-white/90 mb-8">
               Supporting newcomers to Canada and those in need with essential services, dignity, and hope. Together, we
               create stronger communities.
             </p>

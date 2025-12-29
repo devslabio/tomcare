@@ -18,13 +18,13 @@ export function AboutSection() {
           <div>
             <h2 className="mb-6">About TOMCARE Foundation</h2>
 
-            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+            <p className="text-lg text-muted-foreground mb-6">
               The Tomcare Foundation is a non-profit organization founded in 2024. The idea for the foundation came after
               realizing the many challenges faced by immigrants in Canada, including lack of information, poor living
               conditions, depression, and language barriers.
             </p>
 
-            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+            <p className="text-lg text-muted-foreground mb-6">
               The foundation primarily supports new arrivals at all stages of their settlement, including employment
               procedures in Quebec. It raises awareness among both the host society and immigrants about the principles
               and benefits of living together and strengthening social bonds. Tomcare has worked to mobilize immigrants

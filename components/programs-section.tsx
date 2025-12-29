@@ -121,7 +121,7 @@ export function ProgramsSection() {
               <h3 className="mb-2 group-hover:text-white transition-colors duration-300">
                 {program.title}
               </h3>
-              <p className="text-sm leading-relaxed mb-4 text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
+              <p className="text-sm mb-4 text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
                 {program.description}
               </p>
               <span className="inline-block px-3 py-1 bg-primary/10 text-primary border border-primary/30 text-xs font-semibold rounded-full group-hover:bg-white/20 group-hover:text-white group-hover:border-white/30 transition-all duration-300">

@@ -70,7 +70,7 @@ export function BlogSection() {
                 <h3 className="mb-3 group-hover:text-white transition-colors duration-300">
                   <Link href={`/blog/${post.id}`}>{post.title}</Link>
                 </h3>
-                <p className="mb-4 leading-relaxed text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
+                <p className="mb-4 text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
                   {post.excerpt}
                 </p>
                 <div className="flex items-center gap-4 text-sm text-muted-foreground group-hover:text-white/80 transition-colors duration-300">

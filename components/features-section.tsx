@@ -44,7 +44,7 @@ export function FeaturesSection() {
               <h3 className="mb-4 group-hover:text-white transition-colors duration-300">
                 {feature.title}
               </h3>
-              <p className="mb-6 leading-relaxed text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
+              <p className="mb-6 text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
                 {feature.description}
               </p>
               <Link

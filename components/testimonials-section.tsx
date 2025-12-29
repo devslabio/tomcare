@@ -97,7 +97,7 @@ export function TestimonialsSection() {
           <div className="mb-6">
             <Quote className="w-8 h-8 text-primary/30 mb-4" />
             <h3 className="mb-4">{testimonial.title}</h3>
-            <p className="text-muted-foreground leading-relaxed">{testimonial.content}</p>
+            <p className="text-muted-foreground">{testimonial.content}</p>
           </div>
           <div className="border-t border-border pt-4">
             <h4>{testimonial.name}</h4>

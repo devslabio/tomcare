@@ -22,7 +22,7 @@ export function MissionGoalsSection() {
                   Small Donations Make Bigger Impact<br />On Someone's Life, Act Today!
                 </h3>
               </div>
-              <p className="text-muted-foreground leading-relaxed mb-6">
+              <p className="text-muted-foreground mb-6">
                 Every contribution, no matter how small, creates a ripple effect of positive change. Together, we can
                 transform lives and build stronger communities for newcomers and those in need.
               </p>

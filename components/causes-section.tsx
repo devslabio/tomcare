@@ -98,7 +98,7 @@ export function CausesSection() {
                 </h2>
               </div>
 
-              <p className="text-white/90 mb-8 leading-relaxed">{featuredCause.description}</p>
+              <p className="text-white/90 mb-8">{featuredCause.description}</p>
 
               {/* Progress Bar */}
               <div className="mb-6">

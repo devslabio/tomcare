@@ -197,7 +197,7 @@ export function VolunteerSection() {
               <h4 className="mb-3 group-hover:text-white transition-colors duration-300">
                 {position.title}
               </h4>
-              <p className="text-sm mb-4 leading-relaxed text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
+              <p className="text-sm mb-4 text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
                 {position.description}
               </p>
 

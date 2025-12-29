@@ -50,10 +50,10 @@ export function Footer() {
                   className="h-8 w-auto"
                 />
               </div>
-              <p className="text-primary-foreground/80 text-sm leading-relaxed mb-4">
+              <p className="text-primary-foreground/80 text-sm mb-4">
                 TOMCARE FOUNDATION
               </p>
-              <p className="text-primary-foreground/80 text-sm leading-relaxed mb-4">
+              <p className="text-primary-foreground/80 text-sm mb-4">
                 Legal representative: Tom Ntambara
               </p>
               <div className="space-y-3">

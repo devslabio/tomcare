@@ -65,7 +65,7 @@ export function DonationRecipientsSection() {
               <h3 className="mb-4 group-hover:text-white transition-colors duration-300">
                 {group.title}
               </h3>
-              <p className="leading-relaxed text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
+              <p className="text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
                 {group.description}
               </p>
             </div>

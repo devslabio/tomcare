@@ -122,7 +122,7 @@ export function HeroSlider() {
                       </h2>
                     </div>
                     <div className="w-20 h-1 bg-accent mb-6"></div>
-                    <p className="text-xl text-white/90 mb-8 leading-relaxed">{slide.description}</p>
+                    <p className="text-lg text-white/90 mb-8">{slide.description}</p>
                     <div className="flex flex-col sm:flex-row gap-4">
                       <Link
                         href={slide.button1.link}

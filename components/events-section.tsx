@@ -74,7 +74,7 @@ export function EventsSection() {
           <div>
             <div className="mb-6">
               <h3 className="text-lg font-semibold text-primary mb-2">Help With Featured Cause</h3>
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">
+              <h2>
                 Join Upcoming Events<br />Replays & Webinars
               </h2>
             </div>
@@ -91,7 +91,7 @@ export function EventsSection() {
                     <p className="text-sm text-white/80 mb-2">
                       Organized By: <span className="font-semibold text-white">{events[currentIndex].organizer}</span>
                     </p>
-                    <h3 className="font-serif font-bold text-xl mb-3 text-white">{events[currentIndex].title}</h3>
+                    <h3 className="mb-3 text-white">{events[currentIndex].title}</h3>
                     <div className="flex items-center gap-2 text-white/90">
                       <Clock className="w-4 h-4" />
                       <span className="text-sm">{events[currentIndex].time} - {events[currentIndex].location}</span>

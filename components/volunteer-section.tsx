@@ -159,7 +159,7 @@ export function VolunteerSection() {
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           <div className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group">
             <Heart className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-200" />
-            <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-200">
+            <h3 className="mb-2 group-hover:text-white transition-colors duration-200">
               Make a Difference
             </h3>
             <p className="text-muted-foreground text-sm group-hover:text-white/90 transition-colors duration-200">
@@ -168,7 +168,7 @@ export function VolunteerSection() {
           </div>
           <div className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group">
             <Users className="w-8 h-8 text-primary mb-4 group-hover:text-white transition-colors duration-200" />
-            <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-200">
+            <h3 className="mb-2 group-hover:text-white transition-colors duration-200">
               Build Community
             </h3>
             <p className="text-muted-foreground text-sm group-hover:text-white/90 transition-colors duration-200">
@@ -187,14 +187,14 @@ export function VolunteerSection() {
         </div>
 
         {/* Available Positions */}
-        <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Available Volunteer Positions</h3>
+        <h3 className="mb-6">Available Volunteer Positions</h3>
         <div className="grid md:grid-cols-2 gap-8 mb-8 items-stretch">
           {volunteerPositions.map((position) => (
             <div
               key={position.id}
               className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 transform hover:-translate-y-1 group"
             >
-              <h4 className="font-serif font-bold text-lg mb-3 text-foreground group-hover:text-white transition-colors duration-300">
+              <h4 className="mb-3 group-hover:text-white transition-colors duration-300">
                 {position.title}
               </h4>
               <p className="text-sm mb-4 leading-relaxed text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
@@ -250,7 +250,7 @@ export function VolunteerSection() {
         {showForm && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-md p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Volunteer Application Form</h3>
+              <h3 className="mb-6">Volunteer Application Form</h3>
 
               {submitStatus === "success" ? (
                 <div className="text-center">

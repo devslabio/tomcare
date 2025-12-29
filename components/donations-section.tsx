@@ -52,7 +52,7 @@ export function DonationsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Make a Difference Today</h2>
+          <h2 className="mb-4">Make a Difference Today</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Your donation directly supports newcomers, people with disabilities, and those in need. Every contribution
             matters.
@@ -98,7 +98,7 @@ export function DonationsSection() {
                   }`}
                 >
                   <div className="text-4xl mb-3 flex justify-center">{option.icon}</div>
-                  <h3 className="font-serif font-bold text-xl mb-2">${option.amount}</h3>
+                  <h3 className="mb-2">${option.amount}</h3>
                   <p className="font-semibold mb-1">{option.label}</p>
                   <p
                     className={`text-sm ${selectedOption === option.id ? "text-primary-foreground/80" : "text-muted-foreground"}`}
@@ -111,7 +111,7 @@ export function DonationsSection() {
 
             {/* Custom Amount */}
             <div className="bg-white rounded-md p-8 mb-8">
-              <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Custom Amount</h3>
+              <h3 className="mb-6">Custom Amount</h3>
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex-1 relative">
                   <span className="absolute left-4 top-3 text-2xl text-muted-foreground">$</span>
@@ -138,7 +138,7 @@ export function DonationsSection() {
 
             {/* Payment Methods */}
             <div className="bg-white rounded-md p-8">
-              <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Secure Donation</h3>
+              <h3 className="mb-6">Secure Donation</h3>
               <p className="text-muted-foreground mb-6">
                 Your donation is secure and processed through trusted payment gateways. All donations are
                 tax-deductible.
@@ -159,7 +159,7 @@ export function DonationsSection() {
         ) : (
           // Vehicle Donation
           <div className="bg-white rounded-md p-8">
-            <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Donate Your Car</h3>
+            <h3 className="mb-6">Donate Your Car</h3>
             <p className="text-muted-foreground mb-8">
               Donating a car is a wonderful way to support our mission. We accept cars, trucks, motorcycles, and other
               vehicles in any condition. Car donations are tax-deductible and help us provide essential services to those

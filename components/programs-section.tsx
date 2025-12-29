@@ -101,7 +101,7 @@ export function ProgramsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Our Programs & Services</h2>
+          <h2 className="mb-4">Our Programs & Services</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             TOMCARE Foundation offers comprehensive programs designed to support newcomers, people with disabilities,
             and those in need.
@@ -118,7 +118,7 @@ export function ProgramsSection() {
               <div className="mb-4 text-primary group-hover:text-white transition-colors duration-300">
                 {program.icon}
               </div>
-              <h3 className="font-serif font-bold text-lg mb-2 text-foreground group-hover:text-white transition-colors duration-300">
+              <h3 className="mb-2 group-hover:text-white transition-colors duration-300">
                 {program.title}
               </h3>
               <p className="text-sm leading-relaxed mb-4 text-muted-foreground group-hover:text-white/90 transition-colors duration-300">
@@ -133,7 +133,7 @@ export function ProgramsSection() {
 
         {/* Schedule Section */}
         <div className="mt-16 bg-gradient-to-br from-primary to-primary/90 rounded-md p-8 border-2 border-white/20">
-          <h3 className="font-serif font-bold text-2xl mb-6 text-white">Donation Days Schedule</h3>
+          <h3 className="mb-6 text-white">Donation Days Schedule</h3>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-white/10 backdrop-blur-sm rounded-md p-6 border-2 border-white/20">
               <h4 className="font-semibold text-lg mb-2 text-white">Monday - Wednesday</h4>
@@ -155,7 +155,7 @@ export function ProgramsSection() {
 
         {/* Recognition Section */}
         <div className="mt-12 bg-gradient-to-br from-primary to-primary/80 rounded-md p-8 border-2 border-white/20">
-          <h3 className="font-serif font-bold text-2xl mb-4 text-white">Certificate of Recognition</h3>
+          <h3 className="mb-4 text-white">Certificate of Recognition</h3>
           <p className="text-white/90 mb-6">
             All donors receive an official Certificate of Recognition acknowledging their generous contribution to
             TOMCARE Foundation. Your name will be featured on our website and in our annual report (unless you prefer

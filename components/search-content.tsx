@@ -128,7 +128,7 @@ export function SearchContent() {
             {filtered.map((program) => (
               <div key={program.id} className="bg-white rounded-md p-6 border border-border hover:border-primary transition-colors duration-200">
                 <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-xl font-serif font-bold text-foreground">{program.name}</h3>
+                  <h3>{program.name}</h3>
                   <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-semibold rounded-full">
                     {program.category}
                   </span>
@@ -156,7 +156,7 @@ export function SearchContent() {
         ) : (
           <div className="bg-white rounded-md p-12 text-center">
             <Search className="w-16 h-16 text-muted-foreground mx-auto mb-4 opacity-30" />
-            <h3 className="text-xl font-serif font-bold text-foreground mb-2">No programs found</h3>
+            <h3 className="mb-2">No programs found</h3>
             <p className="text-muted-foreground">
               Try adjusting your search or filters to find what you're looking for.
             </p>

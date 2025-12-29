@@ -117,7 +117,7 @@ export function HeroSlider() {
                   <div>
                     <h3 className="text-lg md:text-xl font-semibold mb-4 text-accent">{slide.subtitle}</h3>
                     <div className="mb-6">
-                      <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight whitespace-pre-line">
+                      <h2 className="leading-tight whitespace-pre-line">
                         {slide.title}
                       </h2>
                     </div>

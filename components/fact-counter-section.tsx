@@ -132,7 +132,7 @@ export function FactCounterSection() {
                     </svg>
                   </div>
                   <div className="mt-4 text-center">
-                    <h5 className="font-serif font-bold text-lg text-foreground">Watch The Intro Video</h5>
+                    <h5>Watch The Intro Video</h5>
                   </div>
                 </button>
               </div>

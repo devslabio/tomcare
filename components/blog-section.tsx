@@ -46,7 +46,7 @@ export function BlogSection() {
           <div className="inline-block mb-4">
             <h3 className="text-lg font-semibold text-primary mb-2">We Change Your Life & World</h3>
           </div>
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-foreground">News & Happenings</h2>
+          <h2>News & Happenings</h2>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 items-stretch">
@@ -67,7 +67,7 @@ export function BlogSection() {
                 </div>
               </div>
               <div className="bg-white/80 backdrop-blur-md rounded-md p-6 border-2 border-primary/20 hover:bg-gradient-to-br hover:from-primary hover:to-primary/80 hover:border-white/20 transition-all duration-200 group">
-                <h3 className="font-serif font-bold text-xl mb-3 text-foreground group-hover:text-white transition-colors duration-300">
+                <h3 className="mb-3 group-hover:text-white transition-colors duration-300">
                   <Link href={`/blog/${post.id}`}>{post.title}</Link>
                 </h3>
                 <p className="mb-4 leading-relaxed text-muted-foreground group-hover:text-white/90 transition-colors duration-300">

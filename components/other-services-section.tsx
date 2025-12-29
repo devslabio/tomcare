@@ -58,7 +58,7 @@ export function OtherServicesSection() {
     <section className="section-padding bg-muted">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Other Services</h2>
+          <h2 className="mb-4">Other Services</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Essential services to help newcomers navigate daily life in Canada
           </p>
@@ -75,7 +75,7 @@ export function OtherServicesSection() {
                   {service.icon}
                 </div>
               </div>
-              <h3 className="font-serif font-bold text-base mb-2 text-foreground group-hover:text-white transition-colors duration-300">
+              <h3 className="mb-2 text-sm group-hover:text-white transition-colors duration-300">
                 {service.title}
               </h3>
               <p className="text-sm text-muted-foreground group-hover:text-white/90 transition-colors duration-300">

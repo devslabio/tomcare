@@ -96,7 +96,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-3xl font-serif font-bold text-foreground">Make a Donation</h2>
+          <h2>Make a Donation</h2>
           <button
             onClick={onClose}
             className="text-muted-foreground hover:text-foreground transition"
@@ -111,7 +111,7 @@ function DonateModal({ isOpen, onClose }: DonateModalProps) {
             <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <Heart className="w-8 h-8 text-accent" />
             </div>
-            <h3 className="text-2xl font-serif font-bold text-foreground mb-2">Thank You!</h3>
+            <h3 className="mb-2">Thank You!</h3>
             <p className="text-muted-foreground">
               We've received your donation inquiry and will contact you shortly.
             </p>

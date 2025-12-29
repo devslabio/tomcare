@@ -21,7 +21,7 @@ export function DonateFormSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-md p-8 md:p-12 border border-border">
           <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-foreground">Quick Donate</h2>
+            <h2 className="mb-4">Quick Donate</h2>
             <p className="text-lg text-muted-foreground">Be a community of diverse people</p>
           </div>
 

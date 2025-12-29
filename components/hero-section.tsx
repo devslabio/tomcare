@@ -20,7 +20,7 @@ export function HeroSection() {
               <span className="font-medium">TOMCARE Foundation</span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 text-balance">
+            <h1 className="mb-6 text-balance">
               Change Lives, Build Community
             </h1>
 

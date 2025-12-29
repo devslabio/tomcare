@@ -16,7 +16,7 @@ export function AboutSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6 text-foreground">About TOMCARE Foundation</h2>
+            <h2 className="mb-6">About TOMCARE Foundation</h2>
 
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
               The Tomcare Foundation is a non-profit organization founded in 2024. The idea for the foundation came after

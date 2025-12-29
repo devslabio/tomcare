@@ -190,7 +190,7 @@ export default function RegisterPage() {
                   setFormType("applicant")
                   setCurrentStep(1)
                 }}
-                className="bg-white rounded-xl p-8 border-2 border-border hover:border-accent transition text-left group"
+                className="bg-white rounded-lg p-8 border-2 border-border hover:border-accent transition-colors duration-200 text-left group"
               >
                 <div className="mb-4 text-4xl">❤️</div>
                 <h2 className="text-2xl font-serif font-bold mb-3 text-foreground group-hover:text-accent transition">

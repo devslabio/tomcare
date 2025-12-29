@@ -1,8 +1,6 @@
 "use client"
-
-import type React from "react"
-
 import { useState } from "react"
+import type React from "react"
 import { Users, Clock, Heart, MapPin, Zap, Loader2 } from "lucide-react"
 import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
 import { ErrorMessage } from "@/components/ui/error-message"

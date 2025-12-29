@@ -1,9 +1,8 @@
 "use client"
-
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Mail, Phone, Facebook, Instagram, Twitter, Linkedin, Send } from "lucide-react"
-import { useState } from "react"
 
 export function Footer() {
   const [email, setEmail] = useState("")

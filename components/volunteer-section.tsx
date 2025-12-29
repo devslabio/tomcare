@@ -3,8 +3,10 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Users, Clock, Heart, MapPin, Zap, Loader2, CheckCircle, AlertCircle } from "lucide-react"
+import { Users, Clock, Heart, MapPin, Zap, Loader2 } from "lucide-react"
 import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
+import { ErrorMessage } from "@/components/ui/error-message"
+import { SuccessMessage } from "@/components/ui/success-message"
 
 interface VolunteerPosition {
   id: string
@@ -250,24 +252,15 @@ export function VolunteerSection() {
               <h3 className="font-serif font-bold text-2xl mb-6 text-foreground">Volunteer Application Form</h3>
 
               {submitStatus === "success" ? (
-                <div className="bg-accent/10 border border-accent rounded-lg p-6 text-center">
-                  <CheckCircle className="w-12 h-12 text-accent mx-auto mb-3" />
-                  <h3 className="font-serif font-bold text-lg text-accent mb-2">Thank you!</h3>
-                  <p className="text-muted-foreground">
-                    Your application has been submitted successfully. We'll get back to you soon.
-                  </p>
+                <div className="text-center">
+                  <SuccessMessage
+                    title="Thank you!"
+                    message="Your application has been submitted successfully. We'll get back to you soon."
+                  />
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  {submitStatus === "error" && (
-                    <div className="bg-destructive/10 border border-destructive rounded-lg p-4 flex gap-3">
-                      <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-                      <div>
-                        <h3 className="font-semibold text-destructive">Error</h3>
-                        <p className="text-sm text-destructive/80">{errorMessage}</p>
-                      </div>
-                    </div>
-                  )}
+                  {submitStatus === "error" && <ErrorMessage message={errorMessage} />}
                   <div>
                     <label className="block text-sm font-semibold text-foreground mb-2">Full Name</label>
                     <input

@@ -5,8 +5,9 @@ import type React from "react"
 import { useState } from "react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
-import { ChevronRight, Loader2, CheckCircle, AlertCircle } from "lucide-react"
+import { ChevronRight, Loader2, CheckCircle } from "lucide-react"
 import { sendEmail, formatFormDataForEmail, createFormattedMessage } from "@/lib/emailjs"
+import { ErrorMessage } from "@/components/ui/error-message"
 
 type RegistrationType = "recipient" | "applicant"
 
@@ -273,12 +274,8 @@ export default function RegisterPage() {
           </div>
 
           {submitStatus === "error" && (
-            <div className="mb-6 bg-destructive/10 border border-destructive rounded-xl p-4 flex gap-3">
-              <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
-              <div>
-                <h3 className="font-semibold text-destructive">Error</h3>
-                <p className="text-sm text-destructive/80">{errorMessage}</p>
-              </div>
+            <div className="mb-6">
+              <ErrorMessage message={errorMessage} />
             </div>
           )}
 

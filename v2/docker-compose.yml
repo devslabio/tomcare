@@ -1,0 +1,22 @@
+# Local PostgreSQL for development (optional if Postgres is already installed).
+#   docker compose up -d
+# DATABASE_URL="postgresql://tomcare:tomcare@localhost:5432/tomcare?schema=public"
+
+name: tomcare-local
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: tomcare-local-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: tomcare
+      POSTGRES_PASSWORD: tomcare
+      POSTGRES_DB: tomcare
+    ports:
+      - "5432:5432"
+    volumes:
+      - tomcare-local-pgdata:/var/lib/postgresql/data
+
+volumes:
+  tomcare-local-pgdata:

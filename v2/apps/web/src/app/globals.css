@@ -1,0 +1,342 @@
+@import "tailwindcss";
+
+/* TOMCARE brand, taken from the V1 logo: the indigo → sky wordmark gradient, the bright hand mark,
+   the deep navy of the favicon and V1's warm gold accent, set on a soft paper-cream background. */
+:root {
+  --background: #fbf8f2;
+  --foreground: #0c1638;
+  --ink: #0b1537;
+  --ink-soft: #15214b;
+  --ink-line: #26335f;
+  --indigo: #2d388a;
+  --indigo-deep: #1f2766;
+  --sky: #00aeef;
+  --hand: #47abff;
+  --gold: #e5ac1b;
+  --gold-deep: #b9850b;
+  --gold-soft: #f8ecc8;
+  --cream: #fbf8f2;
+  --sand: #f3ece0;
+  --paper: #ffffff;
+  --line: #e6ddcc;
+  --muted: #5a6382;
+  --brand-gradient: linear-gradient(110deg, #2d388a 0%, #1f6fc6 55%, #00aeef 100%);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-line: var(--ink-line);
+  --color-indigo: var(--indigo);
+  --color-indigo-deep: var(--indigo-deep);
+  --color-sky: var(--sky);
+  --color-hand: var(--hand);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-gold-soft: var(--gold-soft);
+  --color-cream: var(--cream);
+  --color-sand: var(--sand);
+  --color-paper: var(--paper);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-jakarta);
+  --font-display: var(--font-fraunces);
+
+  /* The admin portal (ported from the reference project) uses these names. */
+  --color-navy: var(--ink);
+  --color-navy-soft: var(--ink-soft);
+  --color-navy-deep: #060c24;
+  --color-brand: var(--indigo);
+  --color-brand-dark: var(--indigo-deep);
+  --color-brand-soft: #eceefa;
+  --color-mist: var(--sand);
+  --color-blue: var(--indigo);
+  --color-cyan: var(--sky);
+  --color-teal: var(--sky);
+
+  --animate-kenburns: kenburns 18s ease-out both;
+  --animate-rise: rise 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-marquee: marquee 60s linear infinite;
+}
+
+/* Above-the-fold entrance that runs without JavaScript. Starting just above zero opacity
+   keeps the element eligible as the Largest Contentful Paint from the first frame. */
+@keyframes rise {
+  from {
+    opacity: 0.001;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+select {
+  appearance: none;
+}
+
+/* iOS zooms into any field under 16px on focus; unlayered so it outranks size utilities. */
+@media (pointer: coarse) {
+  input:not([type="checkbox"], [type="radio"], [type="range"]),
+  textarea,
+  select {
+    font-size: max(16px, 1em);
+  }
+}
+
+/* Tailwind 4 resets buttons to the default cursor; restore the pointer on everything clickable. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [role="tab"],
+  [role="option"],
+  [role="menuitem"],
+  [role="switch"],
+  a[href],
+  summary,
+  label[for],
+  label:has(> input:not([type="text"], [type="email"], [type="tel"], [type="url"], [type="password"], [type="search"], [type="number"])),
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled),
+  input[type="file"]:not(:disabled),
+  input[type="submit"]:not(:disabled),
+  input[type="file"]::file-selector-button {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled="true"],
+  select:disabled,
+  input:disabled,
+  textarea:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@utility font-display {
+  font-family: var(--font-display), Georgia, serif;
+  font-optical-sizing: auto;
+}
+
+@utility text-gradient {
+  background: var(--brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-brand {
+  background: var(--brand-gradient);
+}
+
+@utility container-x {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Paper texture for the cream sections, drawn once as a tiny SVG noise tile. */
+@utility paper {
+  background-color: var(--cream);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.38 0 0 0 0 0.25 0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Soft colour glows drawn as gradients; filter: blur() on large layers is costly while scrolling. */
+@utility glow-sky {
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--sky) 55%, transparent), transparent);
+}
+
+@utility glow-gold {
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 45%, transparent), transparent);
+}
+
+/* Fine film grain over dark photography so gradients don't band. */
+@utility grain {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+}
+
+/* Hand-drawn underline under a highlighted word in headings. */
+@utility underline-brush {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'><path d='M2 9 C 50 3, 120 2, 198 6' stroke='%23e5ac1b' stroke-width='4' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 100% 0.32em;
+  background-position: 0 92%;
+  padding-bottom: 0.06em;
+}
+
+/* Long-form text written in the admin (programs, news, events, custom pages). */
+.prose-tc {
+  color: color-mix(in srgb, var(--ink) 82%, transparent);
+  font-size: 1.0625rem;
+  line-height: 1.85;
+}
+.prose-tc > * + * {
+  margin-top: 1.15em;
+}
+.prose-tc h2 {
+  font-family: var(--font-display), Georgia, serif;
+  color: var(--ink);
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 2em;
+}
+.prose-tc h3 {
+  color: var(--ink);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 1.6em;
+}
+.prose-tc h2 + *,
+.prose-tc h3 + * {
+  margin-top: 0.6em;
+}
+.prose-tc ul,
+.prose-tc ol {
+  padding-left: 1.3em;
+}
+.prose-tc ul {
+  list-style: none;
+  padding-left: 0;
+}
+.prose-tc ul li {
+  position: relative;
+  padding-left: 1.6em;
+}
+.prose-tc ul li::before {
+  content: "";
+  position: absolute;
+  left: 0.2em;
+  top: 0.72em;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 999px;
+  background: var(--gold);
+}
+.prose-tc ol {
+  list-style: decimal;
+}
+.prose-tc ol li::marker {
+  color: var(--indigo);
+  font-weight: 700;
+}
+.prose-tc li + li {
+  margin-top: 0.45em;
+}
+.prose-tc a {
+  color: var(--indigo);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--sky) 60%, transparent);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}
+.prose-tc a:hover {
+  text-decoration-color: var(--indigo);
+}
+.prose-tc strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+.prose-tc blockquote {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1.5;
+  font-style: italic;
+  color: var(--ink);
+  border-left: 3px solid var(--gold);
+  padding-left: 1.25rem;
+}
+.prose-tc > :first-child {
+  margin-top: 0;
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal][data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-rise,
+  .animate-kenburns,
+  .animate-marquee {
+    animation: none !important;
+  }
+}

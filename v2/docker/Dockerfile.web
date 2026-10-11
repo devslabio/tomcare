@@ -1,0 +1,48 @@
+# TOMCARE Foundation website — Next.js monorepo build (context: v2/)
+# Debian slim (not Alpine): Tailwind v4 / lightningcss need glibc native bindings.
+ARG WEB_BASE_IMAGE=node:20-slim
+FROM ${WEB_BASE_IMAGE} AS base
+# The /v1 rewrite in next.config.ts is resolved at build time, so the API
+# address must be known here as well as at runtime.
+ARG API_INTERNAL_URL=http://tomcare-api:3072
+ENV API_INTERNAL_URL=$API_INTERNAL_URL
+ARG NEXT_PUBLIC_SITE_URL=https://tomcarefoundation.org
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+
+FROM base AS deps
+WORKDIR /app
+COPY package.json package-lock.json ./
+COPY apps/web/package.json apps/web/
+COPY apps/api/package.json apps/api/
+COPY packages/database/package.json packages/database/
+COPY packages/database/prisma packages/database/prisma/
+RUN npm ci \
+  && npm install @tailwindcss/oxide-linux-x64-gnu lightningcss-linux-x64-gnu --force -w web
+
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY package.json package-lock.json ./
+COPY apps/web apps/web
+ENV NODE_OPTIONS=--max-old-space-size=1024
+ENV NEXT_TELEMETRY_DISABLED=1
+WORKDIR /app/apps/web
+RUN npm run build
+
+FROM base AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV TZ=America/Toronto
+ENV PORT=3073
+ENV HOSTNAME=0.0.0.0
+RUN groupadd --system --gid 1001 nodejs \
+  && useradd --system --uid 1001 --gid nodejs nextjs
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
+USER nextjs
+EXPOSE 3073
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=5 \
+  CMD node -e "require('http').get('http://127.0.0.1:' + (process.env.PORT || '3073') + '/admin/login', (r) => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"
+CMD ["node", "apps/web/server.js"]

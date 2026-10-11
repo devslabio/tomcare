@@ -1,0 +1,95 @@
+# TOMCARE Foundation V2 — production stack (PostgreSQL, API, website).
+#   cp docker/.env.example docker/.env   # then set the secrets
+#   docker compose -f docker/docker-compose.prod.yml --env-file docker/.env up -d --build
+#
+# The API (3072) and website (3073) are published on loopback only, for an nginx on the host.
+# An nginx that runs in Docker reaches them by name on the "tomcare" network instead:
+#   docker network connect tomcare <nginx-container>
+# and uses docker/nginx/tomcarefoundation.org.conf with the upstreams switched to the container names.
+
+name: tomcare-v2
+
+services:
+  tomcare-postgres:
+    image: postgres:17-alpine
+    container_name: tomcare-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: tomcare
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}
+      POSTGRES_DB: tomcare
+    volumes:
+      - tomcare-pgdata:/var/lib/postgresql/data
+    networks: [tomcare]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tomcare -d tomcare"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  tomcare-api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    container_name: tomcare-api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3072
+      TZ: America/Toronto
+      DATABASE_URL: postgresql://tomcare:${POSTGRES_PASSWORD}@tomcare-postgres:5432/tomcare?schema=public
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set}
+      UPLOAD_DIR: /app/uploads
+      # nginx → API is a single hop; so is the Next.js /v1 rewrite
+      TRUST_PROXY_HOPS: ${TRUST_PROXY_HOPS:-1}
+      SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL:-admin@tomcarefoundation.org}
+      SEED_ADMIN_NAME: ${SEED_ADMIN_NAME:-TOMCARE Admin}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:-}
+    ports:
+      - "127.0.0.1:3072:3072"
+    volumes:
+      - tomcare-uploads:/app/uploads
+    networks: [tomcare]
+    depends_on:
+      tomcare-postgres:
+        condition: service_healthy
+    # Schema sync and the idempotent seed (first admin + starter content only into empty tables) run on every start.
+    command: >
+      sh -c "
+        cd /app/packages/database &&
+        npx prisma db push --skip-generate &&
+        (npx prisma db seed || true) &&
+        cd /app/apps/api &&
+        node dist/main.js
+      "
+
+  tomcare-web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.web
+      args:
+        API_INTERNAL_URL: http://tomcare-api:3072
+        NEXT_PUBLIC_SITE_URL: ${SITE_URL:-https://tomcarefoundation.org}
+    container_name: tomcare-web
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3073
+      TZ: America/Toronto
+      HOSTNAME: 0.0.0.0
+      API_INTERNAL_URL: http://tomcare-api:3072
+    ports:
+      - "127.0.0.1:3073:3073"
+    networks: [tomcare]
+    depends_on:
+      - tomcare-api
+
+networks:
+  tomcare:
+    name: tomcare
+
+volumes:
+  tomcare-pgdata:
+    name: tomcare-pgdata
+  tomcare-uploads:
+    name: tomcare-uploads

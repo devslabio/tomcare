@@ -65,6 +65,11 @@ export class ReorderDto {
 }
 
 export class ProgramDto {
+  @ApiPropertyOptional({ type: Object, description: "French version of the text fields; empty fields fall back to English" })
+  @IsOptional()
+  @IsObject()
+  fr?: Record<string, unknown>;
+
   @ApiProperty()
   @IsString()
   @MinLength(2)
@@ -116,6 +121,11 @@ export class ProgramDto {
 }
 
 export class ServiceDto {
+  @ApiPropertyOptional({ type: Object, description: "French version of the text fields; empty fields fall back to English" })
+  @IsOptional()
+  @IsObject()
+  fr?: Record<string, unknown>;
+
   @ApiProperty()
   @IsString()
   @MinLength(2)
@@ -138,6 +148,11 @@ export class ServiceDto {
 }
 
 export class EventDto {
+  @ApiPropertyOptional({ type: Object, description: "French version of the text fields; empty fields fall back to English" })
+  @IsOptional()
+  @IsObject()
+  fr?: Record<string, unknown>;
+
   @ApiProperty()
   @IsString()
   @MinLength(2)
@@ -189,6 +204,11 @@ export class EventDto {
 }
 
 export class PostDto {
+  @ApiPropertyOptional({ type: Object, description: "French version of the text fields; empty fields fall back to English" })
+  @IsOptional()
+  @IsObject()
+  fr?: Record<string, unknown>;
+
   @ApiProperty()
   @IsString()
   @MinLength(2)
@@ -236,6 +256,11 @@ export class PostDto {
 }
 
 export class PageDto {
+  @ApiPropertyOptional({ type: Object, description: "French version of the text fields; empty fields fall back to English" })
+  @IsOptional()
+  @IsObject()
+  fr?: Record<string, unknown>;
+
   @ApiProperty()
   @IsString()
   @MinLength(2)
@@ -281,6 +306,11 @@ export class PageDto {
 }
 
 export class TeamMemberDto {
+  @ApiPropertyOptional({ type: Object, description: "French version of the text fields; empty fields fall back to English" })
+  @IsOptional()
+  @IsObject()
+  fr?: Record<string, unknown>;
+
   @ApiProperty()
   @IsString()
   @MinLength(2)
@@ -314,6 +344,11 @@ export class TeamMemberDto {
 }
 
 export class TestimonialDto {
+  @ApiPropertyOptional({ type: Object, description: "French version of the text fields; empty fields fall back to English" })
+  @IsOptional()
+  @IsObject()
+  fr?: Record<string, unknown>;
+
   @ApiProperty()
   @IsString()
   @MinLength(10)
@@ -343,6 +378,11 @@ export class TestimonialDto {
 }
 
 export class PartnerDto {
+  @ApiPropertyOptional({ type: Object, description: "French version of the text fields; empty fields fall back to English" })
+  @IsOptional()
+  @IsObject()
+  fr?: Record<string, unknown>;
+
   @ApiProperty()
   @IsString()
   @MinLength(1)
@@ -371,6 +411,11 @@ export class PartnerDto {
 }
 
 export class VolunteerRoleDto {
+  @ApiPropertyOptional({ type: Object, description: "French version of the text fields; empty fields fall back to English" })
+  @IsOptional()
+  @IsObject()
+  fr?: Record<string, unknown>;
+
   @ApiProperty()
   @IsString()
   @MinLength(2)

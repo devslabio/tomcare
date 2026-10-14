@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 
+import { contactSubjects } from "@/lib/site";
+import { useI18n } from "../i18n-provider";
 import { Field, FormError, formValues, Honeypot, Sent, SubmitButton, TextArea, useSubmit } from "./form-kit";
 
-const subjects = ["I need help", "I want to volunteer", "Donations", "Partnership", "Media", "Something else"];
-
 export function ContactForm() {
+  const { t } = useI18n();
+  const copy = t.forms.contact;
   const { status, setStatus, submit } = useSubmit("messages");
   const [subject, setSubject] = useState("");
 
@@ -22,8 +24,8 @@ export function ContactForm() {
 
   if (status.state === "sent") {
     return (
-      <Sent title="Thank you — we’ve received your message." onReset={() => setStatus({ state: "idle" })} resetLabel="Send another message">
-        Someone from our team will reply by email or phone, usually within two working days.
+      <Sent title={copy.sentTitle} onReset={() => setStatus({ state: "idle" })} resetLabel={copy.again}>
+        {copy.sentText}
       </Sent>
     );
   }
@@ -31,9 +33,9 @@ export function ContactForm() {
   return (
     <form onSubmit={onSubmit} className="space-y-5">
       <fieldset>
-        <legend className="mb-3 text-sm font-semibold text-ink">What is your message about?</legend>
+        <legend className="mb-3 text-sm font-semibold text-ink">{copy.subjectLegend}</legend>
         <div className="flex flex-wrap gap-2">
-          {subjects.map((option) => {
+          {contactSubjects.map((option) => {
             const selected = subject === option;
             return (
               <button
@@ -45,21 +47,21 @@ export function ContactForm() {
                   selected ? "border-transparent bg-ink text-white" : "border-line bg-white text-ink/75 hover:border-ink/30"
                 }`}
               >
-                {option}
+                {t.forms.subjects[option]}
               </button>
             );
           })}
         </div>
       </fieldset>
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field label="Your name" name="name" required autoComplete="name" />
-        <Field label="Email" name="email" type="email" required autoComplete="email" />
+        <Field label={t.forms.name} name="name" required autoComplete="name" />
+        <Field label={t.forms.email} name="email" type="email" required autoComplete="email" />
       </div>
-      <Field label="Phone" name="phone" type="tel" autoComplete="tel" maxLength={30} />
-      <TextArea label="Message" name="message" required minLength={5} placeholder="How can we help?" />
+      <Field label={t.forms.phone} name="phone" type="tel" autoComplete="tel" maxLength={30} />
+      <TextArea label={copy.message} name="message" required minLength={5} placeholder={copy.messagePlaceholder} />
       <Honeypot />
       <FormError status={status} />
-      <SubmitButton status={status}>Send message</SubmitButton>
+      <SubmitButton status={status}>{copy.submit}</SubmitButton>
     </form>
   );
 }

@@ -1,5 +1,8 @@
 import type { Block } from "./blocks";
 
+/** French version of a record's text fields, as entered in the admin; empty fields fall back to English. */
+export type French<T, K extends keyof T> = Partial<Pick<T, K>>;
+
 export type PublishStatus = "DRAFT" | "PUBLISHED";
 export type TeamGroup = "BOARD" | "STAFF" | "VOLUNTEER";
 
@@ -16,6 +19,7 @@ export type Program = {
   featured: boolean;
   visible: boolean;
   sortOrder: number;
+  fr?: French<Program, "title" | "category" | "summary" | "body" | "highlights">;
 };
 
 export type Service = {
@@ -25,6 +29,7 @@ export type Service = {
   icon: string;
   visible: boolean;
   sortOrder: number;
+  fr?: French<Service, "title" | "description">;
 };
 
 export type Event = {
@@ -39,6 +44,7 @@ export type Event = {
   location: string;
   registerUrl: string | null;
   visible: boolean;
+  fr?: French<Event, "title" | "summary" | "body" | "location">;
 };
 
 export type Post = {
@@ -52,6 +58,7 @@ export type Post = {
   category: string;
   status: PublishStatus;
   publishedAt: string | null;
+  fr?: French<Post, "title" | "excerpt" | "body" | "category">;
 };
 
 export type PostSummary = Omit<Post, "body" | "status">;
@@ -68,9 +75,10 @@ export type Page = {
   navLabel: string | null;
   sortOrder: number;
   updatedAt: string;
+  fr?: French<Page, "title" | "description" | "navLabel" | "blocks">;
 };
 
-export type NavPage = Pick<Page, "slug" | "title" | "navLabel" | "showInNav" | "updatedAt">;
+export type NavPage = Pick<Page, "slug" | "title" | "navLabel" | "showInNav" | "updatedAt" | "fr">;
 
 export type TeamMember = {
   id: string;
@@ -81,6 +89,7 @@ export type TeamMember = {
   group: TeamGroup;
   visible: boolean;
   sortOrder: number;
+  fr?: French<TeamMember, "role" | "bio">;
 };
 
 export type Testimonial = {
@@ -91,6 +100,7 @@ export type Testimonial = {
   photo: string | null;
   visible: boolean;
   sortOrder: number;
+  fr?: French<Testimonial, "quote" | "role">;
 };
 
 export type Partner = {
@@ -101,6 +111,7 @@ export type Partner = {
   description: string | null;
   visible: boolean;
   sortOrder: number;
+  fr?: French<Partner, "description">;
 };
 
 export type VolunteerRole = {
@@ -112,6 +123,7 @@ export type VolunteerRole = {
   skills: string[];
   visible: boolean;
   sortOrder: number;
+  fr?: French<VolunteerRole, "title" | "description" | "commitment" | "location" | "skills">;
 };
 
 export type SiteSettings = {
@@ -142,6 +154,7 @@ export type SiteSettings = {
     vision: string;
     mission: string;
     quote: string;
+    quoteAuthor: string;
     founded: string;
     representative: string;
   };
@@ -164,4 +177,27 @@ export type SiteSettings = {
     recognition: string;
     charityNumber: string;
   };
+  fr: Record<
+    | "heroEyebrow"
+    | "heroTitle"
+    | "heroSubtitle"
+    | "aboutHeadline"
+    | "aboutIntro"
+    | "aboutStory"
+    | "aboutVision"
+    | "aboutMission"
+    | "aboutQuote"
+    | "aboutRepresentative"
+    | "stat1Label"
+    | "stat2Label"
+    | "stat3Label"
+    | "stat4Label"
+    | "donateHeadline"
+    | "donateIntro"
+    | "donateDropOffDays"
+    | "donateRecognition"
+    | "contactAddress"
+    | "contactHours",
+    string
+  >;
 };

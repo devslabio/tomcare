@@ -7,7 +7,16 @@ import { api, useResource } from "@/lib/admin-api";
 import type { SiteSettings } from "@/lib/admin-types";
 
 type Section = keyof SiteSettings;
-type FieldSpec = { key: string; label: string; hint?: string; type?: string; multiline?: boolean; wide?: boolean };
+type FieldSpec = {
+  key: string;
+  label: string;
+  hint?: string;
+  type?: string;
+  multiline?: boolean;
+  wide?: boolean;
+  /** Setting whose English text is shown as the placeholder of a French field. */
+  english?: [Exclude<Section, "fr">, string];
+};
 
 const highlightHint = "Wrap words in *stars* to show them in the gold italic accent.";
 
@@ -63,7 +72,8 @@ const sections: { key: Section; title: string; description: string; fields: Fiel
       { key: "vision", label: "Vision", multiline: true },
       { key: "mission", label: "Mission", multiline: true },
       { key: "quote", label: "Founder’s quote", multiline: true, wide: true },
-      { key: "representative", label: "Quote attributed to", hint: "Name and title" },
+      { key: "quoteAuthor", label: "Quote by", hint: "Who said the quote, e.g. Muhammad Ali" },
+      { key: "representative", label: "Founder name and title", hint: "e.g. Tom Ntambara, Founder" },
       { key: "founded", label: "Year founded" },
     ],
   },
@@ -87,6 +97,30 @@ const sections: { key: Section; title: string; description: string; fields: Fiel
       { key: "recognition", label: "Thank-you note", multiline: true, wide: true },
     ],
   },
+  {
+    key: "fr",
+    title: "Français",
+    description: "The French version of the text above, shown on the French site. Leave a field empty to show the English text there.",
+    fields: [
+      { key: "heroEyebrow", label: "Home: small line above", english: ["hero", "eyebrow"], wide: true },
+      { key: "heroTitle", label: "Home: headline", hint: highlightHint, english: ["hero", "title"], wide: true },
+      { key: "heroSubtitle", label: "Home: supporting text", multiline: true, english: ["hero", "subtitle"], wide: true },
+      { key: "aboutHeadline", label: "About: headline", hint: highlightHint, english: ["about", "headline"], wide: true },
+      { key: "aboutIntro", label: "About: introduction", multiline: true, english: ["about", "intro"], wide: true },
+      { key: "aboutStory", label: "About: our story", multiline: true, english: ["about", "story"], wide: true },
+      { key: "aboutVision", label: "About: vision", multiline: true, english: ["about", "vision"] },
+      { key: "aboutMission", label: "About: mission", multiline: true, english: ["about", "mission"] },
+      { key: "aboutQuote", label: "About: quote", multiline: true, english: ["about", "quote"], wide: true },
+      { key: "aboutRepresentative", label: "About: founder name and title", english: ["about", "representative"], wide: true },
+      ...[1, 2, 3, 4].map((n) => ({ key: `stat${n}Label`, label: `Key figure ${n}: label`, english: ["stats", `stat${n}Label`] as FieldSpec["english"] })),
+      { key: "donateHeadline", label: "Donations: headline", hint: highlightHint, english: ["donate", "headline"], wide: true },
+      { key: "donateIntro", label: "Donations: introduction", multiline: true, english: ["donate", "intro"], wide: true },
+      { key: "donateDropOffDays", label: "Donations: drop-off times", multiline: true, hint: "One per line: Day · time · note", english: ["donate", "dropOffDays"] },
+      { key: "donateRecognition", label: "Donations: thank-you note", multiline: true, english: ["donate", "recognition"] },
+      { key: "contactAddress", label: "Contact: address", english: ["contact", "address"] },
+      { key: "contactHours", label: "Contact: opening hours", multiline: true, english: ["contact", "hours"] },
+    ],
+  },
 ];
 
 export default function SettingsPage() {
@@ -103,6 +137,7 @@ export default function SettingsPage() {
               key={section.key}
               section={section}
               values={data[section.key] as Record<string, string>}
+              settings={data}
               onSaved={(next) => setData(() => next)}
             />
           ))
@@ -114,10 +149,12 @@ export default function SettingsPage() {
 function SectionForm({
   section,
   values: initial,
+  settings,
   onSaved,
 }: {
   section: (typeof sections)[number];
   values: Record<string, string>;
+  settings: SiteSettings;
   onSaved: (settings: SiteSettings) => void;
 }) {
   const toast = useToast();
@@ -148,13 +185,16 @@ function SectionForm({
           <p className="mt-0.5 text-sm text-muted">{section.description}</p>
         </div>
         <div className="grid gap-5 p-5 sm:grid-cols-2 sm:p-6">
-          {section.fields.map((field) => (
+          {section.fields.map((field) => {
+            const placeholder = field.english ? (settings[field.english[0]] as Record<string, string>)[field.english[1]] : undefined;
+            return (
             <Field key={field.key} label={field.label} hint={field.hint} className={field.wide ? "sm:col-span-2" : ""}>
               {field.multiline ? (
                 <Textarea
                   value={values[field.key] ?? ""}
                   onChange={(e) => setValues((v) => ({ ...v, [field.key]: e.target.value }))}
                   maxLength={2000}
+                  placeholder={placeholder}
                   className="min-h-24"
                 />
               ) : (
@@ -163,10 +203,12 @@ function SectionForm({
                   value={values[field.key] ?? ""}
                   onChange={(e) => setValues((v) => ({ ...v, [field.key]: e.target.value }))}
                   maxLength={1000}
+                  placeholder={placeholder}
                 />
               )}
             </Field>
-          ))}
+            );
+          })}
         </div>
         <div className="flex justify-end gap-2 border-t border-line px-5 py-3 sm:px-6">
           {dirty ? (

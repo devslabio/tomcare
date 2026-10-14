@@ -6,7 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { BlockEditor } from "@/components/admin/block-editor";
-import { optional, Section } from "@/components/admin/editor-kit";
+import { FrenchFields, FrenchSection, optional, Section } from "@/components/admin/editor-kit";
 import { useToast } from "@/components/admin/toast";
 import {
   Button,
@@ -66,6 +66,12 @@ function PageForm({ page }: { page?: Page }) {
     navLabel: page?.navLabel ?? "",
   });
   const [blocks, setBlocks] = useState<Block[]>(page?.blocks ?? [newBlock(blockTypes[0].type)]);
+  const [fr, setFr] = useState<Record<string, unknown>>({
+    title: page?.fr?.title,
+    description: page?.fr?.description,
+    navLabel: page?.fr?.navLabel,
+  });
+  const [frBlocks, setFrBlocks] = useState<Block[]>(page?.fr?.blocks ?? []);
   const [slugTouched, setSlugTouched] = useState(Boolean(page));
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -86,10 +92,12 @@ function PageForm({ page }: { page?: Page }) {
           heroImage: optional(values.heroImage),
           navLabel: optional(values.navLabel),
           blocks,
+          fr: { ...fr, blocks: frBlocks },
         },
       });
       set("status", saved.status);
       setBlocks(saved.blocks);
+      setFrBlocks(saved.fr?.blocks ?? []);
       toast(status === "PUBLISHED" && values.status === "DRAFT" ? "Page published" : page ? "Page saved" : "Page created");
       if (page) setBusy(false);
       else router.replace(`/admin/pages/${saved.id}`);
@@ -179,6 +187,38 @@ function PageForm({ page }: { page?: Page }) {
           <Section title="Sections" description="Build the page from blocks. Use the arrows to change their order.">
             <BlockEditor value={blocks} onChange={setBlocks} />
           </Section>
+
+          <FrenchSection>
+            <FrenchFields
+              value={fr}
+              onChange={setFr}
+              fields={[
+                { key: "title", label: "Title", max: 160, english: values.title },
+                { key: "navLabel", label: "Menu label", max: 40, english: values.navLabel || values.title },
+                { key: "description", label: "Introduction", max: 400, english: values.description, kind: "long" },
+              ]}
+            />
+            <div className="space-y-3 border-t border-line pt-5">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <p className="text-sm font-semibold text-navy">French sections</p>
+                  <p className="text-sm text-muted">
+                    {frBlocks.length ? "The French site shows these sections instead of the English ones." : "None yet — the French site shows the English sections."}
+                  </p>
+                </div>
+                {frBlocks.length ? (
+                  <Button variant="ghost" size="sm" onClick={() => window.confirm("Remove all French sections? The French site will show the English ones.") && setFrBlocks([])}>
+                    Remove French sections
+                  </Button>
+                ) : (
+                  <Button variant="secondary" size="sm" onClick={() => setFrBlocks(structuredClone(blocks))} disabled={!blocks.length}>
+                    Copy English sections to translate
+                  </Button>
+                )}
+              </div>
+              {frBlocks.length ? <BlockEditor value={frBlocks} onChange={setFrBlocks} /> : null}
+            </div>
+          </FrenchSection>
         </div>
 
         <div className="space-y-6">

@@ -66,6 +66,8 @@ model Program {
   featured   Boolean  @default(false)
   visible    Boolean  @default(true)
   sortOrder  Int      @default(0)
+  /// French version of the translatable fields; missing ones fall back to English.
+  fr         Json     @default("{}")
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
@@ -81,6 +83,8 @@ model Service {
   icon        String   @default("file-text")
   visible     Boolean  @default(true)
   sortOrder   Int      @default(0)
+  /// French version of the translatable fields; missing ones fall back to English.
+  fr          Json     @default("{}")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -89,19 +93,21 @@ model Service {
 }
 
 model Event {
-  id          String   @id @default(uuid())
-  slug        String   @unique
+  id          String    @id @default(uuid())
+  slug        String    @unique
   title       String
   summary     String
-  body        String   @default("")
+  body        String    @default("")
   image       String?
   startsAt    DateTime
   endsAt      DateTime?
   location    String
   registerUrl String?
-  visible     Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  visible     Boolean   @default(true)
+  /// French version of the translatable fields; missing ones fall back to English.
+  fr          Json      @default("{}")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@index([visible, startsAt])
   @@map("events")
@@ -118,6 +124,8 @@ model Post {
   category    String        @default("News")
   status      PublishStatus @default(DRAFT)
   publishedAt DateTime?
+  /// French version of the translatable fields; missing ones fall back to English.
+  fr          Json          @default("{}")
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 
@@ -138,6 +146,8 @@ model Page {
   showInNav   Boolean       @default(false)
   navLabel    String?
   sortOrder   Int           @default(0)
+  /// French version of the translatable fields; missing ones fall back to English.
+  fr          Json          @default("{}")
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 
@@ -153,6 +163,8 @@ model TeamMember {
   group     TeamGroup @default(STAFF)
   visible   Boolean   @default(true)
   sortOrder Int       @default(0)
+  /// French version of the translatable fields; missing ones fall back to English.
+  fr        Json      @default("{}")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
@@ -168,6 +180,8 @@ model Testimonial {
   photo     String?
   visible   Boolean  @default(true)
   sortOrder Int      @default(0)
+  /// French version of the translatable fields; missing ones fall back to English.
+  fr        Json     @default("{}")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -182,6 +196,8 @@ model Partner {
   description String?
   visible     Boolean  @default(true)
   sortOrder   Int      @default(0)
+  /// French version of the translatable fields; missing ones fall back to English.
+  fr          Json     @default("{}")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -197,6 +213,8 @@ model VolunteerRole {
   skills      String[] @default([])
   visible     Boolean  @default(true)
   sortOrder   Int      @default(0)
+  /// French version of the translatable fields; missing ones fall back to English.
+  fr          Json     @default("{}")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 

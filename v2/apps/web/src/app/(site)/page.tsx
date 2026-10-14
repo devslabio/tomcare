@@ -1,172 +1,151 @@
-import { ArrowRight, CalendarDays, HandHeart, Heart, Quote, Sparkles } from "lucide-react";
-import Link from "next/link";
+import { ArrowRight, CalendarDays, HandHeart, Heart, Quote, ReceiptText, Sparkles } from "lucide-react";
 
-import { EventCard, PostCard, ProgramCard } from "@/components/cards";
+import { EventCard, ProgramCard } from "@/components/cards";
 import { Highlight } from "@/components/highlight";
-import { HandMark } from "@/components/logo";
+import { Link } from "@/components/link";
 import { Photo } from "@/components/photo";
 import { Avatar, ButtonLink, Eyebrow, SectionHeading } from "@/components/ui";
-import { getEvents, getPosts, getPrograms, getServices, getSettings, getTestimonials, lines, stats } from "@/lib/cms";
+import { getEvents, getPosts, getPrograms, getServices, getSettings, getTeam, getTestimonials, lines, stats } from "@/lib/cms";
+import { formatDate } from "@/lib/format";
+import { fill } from "@/lib/i18n";
+import { quoteMarks } from "@/lib/i18n/config";
+import { getI18n } from "@/lib/i18n/server";
 import { Icon } from "@/lib/icons";
 import { photos } from "@/lib/photos";
 import { revealDelay } from "@/lib/reveal";
 
-const audiences = [
-  {
-    title: "Newcomers & asylum seekers",
-    text: "Guidance through every step of settling in Quebec — paperwork, housing, French, work and community.",
-    image: photos.arrival,
-  },
-  {
-    title: "People living with disabilities",
-    text: "Practical support to access services, housing and training, and to live with independence and dignity.",
-    image: photos.wheelchair,
-  },
-  {
-    title: "Seniors",
-    text: "Company, help with daily tasks and a connection to services, so no older person is left isolated.",
-    image: photos.seniors,
-  },
-  {
-    title: "Families facing hardship",
-    text: "Single mothers, people living with depression, families stretched thin — help with essentials and a way forward.",
-    image: photos.mother,
-  },
+const audienceImages = [photos.arrival, photos.wheelchair, photos.seniors, photos.mother];
+const pathLinks = [
+  { href: "/get-help", icon: Sparkles },
+  { href: "/volunteer", icon: HandHeart },
+  { href: "/donate", icon: Heart },
 ];
 
-const paths = [
-  {
-    href: "/get-help",
-    icon: Sparkles,
-    kicker: "I’m new here",
-    title: "Ask for help",
-    text: "Free, confidential support for newcomers and families.",
-  },
-  {
-    href: "/volunteer",
-    icon: HandHeart,
-    kicker: "I have time to give",
-    title: "Become a volunteer",
-    text: "Teach, translate, drive, mentor or simply welcome.",
-  },
-  {
-    href: "/donate",
-    icon: Heart,
-    kicker: "I want to give",
-    title: "Make a donation",
-    text: "Money, clothing, furniture — every gift goes directly to people.",
-  },
-];
+/** Horizontal swipe row on phones, grid from tablets up — keeps long lists from filling several screens. */
+const swipeRow =
+  "-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 no-scrollbar sm:mx-0 sm:grid sm:snap-none sm:overflow-visible sm:px-0 sm:pb-0";
+const swipeItem = "w-[82%] shrink-0 snap-start sm:w-auto";
 
 export default async function HomePage() {
-  const [settings, programs, services, events, posts, testimonials] = await Promise.all([
+  const [{ locale, t }, settings, programs, services, events, posts, testimonials, team] = await Promise.all([
+    getI18n(),
     getSettings(),
     getPrograms(),
     getServices(),
     getEvents(),
     getPosts(),
     getTestimonials(),
+    getTeam(),
   ]);
+  const copy = t.home;
   const { hero, about, donate } = settings;
+  const [open, close] = quoteMarks(locale);
   const featured = (programs.some((program) => program.featured) ? programs.filter((program) => program.featured) : programs).slice(0, 6);
-  const figures = stats(settings);
+  const [impact] = stats(settings);
+  const founder = team.find((member) => member.group === "BOARD") ?? team[0];
+  const founderName = founder?.name ?? about.representative.split(",")[0];
+  const founderRole = founder?.role ?? about.representative.split(",").slice(1).join(",").trim();
   const [leadTestimonial, ...otherTestimonials] = testimonials;
+  const upcoming = events.upcoming.slice(0, 3);
+  const latest = posts.slice(0, 3);
 
   return (
     <>
       {/* Hero */}
-      <section className="grain relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink text-white">
-        <Photo src={photos.hero} alt="" fill priority sizes="100vw" quality={90} className="animate-kenburns -z-20 object-cover object-[46%_center] lg:object-[60%_center]" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/95 via-ink/70 to-ink/10" aria-hidden />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/10 to-ink/40" aria-hidden />
+      <section className="grain relative isolate flex flex-col overflow-hidden bg-ink text-white lg:min-h-[100svh]">
+        <Photo
+          src={photos.hero}
+          alt={copy.heroAlt}
+          fill
+          priority
+          sizes="100vw"
+          quality={90}
+          className="animate-kenburns -z-20 object-cover object-[46%_center] lg:object-[60%_center]"
+        />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/55 to-transparent" aria-hidden />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/85 via-transparent to-ink/40" aria-hidden />
 
-        <div className="container-x flex flex-1 flex-col justify-center pb-16 pt-40 lg:pb-24 lg:pt-48">
+        <div className="container-x flex flex-1 flex-col justify-center pb-10 pt-28 sm:pb-14 sm:pt-40 lg:pb-16 lg:pt-48">
           <div className="max-w-3xl">
             <div className="animate-rise">
               <Eyebrow light>{hero.eyebrow}</Eyebrow>
             </div>
-            <h1 className="animate-rise font-display mt-6 text-balance text-[clamp(2.75rem,7vw,5.75rem)] font-normal leading-[1.02] tracking-[-0.03em] [animation-delay:80ms]">
+            <h1 className="animate-rise font-display text-display mt-5 text-balance font-normal [animation-delay:80ms]">
               <Highlight text={hero.title} />
             </h1>
-            <p className="animate-rise mt-7 max-w-2xl text-lg leading-8 text-white/80 [animation-delay:160ms] sm:text-xl sm:leading-9">
+            <p className="animate-rise text-lead mt-6 hidden max-w-2xl text-white/85 [animation-delay:160ms] sm:block sm:text-xl sm:leading-9">
               {hero.subtitle}
             </p>
-            <div className="animate-rise mt-10 flex flex-wrap gap-3 [animation-delay:240ms]">
-              <ButtonLink href="/get-help" variant="gold">
-                Ask for help
-              </ButtonLink>
-              <ButtonLink href="/about" variant="outline-light" arrow={false}>
-                Who we are
-              </ButtonLink>
-            </div>
           </div>
         </div>
 
-        <div className="container-x relative pb-10 lg:pb-14">
-          <div className="grid overflow-hidden rounded-[28px] border border-white/15 bg-white/[0.07] backdrop-blur-md md:grid-cols-3">
-            {paths.map((path, index) => (
-              <Link
-                key={path.href}
-                href={path.href}
-                className={`group animate-rise flex items-start gap-4 p-6 transition hover:bg-white/[0.08] lg:p-8 ${
-                  index ? "border-t border-white/10 md:border-l md:border-t-0" : ""
-                }`}
-                style={{ animationDelay: `${320 + index * 80}ms` }}
-              >
-                <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl bg-gold text-ink">
-                  <path.icon className="size-5" aria-hidden />
-                </span>
-                <span className="flex-1">
-                  <span className="block text-xs font-bold uppercase tracking-wider text-white/55">{path.kicker}</span>
-                  <span className="mt-1 flex items-center gap-2 text-lg font-bold">
-                    {path.title}
-                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden />
+        <div className="container-x relative pb-6 sm:pb-10 lg:pb-14">
+          <div className="grid gap-3 md:grid-cols-3 md:gap-4">
+            {copy.paths.map((path, index) => {
+              const { href, icon: PathIcon } = pathLinks[index];
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className="group animate-rise flex items-center gap-4 rounded-[20px] bg-white p-4 text-ink shadow-[0_20px_50px_-25px_rgba(0,0,0,0.6)] transition hover:-translate-y-0.5 sm:items-start sm:p-6"
+                  style={{ animationDelay: `${240 + index * 80}ms` }}
+                >
+                  <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-2xl bg-gold text-ink sm:size-12">
+                    <PathIcon className="size-5" aria-hidden />
                   </span>
-                  <span className="mt-1 block text-sm leading-6 text-white/65">{path.text}</span>
-                </span>
-              </Link>
-            ))}
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-sm font-medium text-muted">{path.kicker}</span>
+                    <span className="mt-0.5 flex items-center gap-2 text-lg font-bold">
+                      {path.title}
+                      <ArrowRight className="size-4 text-indigo transition-transform group-hover:translate-x-1" aria-hidden />
+                    </span>
+                    <span className="mt-1 hidden text-[15px] leading-6 text-muted sm:block">{path.text}</span>
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Who we are */}
-      <section className="paper relative overflow-hidden py-24 lg:py-32">
-        <div className="container-x grid items-center gap-16 lg:grid-cols-12">
+      {/* About and founder */}
+      <section className="paper section-y relative overflow-hidden">
+        <div className="container-x grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-6" data-reveal>
-            <Eyebrow>About TOMCARE</Eyebrow>
-            <h2 className="font-display mt-5 text-balance text-[clamp(2.1rem,4.4vw,3.5rem)] leading-[1.08] tracking-[-0.02em] text-ink">
-              <Highlight text={about.headline} className="italic text-indigo underline-brush" />
+            <Eyebrow>{copy.aboutEyebrow}</Eyebrow>
+            <h2 className="font-display text-h2 mt-5 text-balance text-ink">
+              <Highlight text={about.headline} className="text-indigo underline-brush" />
             </h2>
-            <p className="mt-7 text-lg leading-8 text-ink/75">{about.intro}</p>
-            <figure className="mt-10 rounded-[24px] border-l-4 border-gold bg-white p-7 shadow-[0_20px_50px_-30px_rgba(11,21,55,0.3)]">
-              <Quote className="size-7 text-gold" aria-hidden />
-              <blockquote className="font-display mt-3 text-xl italic leading-relaxed text-ink">“{about.quote}”</blockquote>
-              <figcaption className="mt-4 text-sm text-muted">The value that guides our work</figcaption>
+            <p className="text-lead mt-6 text-ink/80">{about.intro}</p>
+            <figure className="mt-8 rounded-[24px] border-l-4 border-gold bg-white p-7 shadow-[0_20px_50px_-30px_rgba(11,21,55,0.3)]">
+              <Quote className="size-6 text-gold" aria-hidden />
+              <blockquote className="font-display mt-3 text-xl leading-relaxed text-ink">{open}{about.quote}{close}</blockquote>
+              {about.quoteAuthor ? <figcaption className="mt-3 text-[15px] font-semibold text-muted">— {about.quoteAuthor}</figcaption> : null}
             </figure>
-            <ButtonLink href="/about" variant="ghost" className="mt-8">
-              Read our story
-            </ButtonLink>
+            {founderName ? (
+              <div className="mt-8 flex flex-wrap items-center justify-between gap-5">
+                <div className="flex items-center gap-4">
+                  <Avatar name={founderName} photo={founder?.photo} className="size-16 text-xl" />
+                  <div>
+                    <p className="text-sm font-semibold text-indigo">{copy.founderEyebrow}</p>
+                    <p className="text-lg font-bold text-ink">{founderName}</p>
+                    {founderRole ? <p className="text-sm text-muted">{founderRole}</p> : null}
+                  </div>
+                </div>
+                <ButtonLink href="/about" variant="ghost">
+                  {t.actions.readStory}
+                </ButtonLink>
+              </div>
+            ) : null}
           </div>
           <div className="relative lg:col-span-6" data-reveal style={revealDelay(120)}>
-            <div className="grid grid-cols-5 gap-4">
-              <div className="relative col-span-3 aspect-[3/4] overflow-hidden rounded-[28px] bg-sand">
-                <Photo src={photos.family} alt="A family sharing a moment together" fill sizes="(min-width: 1024px) 30vw, 60vw" className="object-cover" />
-              </div>
-              <div className="col-span-2 flex flex-col gap-4 pt-16">
-                <div className="relative aspect-[3/4] overflow-hidden rounded-[28px] bg-sand">
-                  <Photo src={photos.handsTogether} alt="Hands joined together" fill sizes="(min-width: 1024px) 20vw, 40vw" className="object-cover" />
-                </div>
-                <div className="rounded-[24px] bg-indigo p-5 text-white">
-                  <HandMark className="h-8 w-auto" color="#e5ac1b" />
-                  <p className="mt-3 text-sm leading-6 text-white/80">Founded in Montréal in {about.founded}</p>
-                </div>
-              </div>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[28px] bg-sand sm:aspect-[5/4] lg:aspect-[4/5]">
+              <Photo src={photos.family} alt={copy.familyAlt} fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
             </div>
-            {figures[0] ? (
-              <div className="absolute -bottom-8 left-4 max-w-[52%] rounded-[24px] bg-white px-5 py-4 shadow-[0_30px_60px_-25px_rgba(11,21,55,0.45)] sm:left-10 sm:max-w-none sm:px-7 sm:py-5">
-                <p className="font-display text-5xl text-indigo">{figures[0].value}</p>
-                <p className="mt-1 max-w-[12rem] text-sm leading-5 text-muted">{figures[0].label}</p>
+            {impact ? (
+              <div className="absolute -bottom-6 left-4 max-w-[60%] rounded-[20px] bg-white px-5 py-4 shadow-[0_30px_60px_-25px_rgba(11,21,55,0.45)] sm:left-8 sm:max-w-none sm:px-7 sm:py-5">
+                <p className="font-display text-5xl text-indigo">{impact.value}</p>
+                <p className="mt-1 max-w-[13rem] text-sm leading-5 text-muted">{impact.label}</p>
               </div>
             ) : null}
           </div>
@@ -174,36 +153,30 @@ export default async function HomePage() {
       </section>
 
       {/* Who we serve */}
-      <section className="bg-ink py-24 text-white lg:py-32">
+      <section className="section-y bg-ink text-white">
         <div className="container-x">
-          <SectionHeading
-            light
-            eyebrow="Who we serve"
-            title={
-              <>
-                Help for anyone who is <em className="text-gold">starting over</em> — or struggling to keep going.
-              </>
-            }
-            description="Our door is open to newcomers at every stage of settlement, and to people in Quebec who need a hand with the basics."
-          />
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {audiences.map((audience, index) => (
+          <SectionHeading light eyebrow={copy.serveEyebrow} title={copy.serveTitle} description={copy.serveText} />
+          <div className={`mt-12 ${swipeRow} sm:grid-cols-2 lg:grid-cols-4`}>
+            {copy.audiences.map((audience, index) => (
               <article
                 key={audience.title}
-                className="group relative isolate flex min-h-[26rem] flex-col justify-end overflow-hidden rounded-[28px] p-7"
+                className={`${swipeItem} flex flex-col overflow-hidden rounded-[24px] bg-white/[0.06] ring-1 ring-white/10`}
                 data-reveal
                 style={revealDelay(index * 90)}
               >
-                <Photo
-                  src={audience.image}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                  className="-z-20 object-cover transition duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-ink/60 to-transparent" aria-hidden />
-                <h3 className="font-display text-2xl leading-tight">{audience.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-white/75">{audience.text}</p>
+                <div className="relative aspect-[4/3] overflow-hidden bg-ink-soft">
+                  <Photo
+                    src={audienceImages[index]}
+                    alt={audience.alt}
+                    fill
+                    sizes="(min-width: 1024px) 300px, (min-width: 640px) 50vw, 82vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex-1 p-6">
+                  <h3 className="font-display text-h3">{audience.title}</h3>
+                  <p className="mt-2.5 text-[15px] leading-7 text-white/80">{audience.text}</p>
+                </div>
               </article>
             ))}
           </div>
@@ -211,20 +184,20 @@ export default async function HomePage() {
       </section>
 
       {/* Programs */}
-      <section className="paper py-24 lg:py-32">
+      <section className="paper section-y">
         <div className="container-x">
           <SectionHeading
-            eyebrow="Our programs"
-            title={
-              <>
-                {programs.length} ways we walk beside people, <em className="text-indigo">month after month.</em>
-              </>
+            eyebrow={copy.programsEyebrow}
+            title={<Highlight text={copy.programsTitle} className="text-indigo not-italic" />}
+            action={
+              <ButtonLink href="/programs" variant="outline">
+                {fill(copy.allPrograms, { count: programs.length })}
+              </ButtonLink>
             }
-            action={<ButtonLink href="/programs" variant="outline">All programs</ButtonLink>}
           />
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className={`mt-12 ${swipeRow} sm:grid-cols-2 lg:grid-cols-3`}>
             {featured.map((program, index) => (
-              <div key={program.id} data-reveal style={revealDelay((index % 3) * 90)}>
+              <div key={program.id} className={swipeItem} data-reveal style={revealDelay((index % 3) * 90)}>
                 <ProgramCard program={program} />
               </div>
             ))}
@@ -234,36 +207,32 @@ export default async function HomePage() {
 
       {/* Everyday services */}
       {services.length ? (
-        <section className="bg-sand py-24 lg:py-32">
-          <div className="container-x grid gap-14 lg:grid-cols-12">
-            <div className="lg:col-span-4" data-reveal>
-              <div className="lg:sticky lg:top-32">
-                <Eyebrow>Everyday services · Free</Eyebrow>
-                <h2 className="font-display mt-5 text-balance text-[clamp(2rem,4vw,3rem)] leading-[1.08] text-ink">
-                  Help with the small things that <em className="text-indigo">take hours</em> when you’re new.
-                </h2>
-                <p className="mt-5 text-[17px] leading-8 text-muted">
-                  Drop in during opening hours. No appointment, no cost — just someone who knows how it works here.
-                </p>
-                <ButtonLink href="/contact" className="mt-8">
-                  Visit or call us
+        <section className="section-y bg-sand">
+          <div className="container-x">
+            <SectionHeading
+              eyebrow={copy.servicesEyebrow}
+              title={<Highlight text={copy.servicesTitle} className="text-indigo not-italic" />}
+              description={copy.servicesText}
+              action={
+                <ButtonLink href="/contact" variant="gold">
+                  {copy.servicesCta}
                 </ButtonLink>
-              </div>
-            </div>
-            <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-8">
+              }
+            />
+            <ul className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
               {services.map((service, index) => (
                 <li
                   key={service.id}
-                  className="flex gap-4 rounded-[22px] border border-line/80 bg-white p-6 transition hover:border-indigo/30"
+                  className="flex items-center gap-3 rounded-[18px] border border-line/80 bg-white p-3.5 sm:items-start sm:gap-4 sm:rounded-[22px] sm:p-6"
                   data-reveal
-                  style={revealDelay((index % 2) * 80)}
+                  style={revealDelay((index % 3) * 60)}
                 >
-                  <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl bg-indigo/[0.07] text-indigo">
-                    <Icon name={service.icon} className="size-6" />
+                  <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-xl bg-indigo/[0.07] text-indigo sm:size-12 sm:rounded-2xl">
+                    <Icon name={service.icon} className="size-[18px] sm:size-6" />
                   </span>
-                  <span>
-                    <span className="block font-bold text-ink">{service.title}</span>
-                    <span className="mt-1 block text-sm leading-6 text-muted">{service.description}</span>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-bold leading-5 text-ink sm:text-base">{service.title}</span>
+                    <span className="mt-1 hidden text-[15px] leading-6 text-muted sm:block">{service.description}</span>
                   </span>
                 </li>
               ))}
@@ -272,95 +241,123 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      {/* Figures */}
-      {figures.length ? (
-        <section className="bg-indigo py-20 text-white">
-          <div className="container-x">
-            <dl className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-              {figures.map((figure, index) => (
-                <div key={figure.label} className="border-l border-white/20 pl-6" data-reveal style={revealDelay(index * 80)}>
-                  <dt className="sr-only">{figure.label}</dt>
-                  <dd className="font-display text-[clamp(3rem,5vw,4.25rem)] leading-none text-gold">{figure.value}</dd>
-                  <dd className="mt-3 text-[15px] leading-6 text-white/75">{figure.label}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </section>
-      ) : null}
-
-      {/* Donate */}
-      <section className="paper py-24 lg:py-32">
-        <div className="container-x grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
-          <div className="relative" data-reveal>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] bg-sand sm:aspect-[5/4] lg:aspect-[4/5]">
-              <Photo src={photos.familyUnpacking} alt="A family unpacking toys in their new home" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
-            </div>
-            <div className="absolute -bottom-6 -right-2 max-w-[17rem] rounded-[24px] bg-ink p-6 text-white shadow-xl sm:-right-6">
-              <p className="text-xs font-bold uppercase tracking-wider text-gold">Certificate of recognition</p>
-              <p className="mt-2 text-sm leading-6 text-white/75">Every donor is thanked with an official certificate.</p>
+      {/* Give */}
+      <section className="paper section-y">
+        <div className="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <div className="relative order-2 lg:order-1" data-reveal>
+            <div className="relative aspect-[5/4] overflow-hidden rounded-[28px] bg-sand lg:aspect-[4/5]">
+              <Photo src={photos.familyUnpacking} alt={copy.donatePhotoAlt} fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
             </div>
           </div>
-          <div data-reveal style={revealDelay(120)}>
-            <Eyebrow>Give</Eyebrow>
-            <h2 className="font-display mt-5 text-balance text-[clamp(2.1rem,4.2vw,3.4rem)] leading-[1.08] text-ink">
-              <Highlight text={donate.headline} className="italic text-indigo" />
+          <div className="order-1 lg:order-2" data-reveal style={revealDelay(120)}>
+            <Eyebrow>{copy.giveEyebrow}</Eyebrow>
+            <h2 className="font-display text-h2 mt-5 text-balance text-ink">
+              <Highlight text={donate.headline} className="text-indigo not-italic" />
             </h2>
-            <p className="mt-6 text-lg leading-8 text-ink/75">{donate.intro}</p>
+            <p className="text-lead mt-6 text-ink/80">{donate.intro}</p>
             {donate.dropOffDays ? (
               <div className="mt-8 rounded-[24px] border border-line bg-white p-6">
-                <p className="flex items-center gap-2 text-sm font-bold text-ink">
-                  <CalendarDays className="size-4 text-indigo" aria-hidden />
-                  Donation days
+                <p className="flex items-center gap-2 font-bold text-ink">
+                  <CalendarDays className="size-5 text-indigo" aria-hidden />
+                  {copy.donationDays}
                 </p>
-                <ul className="mt-4 divide-y divide-line text-[15px]">
+                <dl className="mt-3 divide-y divide-line">
                   {lines(donate.dropOffDays).map((line) => {
                     const [day, time, note] = line.split("·").map((part) => part.trim());
                     return (
-                      <li key={line} className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-3">
-                        <span className="font-semibold text-ink">{day}</span>
-                        <span className="text-muted">
-                          {time}
-                          {note ? <span className="hidden sm:inline"> · {note}</span> : null}
-                        </span>
-                      </li>
+                      <div key={line} className="grid gap-x-6 gap-y-0.5 py-3 sm:grid-cols-[11rem_1fr]">
+                        <dt className="font-semibold text-ink">{day}</dt>
+                        <dd className="text-[15px] text-ink/80">
+                          <span className="font-semibold tabular-nums">{time}</span>
+                          {note ? <span className="block text-muted">{note}</span> : null}
+                        </dd>
+                      </div>
                     );
                   })}
-                </ul>
+                </dl>
               </div>
             ) : null}
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href="/donate" variant="gold">
-                Ways to give
+            {donate.recognition || donate.charityNumber ? (
+              <p className="mt-5 flex gap-3 text-[15px] leading-7 text-ink/80">
+                <ReceiptText className="mt-1 size-5 shrink-0 text-gold-deep" aria-hidden />
+                <span>
+                  <span className="font-bold text-ink">{copy.receiptTitle}. </span>
+                  {donate.charityNumber ? `${fill(copy.receiptCharity, { number: donate.charityNumber })} ` : null}
+                  {donate.recognition}
+                </span>
+              </p>
+            ) : null}
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <ButtonLink href="/donate" variant="gold" className="w-full sm:w-auto">
+                {t.actions.donateNow}
               </ButtonLink>
-              <ButtonLink href="/contact" variant="outline" arrow={false}>
-                Arrange a drop-off
+              <ButtonLink href="/contact" variant="outline" arrow={false} className="w-full sm:w-auto">
+                {copy.arrangeDropOff}
               </ButtonLink>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Events */}
-      {events.upcoming.length ? (
-        <section className="bg-sand py-24 lg:py-32">
+      {/* Events and news */}
+      {upcoming.length || latest.length ? (
+        <section className="section-y bg-sand">
           <div className="container-x">
             <SectionHeading
-              eyebrow="Coming up"
-              title={
-                <>
-                  Come as you are. <em className="text-indigo">Bring a friend.</em>
-                </>
-              }
-              description="Community meals, workshops and donation drives — open to everyone."
-              action={<ButtonLink href="/events" variant="outline">All events</ButtonLink>}
+              eyebrow={copy.communityEyebrow}
+              title={<Highlight text={copy.communityTitle} className="text-indigo not-italic" />}
+              description={copy.communityText}
             />
-            <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {events.upcoming.slice(0, 3).map((event, index) => (
-                <div key={event.id} data-reveal style={revealDelay(index * 90)}>
-                  <EventCard event={event} />
+            <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-10">
+              {upcoming.length ? (
+                <div className={latest.length ? "lg:col-span-7" : "lg:col-span-12"}>
+                  <div className="mb-5 flex items-center justify-between gap-4">
+                    <h3 className="text-lg font-bold text-ink">{copy.upcoming}</h3>
+                    <Link href="/events" className="text-sm font-bold text-indigo hover:text-indigo-deep">
+                      {copy.allEvents} →
+                    </Link>
+                  </div>
+                  <div className="grid gap-4">
+                    {upcoming.map((event, index) => (
+                      <div key={event.id} data-reveal style={revealDelay(index * 80)}>
+                        <EventCard event={event} compact />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
+              ) : null}
+              {latest.length ? (
+                <div className={upcoming.length ? "lg:col-span-5" : "lg:col-span-12"}>
+                  <div className="mb-5 flex items-center justify-between gap-4">
+                    <h3 className="text-lg font-bold text-ink">{copy.latestNews}</h3>
+                    <Link href="/news" className="text-sm font-bold text-indigo hover:text-indigo-deep">
+                      {copy.allNews} →
+                    </Link>
+                  </div>
+                  <ul className="divide-y divide-line rounded-[24px] border border-line bg-white">
+                    {latest.map((post) => (
+                      <li key={post.id}>
+                        <Link href={`/news/${post.slug}`} className="group flex gap-4 p-5 transition hover:bg-cream">
+                          {post.coverImage ? (
+                            <span className="relative size-20 shrink-0 overflow-hidden rounded-2xl bg-sand sm:size-24">
+                              <Photo src={post.coverImage} alt={post.title} fill sizes="96px" className="object-cover" />
+                            </span>
+                          ) : null}
+                          <span className="min-w-0">
+                            <span className="block text-sm font-semibold text-indigo">
+                              {post.category}
+                              {post.publishedAt ? (
+                                <span className="font-normal text-muted"> · {formatDate(post.publishedAt, { dateStyle: "medium" }, locale)}</span>
+                              ) : null}
+                            </span>
+                            <span className="font-display mt-1 block text-lg leading-snug text-ink group-hover:text-indigo">{post.title}</span>
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
             </div>
           </div>
         </section>
@@ -368,86 +365,71 @@ export default async function HomePage() {
 
       {/* Testimonials */}
       {leadTestimonial ? (
-        <section className="paper py-24 lg:py-32">
+        <section className="paper section-y">
           <div className="container-x">
-            <div className="grid gap-12 lg:grid-cols-12">
-              <div className="lg:col-span-7" data-reveal>
-                <Eyebrow>In their words</Eyebrow>
-                <blockquote className="font-display mt-8 text-balance text-[clamp(1.75rem,3.4vw,2.75rem)] leading-[1.25] text-ink">
-                  <span className="text-gold">“</span>
+            <Eyebrow>{copy.testimonialsEyebrow}</Eyebrow>
+            <div className="mt-8 grid gap-5 lg:grid-cols-12">
+              <figure className="flex flex-col justify-between rounded-[28px] bg-white p-8 shadow-[0_30px_60px_-40px_rgba(11,21,55,0.35)] lg:col-span-7 lg:p-10" data-reveal>
+                <blockquote className="font-display text-balance text-[clamp(1.375rem,2.4vw,2rem)] leading-[1.35] text-ink">
+                  <span className="text-gold">{open}</span>
                   {leadTestimonial.quote}
-                  <span className="text-gold">”</span>
+                  <span className="text-gold">{close}</span>
                 </blockquote>
-                <div className="mt-10 flex items-center gap-4">
+                <figcaption className="mt-8 flex items-center gap-4">
                   <Avatar name={leadTestimonial.name} photo={leadTestimonial.photo} className="size-14 text-lg" />
-                  <div>
-                    <p className="font-bold text-ink">{leadTestimonial.name}</p>
-                    <p className="text-sm text-muted">{leadTestimonial.role}</p>
-                  </div>
+                  <span>
+                    <span className="block font-bold text-ink">{leadTestimonial.name}</span>
+                    <span className="block text-sm text-muted">{leadTestimonial.role}</span>
+                  </span>
+                </figcaption>
+              </figure>
+              {otherTestimonials.length ? (
+                <div className="grid gap-5 lg:col-span-5">
+                  {otherTestimonials.slice(0, 2).map((testimonial, index) => (
+                    <figure
+                      key={testimonial.id}
+                      className="flex flex-col justify-between rounded-[28px] border border-line bg-white p-7"
+                      data-reveal
+                      style={revealDelay(120 + index * 90)}
+                    >
+                      <blockquote className="text-[17px] leading-8 text-ink/85">{open}{testimonial.quote}{close}</blockquote>
+                      <figcaption className="mt-5 flex items-center gap-3">
+                        <Avatar name={testimonial.name} photo={testimonial.photo} className="size-11 text-sm" />
+                        <span>
+                          <span className="block font-bold text-ink">{testimonial.name}</span>
+                          <span className="block text-sm text-muted">{testimonial.role}</span>
+                        </span>
+                      </figcaption>
+                    </figure>
+                  ))}
                 </div>
-              </div>
-              <div className="flex flex-col gap-5 lg:col-span-5">
-                {otherTestimonials.slice(0, 2).map((testimonial, index) => (
-                  <figure key={testimonial.id} className="rounded-[24px] border border-line bg-white p-7" data-reveal style={revealDelay(120 + index * 90)}>
-                    <blockquote className="text-[15px] leading-7 text-ink/80">“{testimonial.quote}”</blockquote>
-                    <figcaption className="mt-5 flex items-center gap-3">
-                      <Avatar name={testimonial.name} photo={testimonial.photo} className="size-10 text-sm" />
-                      <span>
-                        <span className="block text-sm font-bold text-ink">{testimonial.name}</span>
-                        <span className="block text-xs text-muted">{testimonial.role}</span>
-                      </span>
-                    </figcaption>
-                  </figure>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      ) : null}
-
-      {/* News */}
-      {posts.length ? (
-        <section className="border-t border-line bg-cream py-24 lg:py-32">
-          <div className="container-x">
-            <SectionHeading
-              eyebrow="News & stories"
-              title="From the community"
-              action={<ButtonLink href="/news" variant="outline">All news</ButtonLink>}
-            />
-            <div className="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-              {posts.slice(0, 3).map((post, index) => (
-                <div key={post.id} data-reveal style={revealDelay(index * 90)}>
-                  <PostCard post={post} />
-                </div>
-              ))}
+              ) : null}
             </div>
           </div>
         </section>
       ) : null}
 
       {/* Volunteer */}
-      <section className="px-3 pb-3 sm:px-5 sm:pb-5">
-        <div className="grain relative isolate overflow-hidden rounded-[36px] bg-ink text-white">
-          <Photo src={photos.volunteer} alt="" fill sizes="100vw" className="-z-20 object-cover opacity-90" />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/85 to-ink/20" aria-hidden />
-          <div className="container-x py-24 lg:py-36">
-            <div className="max-w-2xl" data-reveal>
-              <Eyebrow light>Volunteer with us</Eyebrow>
-              <h2 className="font-display mt-5 text-balance text-[clamp(2.25rem,5vw,4rem)] leading-[1.05]">
-                Give a few hours. <em className="text-gold">Change someone’s first year.</em>
+      <section className="bg-cream pb-16 lg:pb-24">
+        <div className="container-x">
+          <div className="grid overflow-hidden rounded-[32px] bg-gold-soft lg:grid-cols-2" data-reveal>
+            <div className="p-8 sm:p-12 lg:p-16">
+              <Eyebrow>{copy.volunteerEyebrow}</Eyebrow>
+              <h2 className="font-display text-h2 mt-5 text-balance text-ink">
+                <Highlight text={copy.volunteerTitle} className="text-indigo not-italic" />
               </h2>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-white/75">
-                Many of our volunteers were newcomers themselves. Teach French, help with a CV, drive a family to an appointment —
-                we’ll find the role that fits you.
-              </p>
-              <div className="mt-10 flex flex-wrap gap-3">
-                <ButtonLink href="/volunteer" variant="gold">
-                  See volunteer roles
+              <p className="text-lead mt-6 text-ink/80">{copy.volunteerText}</p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <ButtonLink href="/volunteer" className="w-full sm:w-auto">
+                  {copy.volunteerCta}
                 </ButtonLink>
-                <ButtonLink href="/contact" variant="outline-light" arrow={false}>
-                  Ask a question
+                <ButtonLink href="/contact" variant="outline" arrow={false} className="w-full sm:w-auto">
+                  {copy.askQuestion}
                 </ButtonLink>
               </div>
+            </div>
+            <div className="relative min-h-72 lg:min-h-full">
+              <Photo src={photos.volunteer} alt={copy.volunteerAlt} fill sizes="(min-width: 1024px) 640px, 100vw" className="object-cover" />
             </div>
           </div>
         </div>

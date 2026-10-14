@@ -20,6 +20,7 @@ import { PrismaService } from "../prisma/prisma.service";
 import { cleanBlocks } from "./blocks";
 import { PageDto, ReorderDto } from "./content.dto";
 import { nextSortOrder, reorder } from "./reorder";
+import { TRANSLATIONS, withTranslation } from "./translation";
 
 /** Addresses the website already uses; a custom page can't take them over. */
 const RESERVED = new Set([
@@ -49,6 +50,7 @@ const data = (dto: PageDto) => ({
   status: dto.status,
   showInNav: dto.showInNav,
   navLabel: dto.navLabel?.trim() || null,
+  ...withTranslation(dto.fr, TRANSLATIONS.page),
 });
 
 @ApiTags("pages")
@@ -67,7 +69,7 @@ export class PagesController {
     return this.prisma.page.findMany({
       where: { status: "PUBLISHED" },
       orderBy: { sortOrder: "asc" },
-      select: { slug: true, title: true, navLabel: true, showInNav: true, updatedAt: true },
+      select: { slug: true, title: true, navLabel: true, showInNav: true, updatedAt: true, fr: true },
     });
   }
 

@@ -1,3 +1,5 @@
+import { en, type Dictionary } from "./i18n/en";
+
 export const site = {
   name: "TOMCARE Foundation",
   shortName: "TOMCARE",
@@ -6,29 +8,18 @@ export const site = {
     "TOMCARE Foundation is a Montréal non-profit supporting newcomers, people living with disabilities, seniors and families in hardship across Quebec — with practical help, guidance and community.",
 };
 
-export const mainNav = [
-  { href: "/about", label: "About" },
-  { href: "/programs", label: "Programs" },
-  { href: "/events", label: "Events" },
-  { href: "/news", label: "News" },
-  { href: "/volunteer", label: "Volunteer" },
-  { href: "/contact", label: "Contact" },
+export const mainNav: { href: string; key: keyof Dictionary["nav"] }[] = [
+  { href: "/about", key: "about" },
+  { href: "/programs", key: "programs" },
+  { href: "/events", key: "events" },
+  { href: "/news", key: "news" },
+  { href: "/volunteer", key: "volunteer" },
+  { href: "/contact", key: "contact" },
 ];
 
-/** The kinds of help a person can ask for on the Get help form. */
-export const helpNeeds = [
-  "Housing and accommodation",
-  "Finding a job",
-  "Legal or immigration questions",
-  "French classes",
-  "Computer and internet skills",
-  "Clothing, furniture or household items",
-  "Government forms and documents",
-  "Driving licence (SAAQ)",
-  "Support for a person with a disability",
-  "Support for a senior",
-  "Someone to talk to",
-  "Something else",
-];
+/** The kinds of help a person can ask for on the Get help form; labels are translated, values stay in English. */
+export const helpNeeds = Object.keys(en.forms.needs) as (keyof Dictionary["forms"]["needs"])[];
 
-export const languages = ["English", "Français", "Kinyarwanda", "Kiswahili", "Español", "العربية", "Other"];
+export const languages = Object.keys(en.forms.languages) as (keyof Dictionary["forms"]["languages"])[];
+
+export const contactSubjects = Object.keys(en.forms.subjects) as (keyof Dictionary["forms"]["subjects"])[];

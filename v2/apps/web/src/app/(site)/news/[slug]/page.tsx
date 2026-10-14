@@ -7,6 +7,8 @@ import { PageHero } from "@/components/page-hero";
 import { Avatar } from "@/components/ui";
 import { getPost, getPosts } from "@/lib/cms";
 import { formatDate, readingMinutes } from "@/lib/format";
+import { fill } from "@/lib/i18n";
+import { getI18n } from "@/lib/i18n/server";
 import { site } from "@/lib/site";
 
 export async function generateMetadata({ params }: PageProps<"/news/[slug]">): Promise<Metadata> {
@@ -21,7 +23,7 @@ export async function generateMetadata({ params }: PageProps<"/news/[slug]">): P
 
 export default async function PostPage({ params }: PageProps<"/news/[slug]">) {
   const { slug } = await params;
-  const [post, posts] = await Promise.all([getPost(slug), getPosts()]);
+  const [{ locale, t }, post, posts] = await Promise.all([getI18n(), getPost(slug), getPosts()]);
   if (!post) notFound();
   const more = posts.filter((item) => item.id !== post.id).slice(0, 3);
 
@@ -45,7 +47,7 @@ export default async function PostPage({ params }: PageProps<"/news/[slug]">) {
         image={post.coverImage}
         compact
         crumbs={[
-          { href: "/news", label: "News" },
+          { href: "/news", label: t.nav.news },
           { href: `/news/${post.slug}`, label: post.title },
         ]}
       >
@@ -53,21 +55,22 @@ export default async function PostPage({ params }: PageProps<"/news/[slug]">) {
           <Avatar name={post.author} className="size-10 text-sm" />
           <span>
             <span className="block font-semibold text-white">{post.author}</span>
-            {post.publishedAt ? formatDate(post.publishedAt) : null} · {readingMinutes(post.body)} min read
+            {post.publishedAt ? formatDate(post.publishedAt, undefined, locale) : null} ·{" "}
+            {fill(t.news.minRead, { minutes: readingMinutes(post.body) })}
           </span>
         </div>
       </PageHero>
 
-      <section className="paper py-20 lg:py-24">
+      <section className="paper section-y">
         <article className="container-x">
           <Markdown source={post.body} className="mx-auto max-w-3xl text-[1.125rem]" />
         </article>
       </section>
 
       {more.length ? (
-        <section className="border-t border-line bg-cream py-20 lg:py-24">
+        <section className="section-y border-t border-line bg-cream">
           <div className="container-x">
-            <h2 className="font-display text-[clamp(1.75rem,3vw,2.5rem)] text-ink">Keep reading</h2>
+            <h2 className="font-display text-h2 text-ink">{t.news.keepReading}</h2>
             <div className="mt-10 grid gap-10 md:grid-cols-2 lg:grid-cols-3">
               {more.map((item) => (
                 <PostCard key={item.id} post={item} />

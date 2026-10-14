@@ -2,7 +2,7 @@
 
 import { Users } from "lucide-react";
 
-import { optional } from "@/components/admin/editor-kit";
+import { FrenchFields, FrenchSection, optional, type FrenchValues } from "@/components/admin/editor-kit";
 import { OrderedListPage } from "@/components/admin/ordered-list-page";
 import { Field, ImageField, Input, Select, Textarea } from "@/components/admin/ui";
 import { Avatar } from "@/components/ui";
@@ -10,7 +10,7 @@ import type { TeamGroup, TeamMember } from "@/lib/admin-types";
 
 const groups: Record<TeamGroup, string> = { BOARD: "Leadership", STAFF: "Staff", VOLUNTEER: "Volunteer lead" };
 
-type Form = { name: string; role: string; bio: string; photo: string; group: TeamGroup; visible: boolean };
+type Form = { name: string; role: string; bio: string; photo: string; group: TeamGroup; visible: boolean; fr: FrenchValues };
 
 export default function TeamAdminPage() {
   return (
@@ -28,6 +28,7 @@ export default function TeamAdminPage() {
         photo: row?.photo ?? "",
         group: row?.group ?? "STAFF",
         visible: row?.visible ?? true,
+        fr: row?.fr ?? {},
       })}
       toPayload={(form) => ({ ...form, photo: optional(form.photo), bio: form.bio })}
       preview={(row) => ({
@@ -57,6 +58,16 @@ export default function TeamAdminPage() {
           <Field label="Short bio" hint="Optional. Two or three sentences.">
             <Textarea value={form.bio} onChange={(e) => set("bio", e.target.value)} maxLength={1500} className="min-h-24" />
           </Field>
+          <FrenchSection>
+            <FrenchFields
+              value={form.fr}
+              onChange={(fr) => set("fr", fr)}
+              fields={[
+                { key: "role", label: "Role", max: 120, english: form.role, wide: true },
+                { key: "bio", label: "Short bio", max: 1500, english: form.bio, kind: "long" },
+              ]}
+            />
+          </FrenchSection>
           <ImageField
             label="Photo"
             value={form.photo}

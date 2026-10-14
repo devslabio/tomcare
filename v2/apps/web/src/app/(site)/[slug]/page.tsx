@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Blocks } from "@/components/blocks";
 import { PageHero } from "@/components/page-hero";
 import { getPage } from "@/lib/cms";
+import { getI18n } from "@/lib/i18n/server";
 
 export async function generateMetadata({ params }: PageProps<"/[slug]">): Promise<Metadata> {
   const page = await getPage((await params).slug);
@@ -13,13 +14,13 @@ export async function generateMetadata({ params }: PageProps<"/[slug]">): Promis
 
 export default async function CustomPage({ params }: PageProps<"/[slug]">) {
   const { slug } = await params;
-  const page = await getPage(slug);
+  const [{ t }, page] = await Promise.all([getI18n(), getPage(slug)]);
   if (!page) notFound();
 
   return (
     <>
       <PageHero
-        eyebrow={page.navLabel || "TOMCARE Foundation"}
+        eyebrow={page.navLabel || t.page.fallbackEyebrow}
         title={page.title}
         description={page.description || undefined}
         image={page.heroImage}

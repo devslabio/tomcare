@@ -3,10 +3,13 @@
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { useState } from "react";
 
+import { useI18n } from "../i18n-provider";
+
 export type Status = { state: "idle" } | { state: "sending" } | { state: "sent" } | { state: "error"; message: string };
 
 /** Posts JSON to a public API endpoint and turns API errors into readable messages. */
 export function useSubmit(path: string) {
+  const { t } = useI18n();
   const [status, setStatus] = useState<Status>({ state: "idle" });
 
   async function submit(body: Record<string, unknown>) {
@@ -17,10 +20,10 @@ export function useSubmit(path: string) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      if (response.status === 429) throw new Error("You’ve sent this form several times already. Please try again in a few minutes.");
+      if (response.status === 429) throw new Error(t.forms.tooMany);
       if (!response.ok) {
         const data = (await response.json().catch(() => ({}))) as { message?: string | string[] };
-        throw new Error(Array.isArray(data.message) ? data.message.join(", ") : data.message || "Something went wrong. Please try again.");
+        throw new Error(Array.isArray(data.message) ? data.message.join(", ") : data.message || t.forms.failed);
       }
       setStatus({ state: "sent" });
       return true;
@@ -68,10 +71,7 @@ export function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-sm font-semibold text-ink">
-        {label}
-        {required ? <span className="text-gold-deep"> *</span> : <span className="font-normal text-muted"> (optional)</span>}
-      </span>
+      <FieldLabel label={label} required={required} />
       <input
         name={name}
         type={type}
@@ -106,10 +106,7 @@ export function TextArea({
 }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-sm font-semibold text-ink">
-        {label}
-        {required ? <span className="text-gold-deep"> *</span> : <span className="font-normal text-muted"> (optional)</span>}
-      </span>
+      <FieldLabel label={label} required={required} />
       <textarea
         name={name}
         required={required}
@@ -123,30 +120,37 @@ export function TextArea({
   );
 }
 
+function FieldLabel({ label, required }: { label: string; required?: boolean }) {
+  const { t } = useI18n();
+  return (
+    <span className="mb-1.5 block text-sm font-semibold text-ink">
+      {label}
+      {required ? <span className="text-gold-deep"> *</span> : <span className="font-normal text-muted"> {t.forms.optional}</span>}
+    </span>
+  );
+}
+
 export function SelectField({
   label,
   name,
   options,
   defaultValue = "",
-  placeholder = "Choose…",
 }: {
   label: string;
   name: string;
-  options: string[];
+  options: { value: string; label: string }[];
   defaultValue?: string;
-  placeholder?: string;
 }) {
+  const { t } = useI18n();
   return (
     <label className="block">
-      <span className="mb-1.5 block text-sm font-semibold text-ink">
-        {label} <span className="font-normal text-muted">(optional)</span>
-      </span>
+      <FieldLabel label={label} />
       <span className="relative block">
         <select name={name} defaultValue={defaultValue} className={`${inputClass} pr-10`}>
-          <option value="">{placeholder}</option>
+          <option value="">{t.forms.choose}</option>
           {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
+            <option key={option.value} value={option.value}>
+              {option.label}
             </option>
           ))}
         </select>
@@ -172,7 +176,8 @@ export function FormError({ status }: { status: Status }) {
   );
 }
 
-export function SubmitButton({ status, children, sending = "Sending…" }: { status: Status; children: React.ReactNode; sending?: string }) {
+export function SubmitButton({ status, children }: { status: Status; children: React.ReactNode }) {
+  const { t } = useI18n();
   const busy = status.state === "sending";
   return (
     <button
@@ -181,7 +186,7 @@ export function SubmitButton({ status, children, sending = "Sending…" }: { sta
       className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-indigo px-8 text-base font-semibold text-white shadow-[0_14px_36px_-12px_rgba(45,56,138,0.7)] transition hover:bg-indigo-deep disabled:opacity-60 sm:w-auto"
     >
       {busy ? <Loader2 className="size-5 animate-spin" aria-hidden /> : null}
-      {busy ? sending : children}
+      {busy ? t.forms.sending : children}
     </button>
   );
 }

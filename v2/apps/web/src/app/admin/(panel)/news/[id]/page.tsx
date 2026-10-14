@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { fromMontrealInput, markdownHint, optional, Section, toMontrealInput } from "@/components/admin/editor-kit";
+import { FrenchFields, FrenchSection, fromMontrealInput, markdownHint, optional, Section, toMontrealInput, type FrenchValues } from "@/components/admin/editor-kit";
 import { useToast } from "@/components/admin/toast";
 import {
   Button,
@@ -55,6 +55,7 @@ function PostForm({ post }: { post?: Post }) {
     status: post?.status ?? "DRAFT",
     publishedAt: toMontrealInput(post?.publishedAt),
   });
+  const [fr, setFr] = useState<FrenchValues>(post?.fr ?? {});
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const set = <K extends keyof typeof values>(key: K, value: (typeof values)[K]) =>
@@ -71,6 +72,7 @@ function PostForm({ post }: { post?: Post }) {
           status,
           coverImage: optional(values.coverImage),
           publishedAt: fromMontrealInput(values.publishedAt),
+          fr,
         },
       });
       setValues((current) => ({ ...current, status: saved.status, publishedAt: toMontrealInput(saved.publishedAt) }));
@@ -157,6 +159,18 @@ function PostForm({ post }: { post?: Post }) {
               <Textarea value={values.body} onChange={(e) => set("body", e.target.value)} maxLength={50000} className="min-h-[28rem] leading-7" />
             </Field>
           </Section>
+          <FrenchSection>
+            <FrenchFields
+              value={fr}
+              onChange={setFr}
+              fields={[
+                { key: "title", label: "Headline", max: 200, english: values.title },
+                { key: "category", label: "Category", max: 60, english: values.category },
+                { key: "excerpt", label: "Excerpt", max: 400, english: values.excerpt, kind: "long" },
+                { key: "body", label: "Body", max: 50000, english: values.body, kind: "markdown" },
+              ]}
+            />
+          </FrenchSection>
         </div>
 
         <div className="space-y-6">

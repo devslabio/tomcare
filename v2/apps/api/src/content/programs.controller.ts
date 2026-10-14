@@ -6,6 +6,7 @@ import { uniqueSlug } from "../common/slug";
 import { PrismaService } from "../prisma/prisma.service";
 import { ProgramDto, ReorderDto } from "./content.dto";
 import { nextSortOrder, reorder } from "./reorder";
+import { TRANSLATIONS, withTranslation } from "./translation";
 
 const data = (dto: ProgramDto) => ({
   title: dto.title.trim(),
@@ -17,6 +18,7 @@ const data = (dto: ProgramDto) => ({
   highlights: (dto.highlights ?? []).map((line) => line.trim()).filter(Boolean),
   featured: dto.featured,
   visible: dto.visible,
+  ...withTranslation(dto.fr, TRANSLATIONS.program),
 });
 
 @ApiTags("programs")

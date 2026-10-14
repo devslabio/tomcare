@@ -1,7 +1,9 @@
 import { randomBytes } from "node:crypto";
 import path from "node:path";
-import { PrismaClient } from "@prisma/client";
+import { type Prisma, PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+
+import { eventsFr, pagesFr, postsFr, programsFr, servicesFr, teamFr, testimonialsFr, volunteerRolesFr } from "./seed-fr";
 
 for (const file of [".env", path.join("..", "..", "apps", "api", ".env")]) {
   try {
@@ -495,6 +497,63 @@ async function fillIfEmpty(label: string, count: () => Promise<number>, create: 
   console.info(`Seeded ${label}`);
 }
 
+type Translated = { id: string; fr: Prisma.JsonValue };
+const isEmpty = (fr: Prisma.JsonValue) => !fr || (typeof fr === "object" && !Array.isArray(fr) && !Object.keys(fr).length);
+
+/** Gives seeded records their French version, without touching translations someone already edited. */
+async function backfillFrench<T extends Translated>(
+  label: string,
+  rows: T[],
+  keyOf: (row: T) => string,
+  translations: Record<string, object>,
+  update: (id: string, fr: Prisma.InputJsonObject) => Promise<unknown>,
+) {
+  let count = 0;
+  for (const row of rows) {
+    const fr = translations[keyOf(row)];
+    if (!fr || !isEmpty(row.fr)) continue;
+    await update(row.id, fr as Prisma.InputJsonObject);
+    count++;
+  }
+  if (count) console.info(`Added French to ${count} ${label}`);
+}
+
+async function backfillAllFrench() {
+  await backfillFrench("programs", await prisma.program.findMany(), (row) => row.slug, programsFr, (id, fr) =>
+    prisma.program.update({ where: { id }, data: { fr } }),
+  );
+  await backfillFrench("services", await prisma.service.findMany(), (row) => row.title, servicesFr, (id, fr) =>
+    prisma.service.update({ where: { id }, data: { fr } }),
+  );
+  await backfillFrench("volunteer roles", await prisma.volunteerRole.findMany(), (row) => row.title, volunteerRolesFr, (id, fr) =>
+    prisma.volunteerRole.update({ where: { id }, data: { fr } }),
+  );
+  await backfillFrench("events", await prisma.event.findMany(), (row) => row.slug, eventsFr, (id, fr) =>
+    prisma.event.update({ where: { id }, data: { fr } }),
+  );
+  await backfillFrench("posts", await prisma.post.findMany(), (row) => row.slug, postsFr, (id, fr) =>
+    prisma.post.update({ where: { id }, data: { fr } }),
+  );
+  await backfillFrench("pages", await prisma.page.findMany(), (row) => row.slug, pagesFr, (id, fr) =>
+    prisma.page.update({ where: { id }, data: { fr } }),
+  );
+  await backfillFrench("testimonials", await prisma.testimonial.findMany(), (row) => row.name, testimonialsFr, (id, fr) =>
+    prisma.testimonial.update({ where: { id }, data: { fr } }),
+  );
+  await backfillFrench("team members", await prisma.teamMember.findMany(), (row) => row.name, teamFr, (id, fr) =>
+    prisma.teamMember.update({ where: { id }, data: { fr } }),
+  );
+}
+
+/** The foundation moved from a personal Gmail address to its own domain. */
+async function migrateContactEmail() {
+  const contact = await prisma.setting.findUnique({ where: { key: "contact" } });
+  const value = contact?.value as Record<string, string> | undefined;
+  if (!value || value.email !== "tomntambara@gmail.com") return;
+  await prisma.setting.update({ where: { key: "contact" }, data: { value: { ...value, email: "info@tomcarefoundation.org" } } });
+  console.info("Updated contact email to info@tomcarefoundation.org");
+}
+
 async function main() {
   if ((await prisma.user.count()) === 0) {
     const email = (process.env.SEED_ADMIN_EMAIL || "admin@tomcarefoundation.org").toLowerCase();
@@ -541,6 +600,8 @@ async function main() {
       },
     }),
   );
+  await backfillAllFrench();
+  await migrateContactEmail();
 }
 
 main()

@@ -7,6 +7,7 @@ import { pageArgs, paged, PageQueryDto, sortArgs } from "../common/pagination";
 import { uniqueSlug } from "../common/slug";
 import { PrismaService } from "../prisma/prisma.service";
 import { PostDto } from "./content.dto";
+import { TRANSLATIONS, withTranslation } from "./translation";
 
 const published = (): Prisma.PostWhereInput => ({ status: "PUBLISHED", publishedAt: { lte: new Date() } });
 
@@ -26,6 +27,7 @@ export class PostsController {
       status: dto.status,
       // Publishing stamps the date once; staff can still set it explicitly (e.g. to schedule).
       publishedAt: dto.publishedAt ?? current?.publishedAt ?? (dto.status === "PUBLISHED" ? new Date() : null),
+      ...withTranslation(dto.fr, TRANSLATIONS.post),
     };
   }
 
@@ -34,7 +36,7 @@ export class PostsController {
     return this.prisma.post.findMany({
       where: published(),
       orderBy: { publishedAt: "desc" },
-      select: { id: true, slug: true, title: true, excerpt: true, coverImage: true, author: true, category: true, publishedAt: true },
+      select: { id: true, slug: true, title: true, excerpt: true, coverImage: true, author: true, category: true, publishedAt: true, fr: true },
     });
   }
 

@@ -24,6 +24,7 @@ import {
   VolunteerRoleDto,
 } from "./content.dto";
 import { nextSortOrder, reorder, type Sortable } from "./reorder";
+import { TRANSLATIONS, withTranslation } from "./translation";
 
 type Delegate = {
   findMany: (args: object) => Promise<unknown[]>;
@@ -104,7 +105,7 @@ export const ServicesController = sortableController({
   model: "service",
   path: "services",
   dto: ServiceDto,
-  data: (dto) => ({ title: dto.title.trim(), description: dto.description.trim(), icon: dto.icon, visible: dto.visible }),
+  data: (dto) => ({ title: dto.title.trim(), description: dto.description.trim(), icon: dto.icon, visible: dto.visible, ...withTranslation(dto.fr, TRANSLATIONS.service) }),
 });
 
 export const TeamController = sortableController({
@@ -118,6 +119,7 @@ export const TeamController = sortableController({
     photo: optional(dto.photo),
     group: dto.group,
     visible: dto.visible,
+    ...withTranslation(dto.fr, TRANSLATIONS.teamMember),
   }),
 });
 
@@ -131,6 +133,7 @@ export const TestimonialsController = sortableController({
     role: dto.role.trim(),
     photo: optional(dto.photo),
     visible: dto.visible,
+    ...withTranslation(dto.fr, TRANSLATIONS.testimonial),
   }),
 });
 
@@ -144,6 +147,7 @@ export const PartnersController = sortableController({
     website: optional(dto.website),
     description: optional(dto.description),
     visible: dto.visible,
+    ...withTranslation(dto.fr, TRANSLATIONS.partner),
   }),
 });
 
@@ -158,5 +162,6 @@ export const VolunteerRolesController = sortableController({
     location: dto.location.trim(),
     skills: (dto.skills ?? []).map((skill) => skill.trim()).filter(Boolean),
     visible: dto.visible,
+    ...withTranslation(dto.fr, TRANSLATIONS.volunteerRole),
   }),
 });

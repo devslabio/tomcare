@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { IconPicker, LinesEditor, markdownHint, optional, Section } from "@/components/admin/editor-kit";
+import { FrenchFields, FrenchSection, IconPicker, LinesEditor, markdownHint, optional, Section, type FrenchValues } from "@/components/admin/editor-kit";
 import { useToast } from "@/components/admin/toast";
 import { Button, ErrorState, Field, FormError, ImageField, Input, LoadingState, PageHeader, Textarea, Toggle } from "@/components/admin/ui";
 import { api, useResource } from "@/lib/admin-api";
@@ -43,6 +43,7 @@ function ProgramForm({ program }: { program?: Program }) {
     featured: program?.featured ?? false,
     visible: program?.visible ?? true,
   });
+  const [fr, setFr] = useState<FrenchValues>(program?.fr ?? {});
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const set = <K extends keyof typeof values>(key: K, value: (typeof values)[K]) =>
@@ -59,6 +60,7 @@ function ProgramForm({ program }: { program?: Program }) {
           ...values,
           image: optional(values.image),
           highlights: values.highlights.map((line) => line.trim()).filter(Boolean),
+          fr,
         },
       });
       toast(program ? "Program saved" : "Program created");
@@ -117,6 +119,20 @@ function ProgramForm({ program }: { program?: Program }) {
           <Section title="What it includes" description="Short points listed beside the page content.">
             <LinesEditor value={values.highlights} onChange={(lines) => set("highlights", lines)} max={12} addLabel="Add point" />
           </Section>
+
+          <FrenchSection>
+            <FrenchFields
+              value={fr}
+              onChange={setFr}
+              fields={[
+                { key: "title", label: "Title", max: 120, english: values.title },
+                { key: "category", label: "Category", max: 60, english: values.category },
+                { key: "summary", label: "Summary", max: 400, english: values.summary, kind: "long" },
+                { key: "body", label: "Page content", max: 20000, english: values.body, kind: "markdown" },
+                { key: "highlights", label: "What it includes", max: 120, english: values.highlights, kind: "lines" },
+              ]}
+            />
+          </FrenchSection>
 
           <Section title="Photo" description="Shown on the program card and as the page header.">
             <ImageField label="Photo" value={values.image} onChange={(url) => set("image", url)} aspect="aspect-[16/10]" hint="Landscape works best. JPEG, PNG or WebP, up to 10 MB." />

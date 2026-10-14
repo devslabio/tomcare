@@ -181,6 +181,37 @@ select {
   }
 }
 
+/* Type scale — one size per role: page title 76px, section title 48px, card title 24px, lead 18px. */
+@utility text-display {
+  font-size: clamp(2.5rem, 5.6vw, 4.75rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+@utility text-h2 {
+  font-size: clamp(1.875rem, 3.6vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+@utility text-h3 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+@utility text-lead {
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+/* Vertical rhythm between page sections: 64px on phones, 96px on desktop. */
+@utility section-y {
+  padding-block: 4rem;
+  @media (width >= 64rem) {
+    padding-block: 6rem;
+  }
+}
+
 @utility no-scrollbar {
   scrollbar-width: none;
   &::-webkit-scrollbar {

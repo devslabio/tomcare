@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/components/link";
 
 type Variant = "primary" | "gold" | "light" | "outline" | "outline-light" | "ghost";
 
@@ -85,14 +85,14 @@ export function SectionHeading({
       <div className={centered ? "max-w-3xl" : "max-w-2xl"}>
         {eyebrow ? <Eyebrow light={light}>{eyebrow}</Eyebrow> : null}
         <h2
-          className={`font-display mt-4 text-balance text-[clamp(2rem,4.2vw,3.25rem)] font-medium leading-[1.08] tracking-[-0.02em] ${
+          className={`font-display text-h2 mt-4 text-balance font-medium ${
             light ? "text-white" : "text-ink"
           }`}
         >
           {title}
         </h2>
         {description ? (
-          <p className={`mt-5 text-[17px] leading-8 ${light ? "text-white/70" : "text-muted"}`}>{description}</p>
+          <p className={`text-lead mt-5 ${light ? "text-white/75" : "text-muted"}`}>{description}</p>
         ) : null}
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}

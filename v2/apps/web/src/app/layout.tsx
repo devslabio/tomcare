@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 
+import { getAlternates, getI18n, getLocale } from "@/lib/i18n/server";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -12,41 +13,45 @@ const fraunces = Fraunces({
   style: ["normal", "italic"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
-  title: {
-    default: "TOMCARE Foundation — Support for newcomers and families in Montréal",
-    template: "%s | TOMCARE Foundation",
-  },
-  description: site.description,
-  keywords: [
-    "TOMCARE Foundation",
-    "newcomers Montréal",
-    "aide aux nouveaux arrivants",
-    "asylum seekers Quebec",
-    "immigrant support Montreal",
-    "non-profit Montréal",
-    "volunteer Montréal",
-    "donate clothes Montréal",
-  ],
-  openGraph: {
-    title: "TOMCARE Foundation — No one should have to start over alone",
-    description: site.description,
-    url: site.url,
-    siteName: site.name,
-    locale: "en_CA",
-    type: "website",
-  },
-  twitter: { card: "summary_large_image" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const [{ t }, alternates] = await Promise.all([getI18n(), getAlternates()]);
+  return {
+    metadataBase: new URL(site.url),
+    alternates,
+    title: { default: t.meta.defaultTitle, template: `%s | ${t.meta.siteName}` },
+    description: t.meta.description,
+    keywords: [
+      "TOMCARE Foundation",
+      "Fondation TOMCARE",
+      "newcomers Montréal",
+      "aide aux nouveaux arrivants",
+      "asylum seekers Quebec",
+      "demandeurs d’asile Québec",
+      "immigrant support Montreal",
+      "organisme sans but lucratif Montréal",
+      "volunteer Montréal",
+      "bénévolat Montréal",
+    ],
+    openGraph: {
+      title: t.meta.ogTitle,
+      description: t.meta.description,
+      url: site.url,
+      siteName: t.meta.siteName,
+      locale: t.meta.ogLocale,
+      type: "website",
+    },
+    twitter: { card: "summary_large_image" },
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: "#0b1537",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const locale = await getLocale();
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${jakarta.variable} ${fraunces.variable} h-full antialiased`}>
+    <html lang={locale === "fr" ? "fr-CA" : "en-CA"} data-scroll-behavior="smooth" className={`${jakarta.variable} ${fraunces.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );

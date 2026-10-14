@@ -2,13 +2,13 @@
 
 import { Quote } from "lucide-react";
 
-import { optional } from "@/components/admin/editor-kit";
+import { FrenchFields, FrenchSection, optional, type FrenchValues } from "@/components/admin/editor-kit";
 import { OrderedListPage } from "@/components/admin/ordered-list-page";
 import { Field, ImageField, Input, Textarea } from "@/components/admin/ui";
 import { Avatar } from "@/components/ui";
 import type { Testimonial } from "@/lib/admin-types";
 
-type Form = { quote: string; name: string; role: string; photo: string; visible: boolean };
+type Form = { quote: string; name: string; role: string; photo: string; visible: boolean; fr: FrenchValues };
 
 export default function TestimonialsAdminPage() {
   return (
@@ -24,6 +24,7 @@ export default function TestimonialsAdminPage() {
         role: row?.role ?? "",
         photo: row?.photo ?? "",
         visible: row?.visible ?? true,
+        fr: row?.fr ?? {},
       })}
       toPayload={(form) => ({ ...form, photo: optional(form.photo) })}
       preview={(row) => ({
@@ -44,6 +45,16 @@ export default function TestimonialsAdminPage() {
               <Input value={form.role} onChange={(e) => set("role", e.target.value)} required minLength={2} maxLength={120} placeholder="e.g. Newcomer and mother of two" />
             </Field>
           </div>
+          <FrenchSection>
+            <FrenchFields
+              value={form.fr}
+              onChange={(fr) => set("fr", fr)}
+              fields={[
+                { key: "quote", label: "Quote", max: 1000, english: form.quote, kind: "long" },
+                { key: "role", label: "Who they are", max: 120, english: form.role, wide: true },
+              ]}
+            />
+          </FrenchSection>
           <ImageField label="Photo" value={form.photo} onChange={(url) => set("photo", url)} aspect="aspect-square" hint="Optional — initials are shown without one." />
         </>
       )}

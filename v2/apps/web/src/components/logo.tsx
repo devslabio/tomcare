@@ -9,11 +9,22 @@ export function HandMark({ className = "", color = "#47abff" }: { className?: st
   );
 }
 
-export function Logo({ light = false, className = "" }: { light?: boolean; className?: string }) {
+export function Logo({
+  light = false,
+  compact = false,
+  tagline = "Foundation",
+  className = "",
+}: {
+  light?: boolean;
+  /** Only the hand mark on phones, to leave room for the header buttons. */
+  compact?: boolean;
+  tagline?: string;
+  className?: string;
+}) {
   return (
     <span className={`inline-flex items-center gap-2.5 ${className}`}>
       <HandMark className="h-9 w-auto shrink-0" color={light ? "#6cbcff" : "#47abff"} />
-      <span className="flex flex-col leading-none">
+      <span className={`flex-col leading-none ${compact ? "hidden sm:flex" : "flex"}`}>
         <span
           className={`text-[19px] font-extrabold tracking-[0.14em] ${light ? "text-white" : "text-gradient"}`}
           style={{ fontFamily: "var(--font-jakarta)" }}
@@ -23,7 +34,7 @@ export function Logo({ light = false, className = "" }: { light?: boolean; class
         <span
           className={`mt-1 text-[9.5px] font-semibold uppercase tracking-[0.42em] ${light ? "text-white/60" : "text-indigo/70"}`}
         >
-          Foundation
+          {tagline}
         </span>
       </span>
     </span>

@@ -2,12 +2,12 @@
 
 import { Handshake } from "lucide-react";
 
-import { optional } from "@/components/admin/editor-kit";
+import { FrenchFields, FrenchSection, optional, type FrenchValues } from "@/components/admin/editor-kit";
 import { OrderedListPage } from "@/components/admin/ordered-list-page";
 import { Field, ImageField, Input, Textarea } from "@/components/admin/ui";
 import type { Partner } from "@/lib/admin-types";
 
-type Form = { name: string; logoUrl: string; website: string; description: string; visible: boolean };
+type Form = { name: string; logoUrl: string; website: string; description: string; visible: boolean; fr: FrenchValues };
 
 export default function PartnersAdminPage() {
   return (
@@ -23,6 +23,7 @@ export default function PartnersAdminPage() {
         website: row?.website ?? "",
         description: row?.description ?? "",
         visible: row?.visible ?? true,
+        fr: row?.fr ?? {},
       })}
       toPayload={(form) => ({
         name: form.name,
@@ -30,6 +31,7 @@ export default function PartnersAdminPage() {
         website: optional(form.website),
         description: optional(form.description),
         visible: form.visible,
+        fr: form.fr,
       })}
       preview={(row) => ({
         title: row.name,
@@ -58,6 +60,13 @@ export default function PartnersAdminPage() {
           <Field label="Description" hint="Optional. What you do together.">
             <Textarea value={form.description} onChange={(e) => set("description", e.target.value)} maxLength={400} className="min-h-20" />
           </Field>
+          <FrenchSection>
+            <FrenchFields
+              value={form.fr}
+              onChange={(fr) => set("fr", fr)}
+              fields={[{ key: "description", label: "Description", max: 400, english: form.description, kind: "long" }]}
+            />
+          </FrenchSection>
           <ImageField label="Logo" value={form.logoUrl} onChange={(url) => set("logoUrl", url)} aspect="aspect-[3/2]" contain />
         </>
       )}

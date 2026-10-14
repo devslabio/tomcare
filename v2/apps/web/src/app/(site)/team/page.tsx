@@ -1,22 +1,20 @@
 import type { Metadata } from "next";
 
+import { Highlight } from "@/components/highlight";
 import { PageHero } from "@/components/page-hero";
 import { Avatar, ButtonLink, Eyebrow } from "@/components/ui";
 import { getTeam } from "@/lib/cms";
 import type { TeamGroup, TeamMember } from "@/lib/cms-types";
+import { getI18n } from "@/lib/i18n/server";
 import { photos } from "@/lib/photos";
 import { revealDelay } from "@/lib/reveal";
 
-export const metadata: Metadata = {
-  title: "Our team",
-  description: "Meet the founder, staff and volunteers of TOMCARE Foundation in Montréal.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getI18n();
+  return { title: t.team.metaTitle, description: t.team.metaDescription };
+}
 
-const groups: { key: TeamGroup; title: string }[] = [
-  { key: "BOARD", title: "Leadership" },
-  { key: "STAFF", title: "Staff" },
-  { key: "VOLUNTEER", title: "Volunteer leads" },
-];
+const groups: TeamGroup[] = ["BOARD", "STAFF", "VOLUNTEER"];
 
 function MemberCard({ member }: { member: TeamMember }) {
   return (
@@ -43,34 +41,31 @@ function FeaturedMemberCard({ member }: { member: TeamMember }) {
 }
 
 export default async function TeamPage() {
-  const team = await getTeam();
+  const [{ t }, team] = await Promise.all([getI18n(), getTeam()]);
+  const copy = t.team;
 
   return (
     <>
       <PageHero
-        eyebrow="Our team"
-        title={
-          <>
-            The people behind <em className="text-gold">the welcome.</em>
-          </>
-        }
-        description="A small team and a growing circle of volunteers — many of whom once arrived in Canada not knowing anyone."
+        eyebrow={copy.eyebrow}
+        title={<Highlight text={copy.title} />}
+        description={copy.description}
         image={photos.teamMeeting}
         compact
         crumbs={[
-          { href: "/about", label: "About" },
-          { href: "/team", label: "Team" },
+          { href: "/about", label: t.nav.about },
+          { href: "/team", label: t.nav.team },
         ]}
       />
 
-      <section className="paper py-20 lg:py-28">
+      <section className="paper section-y">
         <div className="container-x space-y-20">
           {groups.map((group) => {
-            const members = team.filter((member) => member.group === group.key);
+            const members = team.filter((member) => member.group === group);
             if (!members.length) return null;
             return (
-              <div key={group.key}>
-                <Eyebrow>{group.title}</Eyebrow>
+              <div key={group}>
+                <Eyebrow>{copy.groups[group]}</Eyebrow>
                 {members.length === 1 ? (
                   <div className="mt-8" data-reveal>
                     <FeaturedMemberCard member={members[0]} />
@@ -90,11 +85,11 @@ export default async function TeamPage() {
 
           <div className="flex flex-col items-start justify-between gap-8 rounded-[32px] bg-indigo p-10 text-white md:flex-row md:items-center lg:p-14" data-reveal>
             <div className="max-w-2xl">
-              <h2 className="font-display text-[clamp(1.75rem,3vw,2.5rem)] leading-tight">Want to be part of the team?</h2>
-              <p className="mt-3 text-[17px] leading-8 text-white/75">We’re always looking for volunteers who care about making newcomers feel at home.</p>
+              <h2 className="font-display text-[clamp(1.75rem,3vw,2.5rem)] leading-tight">{copy.joinTitle}</h2>
+              <p className="text-lead mt-3 text-white/80">{copy.joinText}</p>
             </div>
             <ButtonLink href="/volunteer" variant="gold" className="shrink-0">
-              Volunteer with us
+              {copy.joinCta}
             </ButtonLink>
           </div>
         </div>

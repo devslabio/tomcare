@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { getEvents, getNavPages, getPosts, getPrograms } from "@/lib/cms";
+import { localizeHref } from "@/lib/i18n/config";
 import { site } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
@@ -17,6 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${site.url}${path}`,
     priority,
     ...(lastModified ? { lastModified } : {}),
+    alternates: { languages: { "en-CA": `${site.url}${path}`, "fr-CA": `${site.url}${localizeHref(path || "/", "fr")}` } },
   });
   return [
     ...fixed.map((path) => entry(path, path ? 0.8 : 1)),

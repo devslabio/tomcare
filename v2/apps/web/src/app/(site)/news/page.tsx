@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
 
 import { PostCard } from "@/components/cards";
+import { Highlight } from "@/components/highlight";
 import { PageHero } from "@/components/page-hero";
 import { getPosts } from "@/lib/cms";
+import { getI18n } from "@/lib/i18n/server";
 import { photos } from "@/lib/photos";
 import { revealDelay } from "@/lib/reveal";
 
-export const metadata: Metadata = {
-  title: "News & stories",
-  description: "Stories from the TOMCARE community, program updates and ways to get involved.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getI18n();
+  return { title: t.news.metaTitle, description: t.news.metaDescription };
+}
 
 export default async function NewsPage() {
-  const posts = await getPosts();
+  const [{ t }, posts] = await Promise.all([getI18n(), getPosts()]);
+  const copy = t.news;
   const [lead, ...others] = posts;
   const side = others.slice(0, 2);
   const rest = others.slice(2);
@@ -20,19 +23,15 @@ export default async function NewsPage() {
   return (
     <>
       <PageHero
-        eyebrow="News & stories"
-        title={
-          <>
-            Stories of <em className="text-gold">new beginnings.</em>
-          </>
-        }
-        description="Updates from our programs, voices from the community and practical news for newcomers in Quebec."
+        eyebrow={copy.eyebrow}
+        title={<Highlight text={copy.title} />}
+        description={copy.description}
         image={photos.friends}
         compact
-        crumbs={[{ href: "/news", label: "News" }]}
+        crumbs={[{ href: "/news", label: t.nav.news }]}
       />
 
-      <section className="paper py-20 lg:py-28">
+      <section className="paper section-y">
         <div className="container-x">
           {lead ? (
             <div className="grid gap-12 lg:grid-cols-12" data-reveal>
@@ -48,7 +47,7 @@ export default async function NewsPage() {
               ) : null}
             </div>
           ) : (
-            <p className="text-center text-muted">No stories yet — check back soon.</p>
+            <p className="text-center text-muted">{copy.empty}</p>
           )}
           {rest.length ? (
             <div className="mt-16 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">

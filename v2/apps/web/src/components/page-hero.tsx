@@ -1,10 +1,11 @@
 import { ChevronRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/components/link";
 
+import { getI18n } from "@/lib/i18n/server";
 import { Photo } from "./photo";
 import { Eyebrow } from "./ui";
 
-export function PageHero({
+export async function PageHero({
   eyebrow,
   title,
   description,
@@ -24,6 +25,7 @@ export function PageHero({
   children?: React.ReactNode;
   compact?: boolean;
 }) {
+  const { t } = await getI18n();
   return (
     <section
       className={`grain relative isolate overflow-hidden bg-ink text-white ${
@@ -44,9 +46,9 @@ export function PageHero({
       )}
 
       <div className="container-x">
-        <nav aria-label="Breadcrumb" className="animate-rise mb-8 flex flex-wrap items-center gap-1.5 text-sm text-white/55">
+        <nav aria-label={t.nav.breadcrumb} className="animate-rise mb-8 flex flex-wrap items-center gap-1.5 text-sm text-white/70">
           <Link href="/" className="transition hover:text-white">
-            Home
+            {t.nav.home}
           </Link>
           {crumbs.map((crumb) => (
             <span key={crumb.href} className="flex items-center gap-1.5">
@@ -59,10 +61,10 @@ export function PageHero({
         </nav>
         <div className="animate-rise max-w-4xl [animation-delay:80ms]">
           <Eyebrow light>{eyebrow}</Eyebrow>
-          <h1 className="font-display mt-5 text-balance text-[clamp(2.5rem,6vw,4.75rem)] font-normal leading-[1.04] tracking-[-0.025em]">
+          <h1 className="font-display text-display mt-5 text-balance font-normal">
             {title}
           </h1>
-          {description ? <p className="mt-6 max-w-2xl text-lg leading-8 text-white/75">{description}</p> : null}
+          {description ? <p className="text-lead mt-6 max-w-2xl text-white/80">{description}</p> : null}
           {children}
         </div>
       </div>

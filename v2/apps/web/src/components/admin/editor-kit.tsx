@@ -3,7 +3,7 @@
 import { Plus, X } from "lucide-react";
 
 import { moveItem, ReorderButtons } from "@/components/admin/reorder";
-import { Button, Card, Input } from "@/components/admin/ui";
+import { Button, Card, Field, Input, Textarea } from "@/components/admin/ui";
 import { Icon, iconNames } from "@/lib/icons";
 
 export function Section({ title, description, children }: { title: string; description?: string; children: React.ReactNode }) {
@@ -118,6 +118,73 @@ export function fromMontrealInput(value: string) {
   const offsetAt = (time: number) => Date.parse(`${toMontrealInput(new Date(time).toISOString())}:00Z`) - time;
   const guess = asUtc - offsetAt(asUtc);
   return new Date(asUtc - offsetAt(guess)).toISOString();
+}
+
+export type FrenchValues = Record<string, unknown>;
+
+export type FrenchField = {
+  key: string;
+  label: string;
+  max: number;
+  /** The English text, shown as a placeholder so translators can see what they are translating. */
+  english?: string | string[] | null;
+  kind?: "text" | "long" | "markdown" | "lines";
+  wide?: boolean;
+};
+
+/** French versions of a record's text fields. Empty fields fall back to English on the French site. */
+export function FrenchFields({
+  fields,
+  value,
+  onChange,
+}: {
+  fields: FrenchField[];
+  value: FrenchValues;
+  onChange: (next: FrenchValues) => void;
+}) {
+  const set = (key: string, next: unknown) => onChange({ ...value, [key]: next });
+  return (
+    <div className="grid gap-5 sm:grid-cols-2">
+      {fields.map((field) => {
+        const kind = field.kind ?? "text";
+        const english = Array.isArray(field.english) ? field.english.join(" · ") : (field.english ?? "");
+        const wide = field.wide ?? kind !== "text";
+        return (
+          <Field key={field.key} label={field.label} hint={kind === "markdown" ? markdownHint : undefined} className={wide ? "sm:col-span-2" : ""}>
+            {kind === "lines" ? (
+              <LinesEditor
+                value={(value[field.key] as string[] | undefined) ?? []}
+                onChange={(lines) => set(field.key, lines)}
+                max={12}
+                maxLength={field.max}
+                addLabel="Add line"
+                placeholder={english || undefined}
+              />
+            ) : kind === "text" ? (
+              <Input value={(value[field.key] as string | undefined) ?? ""} onChange={(e) => set(field.key, e.target.value)} maxLength={field.max} placeholder={english} lang="fr" />
+            ) : (
+              <Textarea
+                value={(value[field.key] as string | undefined) ?? ""}
+                onChange={(e) => set(field.key, e.target.value)}
+                maxLength={field.max}
+                placeholder={english}
+                lang="fr"
+                className={kind === "markdown" ? "min-h-56 leading-7" : "min-h-20"}
+              />
+            )}
+          </Field>
+        );
+      })}
+    </div>
+  );
+}
+
+export function FrenchSection({ children, description }: { children: React.ReactNode; description?: string }) {
+  return (
+    <Section title="Français" description={description ?? "Shown on the French site. Leave a field empty to show the English text there."}>
+      {children}
+    </Section>
+  );
 }
 
 /** Turns empty strings into undefined so optional API fields are skipped instead of rejected. */

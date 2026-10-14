@@ -5,6 +5,7 @@ import { Staff } from "../auth/roles.decorator";
 import { uniqueSlug } from "../common/slug";
 import { PrismaService } from "../prisma/prisma.service";
 import { EventDto } from "./content.dto";
+import { TRANSLATIONS, withTranslation } from "./translation";
 
 function data(dto: EventDto) {
   if (dto.endsAt && dto.endsAt < dto.startsAt) throw new BadRequestException("The event can't end before it starts");
@@ -18,6 +19,7 @@ function data(dto: EventDto) {
     location: dto.location.trim(),
     registerUrl: dto.registerUrl || null,
     visible: dto.visible,
+    ...withTranslation(dto.fr, TRANSLATIONS.event),
   };
 }
 

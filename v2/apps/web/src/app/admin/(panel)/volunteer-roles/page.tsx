@@ -2,12 +2,12 @@
 
 import { UserRoundCog } from "lucide-react";
 
-import { LinesEditor } from "@/components/admin/editor-kit";
+import { FrenchFields, FrenchSection, LinesEditor, type FrenchValues } from "@/components/admin/editor-kit";
 import { OrderedListPage } from "@/components/admin/ordered-list-page";
 import { Field, Input, Textarea } from "@/components/admin/ui";
 import type { VolunteerRole } from "@/lib/admin-types";
 
-type Form = { title: string; description: string; commitment: string; location: string; skills: string[]; visible: boolean };
+type Form = { title: string; description: string; commitment: string; location: string; skills: string[]; visible: boolean; fr: FrenchValues };
 
 export default function VolunteerRolesAdminPage() {
   return (
@@ -25,6 +25,7 @@ export default function VolunteerRolesAdminPage() {
         location: row?.location ?? "",
         skills: row?.skills ?? [],
         visible: row?.visible ?? true,
+        fr: row?.fr ?? {},
       })}
       toPayload={(form) => ({ ...form, skills: form.skills.map((skill) => skill.trim()).filter(Boolean) })}
       preview={(row) => ({ title: row.title, subtitle: `${row.commitment} · ${row.location}` })}
@@ -47,6 +48,19 @@ export default function VolunteerRolesAdminPage() {
           <Field label="Helpful skills">
             <LinesEditor value={form.skills} onChange={(skills) => set("skills", skills)} max={8} maxLength={40} addLabel="Add skill" />
           </Field>
+          <FrenchSection>
+            <FrenchFields
+              value={form.fr}
+              onChange={(fr) => set("fr", fr)}
+              fields={[
+                { key: "title", label: "Role", max: 120, english: form.title, wide: true },
+                { key: "description", label: "What volunteers do", max: 500, english: form.description, kind: "long" },
+                { key: "commitment", label: "Time commitment", max: 80, english: form.commitment },
+                { key: "location", label: "Where", max: 80, english: form.location },
+                { key: "skills", label: "Helpful skills", max: 40, english: form.skills, kind: "lines" },
+              ]}
+            />
+          </FrenchSection>
         </>
       )}
     />

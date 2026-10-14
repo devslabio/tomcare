@@ -37,7 +37,7 @@ export class SettingsController implements OnModuleInit {
 
   @Put("settings")
   @Staff("ADMIN")
-  @ApiBody({ description: "Any subset of sections (contact, links, hero, about, stats, donate) with string fields" })
+  @ApiBody({ description: "Any subset of sections (contact, links, hero, about, stats, donate, fr) with string fields" })
   async update(@Body() body: Record<string, unknown>) {
     const current = await this.load();
     for (const key of SETTING_KEYS) {

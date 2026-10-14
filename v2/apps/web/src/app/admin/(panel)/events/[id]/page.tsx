@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { fromMontrealInput, markdownHint, optional, Section, toMontrealInput } from "@/components/admin/editor-kit";
+import { FrenchFields, FrenchSection, fromMontrealInput, markdownHint, optional, Section, toMontrealInput, type FrenchValues } from "@/components/admin/editor-kit";
 import { useToast } from "@/components/admin/toast";
 import { Button, ErrorState, Field, FormError, ImageField, Input, LoadingState, PageHeader, Textarea, Toggle } from "@/components/admin/ui";
 import { api, useResource } from "@/lib/admin-api";
@@ -43,6 +43,7 @@ function EventForm({ event }: { event?: Event }) {
     registerUrl: event?.registerUrl ?? "",
     visible: event?.visible ?? true,
   });
+  const [fr, setFr] = useState<FrenchValues>(event?.fr ?? {});
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const set = <K extends keyof typeof values>(key: K, value: (typeof values)[K]) =>
@@ -61,6 +62,7 @@ function EventForm({ event }: { event?: Event }) {
           registerUrl: optional(values.registerUrl),
           startsAt: fromMontrealInput(values.startsAt),
           endsAt: fromMontrealInput(values.endsAt),
+          fr,
         },
       });
       toast(event ? "Event saved" : "Event created");
@@ -110,6 +112,18 @@ function EventForm({ event }: { event?: Event }) {
               <Textarea value={values.body} onChange={(e) => set("body", e.target.value)} maxLength={20000} className="min-h-56 leading-7" />
             </Field>
           </Section>
+          <FrenchSection>
+            <FrenchFields
+              value={fr}
+              onChange={setFr}
+              fields={[
+                { key: "title", label: "Title", max: 160, english: values.title, wide: true },
+                { key: "summary", label: "Summary", max: 400, english: values.summary, kind: "long" },
+                { key: "body", label: "Full description", max: 20000, english: values.body, kind: "markdown" },
+                { key: "location", label: "Location", max: 200, english: values.location, wide: true },
+              ]}
+            />
+          </FrenchSection>
           <Section title="Photo">
             <ImageField label="Event photo" value={values.image} onChange={(url) => set("image", url)} aspect="aspect-[16/10]" />
           </Section>

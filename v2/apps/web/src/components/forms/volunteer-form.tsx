@@ -1,8 +1,11 @@
 "use client";
 
+import { useI18n } from "../i18n-provider";
 import { Field, FormError, formValues, Honeypot, SelectField, Sent, SubmitButton, TextArea, useSubmit } from "./form-kit";
 
 export function VolunteerForm({ roles }: { roles: string[] }) {
+  const { t } = useI18n();
+  const copy = t.forms.volunteer;
   const { status, setStatus, submit } = useSubmit("volunteers");
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -13,8 +16,8 @@ export function VolunteerForm({ roles }: { roles: string[] }) {
 
   if (status.state === "sent") {
     return (
-      <Sent title="Thank you for offering your time." onReset={() => setStatus({ state: "idle" })} resetLabel="Send another application">
-        Our volunteer coordinator will be in touch to arrange a short conversation and an orientation session.
+      <Sent title={copy.sentTitle} onReset={() => setStatus({ state: "idle" })} resetLabel={copy.again}>
+        {copy.sentText}
       </Sent>
     );
   }
@@ -22,22 +25,26 @@ export function VolunteerForm({ roles }: { roles: string[] }) {
   return (
     <form onSubmit={onSubmit} className="space-y-5">
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field label="Your name" name="name" required autoComplete="name" />
-        <Field label="Email" name="email" type="email" required autoComplete="email" />
-        <Field label="Phone" name="phone" type="tel" autoComplete="tel" maxLength={30} />
-        <SelectField label="Role you’re interested in" name="role" options={[...roles, "Not sure yet"]} />
+        <Field label={t.forms.name} name="name" required autoComplete="name" />
+        <Field label={t.forms.email} name="email" type="email" required autoComplete="email" />
+        <Field label={t.forms.phone} name="phone" type="tel" autoComplete="tel" maxLength={30} />
+        <SelectField
+          label={copy.role}
+          name="role"
+          options={[...roles.map((role) => ({ value: role, label: role })), { value: "Not sure yet", label: copy.notSure }]}
+        />
       </div>
       <Field
-        label="When are you available?"
+        label={copy.availability}
         name="availability"
-        placeholder="e.g. Saturday mornings, two evenings a week"
+        placeholder={copy.availabilityPlaceholder}
         maxLength={300}
       />
-      <TextArea label="Relevant experience or languages you speak" name="experience" rows={3} maxLength={3000} />
-      <TextArea label="Anything else you’d like us to know" name="message" rows={3} maxLength={3000} />
+      <TextArea label={copy.experience} name="experience" rows={3} maxLength={3000} />
+      <TextArea label={copy.message} name="message" rows={3} maxLength={3000} />
       <Honeypot />
       <FormError status={status} />
-      <SubmitButton status={status}>Apply to volunteer</SubmitButton>
+      <SubmitButton status={status}>{copy.submit}</SubmitButton>
     </form>
   );
 }

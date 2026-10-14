@@ -14,6 +14,7 @@ import type {
   Testimonial,
   VolunteerRole,
 } from "./cms-types";
+import { getLocale } from "./i18n/server";
 
 const apiBase = (process.env.API_INTERNAL_URL ?? "http://127.0.0.1:3072").replace(/\/$/, "");
 
@@ -37,20 +38,79 @@ async function orNull<T>(promise: Promise<T>): Promise<T | null> {
 
 const slugPath = (base: string, slug: string) => `${base}/${encodeURIComponent(slug)}`;
 
-export const getSettings = cache(() => apiGet<SiteSettings>("settings"));
-export const getPrograms = cache(() => apiGet<Program[]>("programs"));
-export const getProgram = cache((slug: string) => orNull(apiGet<Program>(slugPath("programs", slug))));
-export const getServices = cache(() => apiGet<Service[]>("services"));
-export const getEvents = cache(() => apiGet<{ upcoming: Event[]; past: Event[] }>("events"));
-export const getEvent = cache((slug: string) => orNull(apiGet<Event>(slugPath("events", slug))));
-export const getPosts = cache(() => apiGet<PostSummary[]>("posts"));
-export const getPost = cache((slug: string) => orNull(apiGet<Post>(slugPath("posts", slug))));
-export const getNavPages = cache(() => apiGet<NavPage[]>("pages"));
-export const getPage = cache((slug: string) => orNull(apiGet<Page>(slugPath("pages", slug))));
-export const getTeam = cache(() => apiGet<TeamMember[]>("team"));
-export const getTestimonials = cache(() => apiGet<Testimonial[]>("testimonials"));
-export const getPartners = cache(() => apiGet<Partner[]>("partners"));
-export const getVolunteerRoles = cache(() => apiGet<VolunteerRole[]>("volunteer-roles"));
+type Translatable = { fr?: Record<string, unknown> | null };
+
+/** On the French site, a record's filled-in French fields replace the English ones. */
+function translate<T extends Translatable>(item: T, french: boolean): T {
+  if (!french || !item.fr) return item;
+  const filled = Object.entries(item.fr).filter(([, value]) =>
+    Array.isArray(value) ? value.length > 0 : typeof value === "string" && value.trim() !== "",
+  );
+  return { ...item, ...Object.fromEntries(filled) };
+}
+
+async function localized<T extends Translatable>(path: string): Promise<T>;
+async function localized<T extends Translatable>(path: string, list: true): Promise<T[]>;
+async function localized<T extends Translatable>(path: string, list?: true) {
+  const [data, locale] = await Promise.all([apiGet<T | T[]>(path), getLocale()]);
+  const french = locale === "fr";
+  return list ? (data as T[]).map((item) => translate(item, french)) : translate(data as T, french);
+}
+
+/** Settings fields that have a French version, by their key in the `fr` settings section. */
+const frenchSettings: Record<keyof SiteSettings["fr"], [Exclude<keyof SiteSettings, "fr">, string]> = {
+  heroEyebrow: ["hero", "eyebrow"],
+  heroTitle: ["hero", "title"],
+  heroSubtitle: ["hero", "subtitle"],
+  aboutHeadline: ["about", "headline"],
+  aboutIntro: ["about", "intro"],
+  aboutStory: ["about", "story"],
+  aboutVision: ["about", "vision"],
+  aboutMission: ["about", "mission"],
+  aboutQuote: ["about", "quote"],
+  aboutRepresentative: ["about", "representative"],
+  stat1Label: ["stats", "stat1Label"],
+  stat2Label: ["stats", "stat2Label"],
+  stat3Label: ["stats", "stat3Label"],
+  stat4Label: ["stats", "stat4Label"],
+  donateHeadline: ["donate", "headline"],
+  donateIntro: ["donate", "intro"],
+  donateDropOffDays: ["donate", "dropOffDays"],
+  donateRecognition: ["donate", "recognition"],
+  contactAddress: ["contact", "address"],
+  contactHours: ["contact", "hours"],
+};
+
+export const getSettings = cache(async () => {
+  const [settings, locale] = await Promise.all([apiGet<SiteSettings>("settings"), getLocale()]);
+  if (locale !== "fr" || !settings.fr) return settings;
+  const result = structuredClone(settings);
+  for (const [key, [section, field]] of Object.entries(frenchSettings)) {
+    const value = settings.fr[key as keyof SiteSettings["fr"]];
+    if (value?.trim()) (result[section] as Record<string, string>)[field] = value;
+  }
+  return result;
+});
+export const getPrograms = cache(() => localized<Program>("programs", true));
+export const getProgram = cache((slug: string) => orNull(localized<Program>(slugPath("programs", slug))));
+export const getServices = cache(() => localized<Service>("services", true));
+export const getEvents = cache(async () => {
+  const [events, locale] = await Promise.all([apiGet<{ upcoming: Event[]; past: Event[] }>("events"), getLocale()]);
+  const french = locale === "fr";
+  return {
+    upcoming: events.upcoming.map((event) => translate(event, french)),
+    past: events.past.map((event) => translate(event, french)),
+  };
+});
+export const getEvent = cache((slug: string) => orNull(localized<Event>(slugPath("events", slug))));
+export const getPosts = cache(() => localized<PostSummary>("posts", true));
+export const getPost = cache((slug: string) => orNull(localized<Post>(slugPath("posts", slug))));
+export const getNavPages = cache(() => localized<NavPage>("pages", true));
+export const getPage = cache((slug: string) => orNull(localized<Page>(slugPath("pages", slug))));
+export const getTeam = cache(() => localized<TeamMember>("team", true));
+export const getTestimonials = cache(() => localized<Testimonial>("testimonials", true));
+export const getPartners = cache(() => localized<Partner>("partners", true));
+export const getVolunteerRoles = cache(() => localized<VolunteerRole>("volunteer-roles", true));
 
 export function stats(settings: SiteSettings) {
   const s = settings.stats;

@@ -1,14 +1,16 @@
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
-import Link from "next/link";
 
 import { lines } from "@/lib/cms";
+import { fill } from "@/lib/i18n";
+import { getI18n } from "@/lib/i18n/server";
 import type { Program, SiteSettings } from "@/lib/cms-types";
-import { site } from "@/lib/site";
+import { Highlight } from "./highlight";
+import { Link } from "./link";
 import { HandMark, Logo } from "./logo";
 import { NewsletterForm } from "./forms/newsletter-form";
 import { SocialIcon, socialLinks } from "./social-icons";
 
-export function Footer({
+export async function Footer({
   settings,
   programs,
   pages,
@@ -17,6 +19,7 @@ export function Footer({
   programs: Program[];
   pages: { href: string; label: string }[];
 }) {
+  const { t } = await getI18n();
   const { contact } = settings;
   const socials = socialLinks(settings.links);
 
@@ -28,9 +31,9 @@ export function Footer({
       <div className="container-x relative">
         <div className="grid gap-10 border-b border-white/10 py-16 lg:grid-cols-12 lg:items-end lg:py-20">
           <div className="lg:col-span-7">
-            <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-gold">Stay close to the community</p>
+            <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-gold">{t.footer.newsletterEyebrow}</p>
             <h2 className="font-display mt-4 text-balance text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-[-0.02em]">
-              Stories, events and ways to help — <em className="text-gold">once a month.</em>
+              <Highlight text={t.footer.newsletterTitle} />
             </h2>
           </div>
           <div className="lg:col-span-5">
@@ -40,8 +43,8 @@ export function Footer({
 
         <div className="grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <Logo light />
-            <p className="mt-6 max-w-sm text-[15px] leading-7 text-white/60">{site.description}</p>
+            <Logo light tagline={t.header.logoTagline} />
+            <p className="mt-6 max-w-sm text-[15px] leading-7 text-white/70">{t.meta.description}</p>
             {socials.length ? (
               <ul className="mt-7 flex gap-2.5">
                 {socials.map((social) => (
@@ -62,15 +65,15 @@ export function Footer({
           </div>
 
           <div className="lg:col-span-2">
-            <h3 className="text-sm font-bold text-white">Foundation</h3>
-            <ul className="mt-4 space-y-1 text-[15px] text-white/60">
+            <h3 className="text-sm font-bold text-white">{t.footer.foundation}</h3>
+            <ul className="mt-4 space-y-1 text-[15px] text-white/70">
               {[
-                { href: "/about", label: "About us" },
-                { href: "/team", label: "Our team" },
-                { href: "/events", label: "Events" },
-                { href: "/news", label: "News" },
+                { href: "/about", label: t.footer.aboutUs },
+                { href: "/team", label: t.footer.ourTeam },
+                { href: "/events", label: t.nav.events },
+                { href: "/news", label: t.nav.news },
                 ...pages,
-                { href: "/contact", label: "Contact" },
+                { href: "/contact", label: t.nav.contact },
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="inline-block py-1 transition hover:text-white">
@@ -82,8 +85,8 @@ export function Footer({
           </div>
 
           <div className="lg:col-span-3">
-            <h3 className="text-sm font-bold text-white">Programs</h3>
-            <ul className="mt-4 space-y-1 text-[15px] text-white/60">
+            <h3 className="text-sm font-bold text-white">{t.footer.programs}</h3>
+            <ul className="mt-4 space-y-1 text-[15px] text-white/70">
               {programs.slice(0, 6).map((program) => (
                 <li key={program.id}>
                   <Link href={`/programs/${program.slug}`} className="inline-block py-1 transition hover:text-white">
@@ -93,15 +96,15 @@ export function Footer({
               ))}
               <li>
                 <Link href="/programs" className="inline-block py-1 font-semibold text-gold transition hover:text-white">
-                  All programs →
+                  {t.footer.allPrograms}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div className="lg:col-span-3">
-            <h3 className="text-sm font-bold text-white">Visit or call</h3>
-            <ul className="mt-4 space-y-4 text-[15px] text-white/60">
+            <h3 className="text-sm font-bold text-white">{t.footer.reachUs}</h3>
+            <ul className="mt-4 space-y-4 text-[15px] text-white/70">
               <li>
                 <a href={`tel:${contact.phone}`} className="flex gap-3 transition hover:text-white">
                   <Phone className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden />
@@ -134,19 +137,14 @@ export function Footer({
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-white/10 py-7 text-sm text-white/45 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {new Date().getFullYear()} {site.name}. A non-profit organization in Quebec.
-          </p>
+        <div className="flex flex-col gap-3 border-t border-white/10 py-7 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
+          <p>{fill(t.footer.rights, { year: new Date().getFullYear() })}</p>
           <p className="flex gap-5">
             <Link href="/donate" className="transition hover:text-white">
-              Donate
+              {t.actions.donate}
             </Link>
             <Link href="/volunteer" className="transition hover:text-white">
-              Volunteer
-            </Link>
-            <Link href="/admin" className="transition hover:text-white">
-              Staff login
+              {t.actions.volunteer}
             </Link>
           </p>
         </div>

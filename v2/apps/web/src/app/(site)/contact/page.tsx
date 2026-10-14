@@ -2,44 +2,43 @@ import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import type { Metadata } from "next";
 
 import { ContactForm } from "@/components/forms/contact-form";
+import { Highlight } from "@/components/highlight";
 import { PageHero } from "@/components/page-hero";
 import { getSettings, lines } from "@/lib/cms";
+import { getI18n } from "@/lib/i18n/server";
 import { photos } from "@/lib/photos";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: "Call, email or visit TOMCARE Foundation in Montréal. We reply to every message, usually within two working days.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getI18n();
+  return { title: t.contact.metaTitle, description: t.contact.metaDescription };
+}
 
 export default async function ContactPage() {
-  const { contact } = await getSettings();
+  const [{ t }, { contact }] = await Promise.all([getI18n(), getSettings()]);
+  const copy = t.contact;
   const mapSrc = contact.mapQuery
     ? `https://www.google.com/maps?q=${encodeURIComponent(contact.mapQuery)}&output=embed`
     : null;
 
   const cards = [
-    { icon: Phone, label: "Call us", value: contact.phoneDisplay, href: `tel:${contact.phone}` },
-    { icon: Mail, label: "Email", value: contact.email, href: `mailto:${contact.email}` },
-    { icon: MapPin, label: "Where we are", value: contact.address },
+    { icon: Phone, label: copy.callUs, value: contact.phoneDisplay, href: `tel:${contact.phone}` },
+    { icon: Mail, label: copy.email, value: contact.email, href: `mailto:${contact.email}` },
+    { icon: MapPin, label: copy.where, value: contact.address },
   ];
 
   return (
     <>
       <PageHero
-        eyebrow="Contact"
-        title={
-          <>
-            Let’s talk. <em className="text-gold">We’re listening.</em>
-          </>
-        }
-        description="A question about our programs, a donation, a partnership — or you just don’t know where to start. Write, call or drop in."
+        eyebrow={copy.eyebrow}
+        title={<Highlight text={copy.title} />}
+        description={copy.description}
         image={photos.familyHome}
         imagePosition="center 20%"
         compact
-        crumbs={[{ href: "/contact", label: "Contact" }]}
+        crumbs={[{ href: "/contact", label: t.nav.contact }]}
       />
 
-      <section className="paper py-20 lg:py-28">
+      <section className="paper section-y">
         <div className="container-x grid gap-14 lg:grid-cols-12">
           <div className="space-y-4 lg:col-span-5">
             {cards.map((card) => {
@@ -68,14 +67,14 @@ export default async function ContactPage() {
               <div className="rounded-[24px] bg-ink p-7 text-white">
                 <p className="flex items-center gap-2 font-bold">
                   <Clock className="size-5 text-gold" aria-hidden />
-                  Opening hours
+                  {copy.hours}
                 </p>
                 <ul className="mt-4 divide-y divide-white/10">
                   {lines(contact.hours).map((line) => {
                     const match = line.match(/^(\S+)\s+(.*)$/);
                     return (
                       <li key={line} className="flex justify-between gap-4 py-2.5 text-[15px]">
-                        <span className="text-white/70">{match?.[1] ?? line}</span>
+                        <span className="text-white/75">{match?.[1] ?? line}</span>
                         <span className="font-semibold">{match?.[2] ?? ""}</span>
                       </li>
                     );
@@ -86,8 +85,8 @@ export default async function ContactPage() {
           </div>
           <div className="lg:col-span-7">
             <div className="rounded-[32px] border border-line bg-white p-6 shadow-[0_30px_80px_-50px_rgba(11,21,55,0.4)] sm:p-10">
-              <h2 className="font-display text-[clamp(1.75rem,3vw,2.25rem)] text-ink">Send us a message</h2>
-              <p className="mt-2 mb-8 text-muted">We reply to every message, usually within two working days.</p>
+              <h2 className="font-display text-[clamp(1.75rem,3vw,2.25rem)] text-ink">{copy.formTitle}</h2>
+              <p className="mt-2 mb-8 text-muted">{copy.formText}</p>
               <ContactForm />
             </div>
           </div>
@@ -97,7 +96,7 @@ export default async function ContactPage() {
       {mapSrc ? (
         <section className="px-3 pb-3 sm:px-5 sm:pb-5">
           <iframe
-            title="Map"
+            title={copy.map}
             src={mapSrc}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

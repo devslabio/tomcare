@@ -26,6 +26,7 @@ export class DashboardController {
       newMessages,
       newVolunteers,
       newRequests,
+      newDonations,
       subscribers,
       programs,
       upcomingEvents,
@@ -42,6 +43,7 @@ export class DashboardController {
       this.prisma.contactMessage.count({ where: { status: "NEW" } }),
       this.prisma.volunteerApplication.count({ where: { status: "NEW" } }),
       this.prisma.assistanceRequest.count({ where: { status: "NEW" } }),
+      this.prisma.donationPledge.count({ where: { status: "NEW" } }),
       this.prisma.subscriber.count(),
       this.prisma.program.count({ where: { visible: true } }),
       this.prisma.event.count({ where: { visible: true, startsAt: { gte: now } } }),
@@ -95,7 +97,7 @@ export class DashboardController {
       .map(([key, value]) => ({ key, value }));
 
     return {
-      inbox: { messages: newMessages, volunteers: newVolunteers, requests: newRequests },
+      inbox: { messages: newMessages, volunteers: newVolunteers, requests: newRequests, donations: newDonations },
       subscribers,
       content: { programs, upcomingEvents, posts, pages },
       recentRequests,

@@ -1,13 +1,17 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { CaseStatus, MessageStatus } from "@prisma/client";
+import { CaseStatus, DonationFrequency, DonationMethod, MessageStatus } from "@prisma/client";
 import {
   ArrayMaxSize,
   IsArray,
+  IsBoolean,
   IsEmail,
   IsEnum,
+  IsNumber,
   IsOptional,
   IsString,
+  Max,
   MaxLength,
+  Min,
   MinLength,
 } from "class-validator";
 
@@ -104,6 +108,39 @@ export class CreateAssistanceDto extends ContactFields {
   @MinLength(10)
   @MaxLength(5000)
   story!: string;
+}
+
+export class CreateDonationDto extends ContactFields {
+  @ApiProperty({ description: "Canadian dollars, up to two decimals", example: 50 })
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(1)
+  @Max(1_000_000)
+  amount!: number;
+
+  @ApiProperty({ enum: DonationFrequency })
+  @IsEnum(DonationFrequency)
+  frequency!: DonationFrequency;
+
+  @ApiProperty({ enum: DonationMethod })
+  @IsEnum(DonationMethod)
+  method!: DonationMethod;
+
+  @ApiPropertyOptional({ description: "Slug of the program the gift is for; empty means where it's needed most" })
+  @IsOptional()
+  @IsString()
+  @MaxLength(120)
+  program?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  @MaxLength(2000)
+  message?: string;
+
+  @ApiPropertyOptional({ description: "Don't name the donor publicly" })
+  @IsOptional()
+  @IsBoolean()
+  anonymous?: boolean;
 }
 
 export class SubscribeDto {

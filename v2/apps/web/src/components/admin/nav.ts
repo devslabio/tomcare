@@ -1,5 +1,6 @@
 import {
   CalendarDays,
+  CircleDollarSign,
   FileText,
   HandHeart,
   Handshake,
@@ -32,6 +33,7 @@ export const adminNav: NavSection[] = [
     items: [
       { href: "/admin/requests", label: "Help requests", icon: LifeBuoy, roles: ["EDITOR"] },
       { href: "/admin/volunteers", label: "Volunteer applications", icon: HandHeart, roles: ["EDITOR"] },
+      { href: "/admin/donations", label: "Donations", icon: CircleDollarSign, roles: ["EDITOR"] },
       { href: "/admin/messages", label: "Messages", icon: Inbox, roles: ["EDITOR"] },
       { href: "/admin/subscribers", label: "Subscribers", icon: Mail, roles: ["EDITOR"] },
     ],

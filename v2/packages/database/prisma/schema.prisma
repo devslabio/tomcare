@@ -255,6 +255,42 @@ model VolunteerApplication {
   @@map("volunteer_applications")
 }
 
+enum DonationFrequency {
+  ONCE
+  MONTHLY
+  QUARTERLY
+  YEARLY
+}
+
+enum DonationMethod {
+  ETRANSFER
+  ONLINE
+  IN_PERSON
+}
+
+/// A gift someone pledged on the Donate page. No payment is taken on the site; staff follow up.
+model DonationPledge {
+  id          String            @id @default(uuid())
+  name        String
+  email       String
+  phone       String?
+  /// Canadian dollars, in cents.
+  amountCents Int
+  frequency   DonationFrequency @default(ONCE)
+  /// English title of the program the gift is for; null means where it's needed most.
+  cause       String?
+  method      DonationMethod
+  message     String?
+  anonymous   Boolean           @default(false)
+  status      CaseStatus        @default(NEW)
+  notes       String            @default("")
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([status, createdAt])
+  @@map("donation_pledges")
+}
+
 /// "Get help" registrations from newcomers and people in need.
 model AssistanceRequest {
   id        String     @id @default(uuid())

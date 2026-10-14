@@ -1,11 +1,12 @@
 import { Award, Car, CreditCard, Mail, Package, Shirt } from "lucide-react";
 import type { Metadata } from "next";
 
+import { DonationForm } from "@/components/forms/donation-form";
 import { Highlight } from "@/components/highlight";
 import { PageHero } from "@/components/page-hero";
 import { Photo } from "@/components/photo";
 import { ButtonLink, Eyebrow } from "@/components/ui";
-import { getSettings, lines } from "@/lib/cms";
+import { getPrograms, getSettings, lines } from "@/lib/cms";
 import { fill } from "@/lib/i18n";
 import { getI18n } from "@/lib/i18n/server";
 import { photos } from "@/lib/photos";
@@ -19,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 const itemIcons = [Shirt, Package, Car];
 
 export default async function DonatePage() {
-  const [{ t }, { donate, contact }] = await Promise.all([getI18n(), getSettings()]);
+  const [{ t }, { donate, contact }, programs] = await Promise.all([getI18n(), getSettings(), getPrograms()]);
   const copy = t.donate;
   const days = lines(donate.dropOffDays).map((line) => line.split("·").map((part) => part.trim()));
 
@@ -37,8 +38,17 @@ export default async function DonatePage() {
         <div className="container-x grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <Eyebrow>{copy.moneyEyebrow}</Eyebrow>
-            <h2 className="font-display text-h2 mt-5 text-ink">{copy.moneyTitle}</h2>
-            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            <h2 className="font-display text-h2 mt-5 text-ink">{copy.formTitle}</h2>
+            <p className="text-lead mt-4 text-muted">{copy.formText}</p>
+            <div id="donation-form" className="mt-8 scroll-mt-32">
+              <DonationForm
+                programs={programs.map((program) => ({ slug: program.slug, title: program.title }))}
+                etransferEmail={donate.etransferEmail}
+                donationUrl={donate.donationUrl}
+              />
+            </div>
+            <h3 className="font-display text-title mt-16 text-ink">{copy.moneyTitle}</h3>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {copy.impact.map((item, index) => (
                 <div key={item.amount} className="rounded-[24px] border border-line bg-white p-7" data-reveal style={revealDelay((index % 2) * 80)}>
                   <p className="font-display text-4xl text-indigo">{item.amount}</p>
@@ -81,15 +91,6 @@ export default async function DonatePage() {
                   </li>
                 </ul>
                 <div className="mt-8 flex flex-col gap-3">
-                  {donate.donationUrl ? (
-                    <ButtonLink href={donate.donationUrl} variant="gold">
-                      {copy.donateOnline}
-                    </ButtonLink>
-                  ) : (
-                    <ButtonLink href="/contact" variant="gold">
-                      {copy.contactToGive}
-                    </ButtonLink>
-                  )}
                   <ButtonLink href={`tel:${contact.phone}`} variant="outline-light" arrow={false}>
                     {fill(t.actions.call, { phone: contact.phoneDisplay })}
                   </ButtonLink>
@@ -121,15 +122,15 @@ export default async function DonatePage() {
               {copy.items.map((item, index) => {
                 const ItemIcon = itemIcons[index] ?? Package;
                 return (
-                <li key={item.title} className="flex gap-5">
-                  <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl bg-white text-indigo">
-                    <ItemIcon className="size-6" aria-hidden />
-                  </span>
-                  <span>
-                    <span className="block text-lg font-bold text-ink">{item.title}</span>
-                    <span className="mt-1 block text-[15px] leading-7 text-muted">{item.text}</span>
-                  </span>
-                </li>
+                  <li key={item.title} className="flex gap-5">
+                    <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl bg-white text-indigo">
+                      <ItemIcon className="size-6" aria-hidden />
+                    </span>
+                    <span>
+                      <span className="block text-lg font-bold text-ink">{item.title}</span>
+                      <span className="mt-1 block text-[15px] leading-7 text-muted">{item.text}</span>
+                    </span>
+                  </li>
                 );
               })}
             </ul>

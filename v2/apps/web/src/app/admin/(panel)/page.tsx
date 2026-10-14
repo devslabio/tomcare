@@ -3,6 +3,7 @@
 import {
   ArrowUpRight,
   CalendarPlus,
+  CircleDollarSign,
   ExternalLink,
   FilePlus2,
   HandHeart,
@@ -54,7 +55,7 @@ export default function DashboardPage() {
   const { user } = useSession();
   const { data, error, reload } = useResource<Dashboard>("/dashboard");
   const firstName = user.name.split(" ")[0];
-  const waiting = data ? data.inbox.requests + data.inbox.volunteers + data.inbox.messages : 0;
+  const waiting = data ? data.inbox.requests + data.inbox.volunteers + data.inbox.messages + data.inbox.donations : 0;
 
   return (
     <div className="space-y-6">
@@ -92,11 +93,18 @@ export default function DashboardPage() {
 
       {data ? (
         <>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 xl:grid-cols-5">
             <Kpi href="/admin/requests" icon={LifeBuoy} label="New help requests" value={data.inbox.requests} accent />
             <Kpi href="/admin/volunteers" icon={HandHeart} label="New volunteers" value={data.inbox.volunteers} />
+            <Kpi href="/admin/donations" icon={CircleDollarSign} label="New donations" value={data.inbox.donations} />
             <Kpi href="/admin/messages" icon={Inbox} label="Unread messages" value={data.inbox.messages} />
-            <Kpi href="/admin/subscribers" icon={MailCheck} label="Newsletter subscribers" value={data.subscribers} />
+            <Kpi
+              href="/admin/subscribers"
+              icon={MailCheck}
+              label="Newsletter subscribers"
+              value={data.subscribers}
+              className="col-span-2 sm:col-span-1"
+            />
           </div>
 
           <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_24rem]">
@@ -187,14 +195,28 @@ export default function DashboardPage() {
   );
 }
 
-function Kpi({ href, icon: Icon, label, value, accent }: { href: string; icon: LucideIcon; label: string; value: number; accent?: boolean }) {
+function Kpi({
+  href,
+  icon: Icon,
+  label,
+  value,
+  accent,
+  className = "",
+}: {
+  href: string;
+  icon: LucideIcon;
+  label: string;
+  value: number;
+  accent?: boolean;
+  className?: string;
+}) {
   const lit = accent && value > 0;
   return (
     <Link
       href={href}
       className={`group relative overflow-hidden rounded-2xl border p-4 transition sm:p-5 ${
         lit ? "border-transparent bg-gold text-ink" : "border-line bg-white text-navy hover:border-navy/20"
-      }`}
+      } ${className}`}
     >
       <div className="flex items-center justify-between">
         <span className={`inline-flex size-9 items-center justify-center rounded-xl ${lit ? "bg-white/35" : "bg-sand text-navy"}`}>

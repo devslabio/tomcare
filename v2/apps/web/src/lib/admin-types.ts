@@ -68,13 +68,32 @@ export type AssistanceRequest = {
   createdAt: string;
 };
 
+export type DonationFrequency = "ONCE" | "MONTHLY" | "QUARTERLY" | "YEARLY";
+export type DonationMethod = "ETRANSFER" | "ONLINE" | "IN_PERSON";
+
+export type DonationPledge = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  amountCents: number;
+  frequency: DonationFrequency;
+  cause: string | null;
+  method: DonationMethod;
+  message: string | null;
+  anonymous: boolean;
+  status: CaseStatus;
+  notes: string;
+  createdAt: string;
+};
+
 export type Subscriber = { id: string; email: string; createdAt: string };
 
 export type AdminPost = Omit<Post, "body">;
 export type AdminPage = Omit<Page, "blocks"> & { createdAt: string };
 
 export type Dashboard = {
-  inbox: { messages: number; volunteers: number; requests: number };
+  inbox: { messages: number; volunteers: number; requests: number; donations: number };
   subscribers: number;
   content: { programs: number; upcomingEvents: number; posts: number; pages: number };
   recentRequests: Pick<AssistanceRequest, "id" | "name" | "city" | "needs" | "status" | "createdAt">[];

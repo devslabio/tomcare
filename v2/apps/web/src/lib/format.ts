@@ -61,3 +61,14 @@ export function initials(name: string) {
 export function readingMinutes(text: string) {
   return Math.max(1, Math.round(text.split(/\s+/).length / 220));
 }
+
+/** Canadian dollars, without cents when the amount is whole: "$1,250" / "1 250 $". */
+export function formatMoney(dollars: number, locale: Locale = "en") {
+  return new Intl.NumberFormat(intlLocale(locale), {
+    style: "currency",
+    currency: "CAD",
+    currencyDisplay: "narrowSymbol",
+    minimumFractionDigits: Number.isInteger(dollars) ? 0 : 2,
+    maximumFractionDigits: 2,
+  }).format(dollars);
+}

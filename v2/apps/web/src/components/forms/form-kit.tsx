@@ -1,7 +1,7 @@
 "use client";
 
 import { CheckCircle2, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useI18n } from "../i18n-provider";
 
@@ -120,7 +120,7 @@ export function TextArea({
   );
 }
 
-function FieldLabel({ label, required }: { label: string; required?: boolean }) {
+export function FieldLabel({ label, required }: { label: string; required?: boolean }) {
   const { t } = useI18n();
   return (
     <span className="mb-1.5 block text-sm font-semibold text-ink">
@@ -176,14 +176,27 @@ export function FormError({ status }: { status: Status }) {
   );
 }
 
-export function SubmitButton({ status, children }: { status: Status; children: React.ReactNode }) {
+const submitTones = {
+  indigo: "bg-indigo text-white shadow-[0_14px_36px_-12px_rgba(45,56,138,0.7)] hover:bg-indigo-deep",
+  gold: "bg-gold text-ink shadow-[0_14px_36px_-12px_rgba(229,172,27,0.8)] hover:bg-[#f0bb2e]",
+};
+
+export function SubmitButton({
+  status,
+  children,
+  tone = "indigo",
+}: {
+  status: Status;
+  children: React.ReactNode;
+  tone?: keyof typeof submitTones;
+}) {
   const { t } = useI18n();
   const busy = status.state === "sending";
   return (
     <button
       type="submit"
       disabled={busy}
-      className="inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-indigo px-8 text-base font-semibold text-white shadow-[0_14px_36px_-12px_rgba(45,56,138,0.7)] transition hover:bg-indigo-deep disabled:opacity-60 sm:w-auto"
+      className={`inline-flex h-14 w-full items-center justify-center gap-2 rounded-full px-8 text-base font-semibold transition disabled:opacity-60 sm:w-auto ${submitTones[tone]}`}
     >
       {busy ? <Loader2 className="size-5 animate-spin" aria-hidden /> : null}
       {busy ? t.forms.sending : children}
@@ -192,8 +205,12 @@ export function SubmitButton({ status, children }: { status: Status; children: R
 }
 
 export function Sent({ title, children, onReset, resetLabel }: { title: string; children: React.ReactNode; onReset: () => void; resetLabel: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (ref.current && ref.current.getBoundingClientRect().top < 0) ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
   return (
-    <div className="flex flex-col items-start rounded-[28px] border border-line bg-white p-8 sm:p-10" role="status">
+    <div ref={ref} className="flex scroll-mt-32 flex-col items-start rounded-[28px] border border-line bg-white p-8 sm:p-10" role="status">
       <span className="inline-flex size-14 items-center justify-center rounded-2xl bg-gold-soft text-gold-deep">
         <CheckCircle2 className="size-7" aria-hidden />
       </span>

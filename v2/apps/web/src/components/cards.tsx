@@ -29,7 +29,7 @@ export async function ProgramCard({ program, priority }: { program: Program; pri
         </span>
       </div>
       <div className="flex flex-1 flex-col p-6">
-        <h3 className="font-display text-[1.375rem] leading-tight text-ink">{program.title}</h3>
+        <h3 className="font-display text-h3 leading-tight text-ink">{program.title}</h3>
         <p className="mt-2.5 flex-1 text-[15px] leading-7 text-muted">{program.summary}</p>
         <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-indigo">
           {t.actions.learnMore}
@@ -67,7 +67,7 @@ export async function EventCard({ event, compact }: { event: Event; compact?: bo
         </p>
         <div className="flex min-w-0 flex-1 flex-col">
           <p className="text-sm font-semibold text-indigo">{eventTime(event.startsAt, event.endsAt, locale)}</p>
-          <h3 className="font-display mt-1.5 text-[1.3rem] leading-tight text-ink">
+          <h3 className="font-display mt-1.5 text-h3 leading-tight text-ink">
             <Link href={`/events/${event.slug}`} className="after:absolute after:inset-0">
               {event.title}
             </Link>
@@ -126,7 +126,7 @@ export async function PostCard({ post, large }: { post: PostSummary; large?: boo
         {post.category}
         {post.publishedAt ? <span className="font-normal text-muted"> · {formatDate(post.publishedAt, undefined, locale)}</span> : null}
       </p>
-      <h3 className={`font-display mt-2 leading-tight text-ink transition group-hover:text-indigo ${large ? "text-[2rem]" : "text-[1.375rem]"}`}>
+      <h3 className={`font-display mt-2 leading-tight text-ink transition group-hover:text-indigo ${large ? "text-title" : "text-h3"}`}>
         {post.title}
       </h3>
       <p className="mt-3 text-[15px] leading-7 text-muted">{post.excerpt}</p>

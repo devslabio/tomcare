@@ -214,7 +214,7 @@ export default async function HomePage() {
               title={<Highlight text={copy.servicesTitle} className="text-indigo not-italic" />}
               description={copy.servicesText}
               action={
-                <ButtonLink href="/contact" variant="gold">
+                <ButtonLink href="/get-help" variant="gold">
                   {copy.servicesCta}
                 </ButtonLink>
               }
@@ -370,7 +370,7 @@ export default async function HomePage() {
             <Eyebrow>{copy.testimonialsEyebrow}</Eyebrow>
             <div className="mt-8 grid gap-5 lg:grid-cols-12">
               <figure className="flex flex-col justify-between rounded-[28px] bg-white p-8 shadow-[0_30px_60px_-40px_rgba(11,21,55,0.35)] lg:col-span-7 lg:p-10" data-reveal>
-                <blockquote className="font-display text-balance text-[clamp(1.375rem,2.4vw,2rem)] leading-[1.35] text-ink">
+                <blockquote className="font-display text-balance text-title leading-[1.35] text-ink">
                   <span className="text-gold">{open}</span>
                   {leadTestimonial.quote}
                   <span className="text-gold">{close}</span>

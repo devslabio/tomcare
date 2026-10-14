@@ -44,7 +44,7 @@ export default async function ProgramPage({ params }: PageProps<"/programs/[slug
       <section className="paper section-y">
         <div className="container-x grid gap-14 lg:grid-cols-12">
           <article className="lg:col-span-7" data-reveal>
-            <Markdown source={program.body || program.summary} className="text-[1.1rem]" />
+            <Markdown source={program.body || program.summary} className="text-lead" />
           </article>
           <aside className="lg:col-span-5" data-reveal>
             <div className="space-y-5 lg:sticky lg:top-32">

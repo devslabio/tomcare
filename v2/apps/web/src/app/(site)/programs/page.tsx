@@ -93,7 +93,7 @@ export default async function ProgramsPage() {
       <section className="paper pb-16 lg:pb-24">
         <div className="container-x flex flex-col items-start justify-between gap-8 rounded-[32px] border border-line bg-white p-10 md:flex-row md:items-center lg:p-14" data-reveal>
           <div className="max-w-2xl">
-            <h2 className="font-display text-[clamp(1.75rem,3vw,2.5rem)] leading-tight text-ink">{copy.notSureTitle}</h2>
+            <h2 className="font-display text-title leading-tight text-ink">{copy.notSureTitle}</h2>
             <p className="text-lead mt-3 text-muted">{copy.notSureText}</p>
           </div>
           <ButtonLink href="/get-help" variant="gold" className="shrink-0">

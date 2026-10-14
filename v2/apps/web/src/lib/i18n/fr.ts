@@ -190,7 +190,7 @@ export const fr: Dictionary = {
     servicesEyebrow: "Services du quotidien · Gratuits",
     servicesTitle: "De l’aide pour les petites choses qui *prennent des heures* quand on est nouveau.",
     servicesText: "Passez pendant nos heures d’ouverture. Sans rendez-vous, sans frais — simplement quelqu’un qui sait comment ça fonctionne ici.",
-    servicesCta: "Venez nous voir ou appelez-nous",
+    servicesCta: "Obtenir de l’aide",
     giveEyebrow: "Donner",
     donationDays: "Journées de dons",
     arrangeDropOff: "Planifier un dépôt",

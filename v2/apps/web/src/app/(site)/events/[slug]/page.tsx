@@ -64,7 +64,7 @@ export default async function EventPage({ params }: PageProps<"/events/[slug]">)
       <section className="paper section-y">
         <div className="container-x grid gap-14 lg:grid-cols-12">
           <article className="lg:col-span-7">
-            <Markdown source={event.body || event.summary} className="text-[1.1rem]" />
+            <Markdown source={event.body || event.summary} className="text-lead" />
           </article>
           <aside className="lg:col-span-5">
             <div className="rounded-[28px] bg-ink p-8 text-white lg:sticky lg:top-32">

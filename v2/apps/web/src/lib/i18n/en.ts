@@ -191,7 +191,7 @@ export const en = {
     servicesEyebrow: "Everyday services · Free",
     servicesTitle: "Help with the small things that *take hours* when you’re new.",
     servicesText: "Drop in during opening hours. No appointment, no cost — just someone who knows how it works here.",
-    servicesCta: "Visit or call us",
+    servicesCta: "Get help",
     giveEyebrow: "Give",
     donationDays: "Donation days",
     arrangeDropOff: "Arrange a drop-off",

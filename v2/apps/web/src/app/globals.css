@@ -194,6 +194,12 @@ select {
   letter-spacing: -0.02em;
 }
 
+@utility text-title {
+  font-size: clamp(1.625rem, 2.6vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
 @utility text-h3 {
   font-size: 1.5rem;
   line-height: 1.2;

@@ -63,7 +63,7 @@ export default async function PostPage({ params }: PageProps<"/news/[slug]">) {
 
       <section className="paper section-y">
         <article className="container-x">
-          <Markdown source={post.body} className="mx-auto max-w-3xl text-[1.125rem]" />
+          <Markdown source={post.body} className="mx-auto max-w-3xl text-lead" />
         </article>
       </section>
 

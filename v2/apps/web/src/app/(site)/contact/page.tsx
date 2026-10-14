@@ -85,7 +85,7 @@ export default async function ContactPage() {
           </div>
           <div className="lg:col-span-7">
             <div className="rounded-[32px] border border-line bg-white p-6 shadow-[0_30px_80px_-50px_rgba(11,21,55,0.4)] sm:p-10">
-              <h2 className="font-display text-[clamp(1.75rem,3vw,2.25rem)] text-ink">{copy.formTitle}</h2>
+              <h2 className="font-display text-title text-ink">{copy.formTitle}</h2>
               <p className="mt-2 mb-8 text-muted">{copy.formText}</p>
               <ContactForm />
             </div>

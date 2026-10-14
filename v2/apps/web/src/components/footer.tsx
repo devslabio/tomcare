@@ -32,7 +32,7 @@ export async function Footer({
         <div className="grid gap-10 border-b border-white/10 py-16 lg:grid-cols-12 lg:items-end lg:py-20">
           <div className="lg:col-span-7">
             <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-gold">{t.footer.newsletterEyebrow}</p>
-            <h2 className="font-display mt-4 text-balance text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-[-0.02em]">
+            <h2 className="font-display mt-4 text-balance text-h2 leading-[1.05] tracking-[-0.02em]">
               <Highlight text={t.footer.newsletterTitle} />
             </h2>
           </div>

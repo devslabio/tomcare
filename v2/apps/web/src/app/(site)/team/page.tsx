@@ -85,7 +85,7 @@ export default async function TeamPage() {
 
           <div className="flex flex-col items-start justify-between gap-8 rounded-[32px] bg-indigo p-10 text-white md:flex-row md:items-center lg:p-14" data-reveal>
             <div className="max-w-2xl">
-              <h2 className="font-display text-[clamp(1.75rem,3vw,2.5rem)] leading-tight">{copy.joinTitle}</h2>
+              <h2 className="font-display text-title leading-tight">{copy.joinTitle}</h2>
               <p className="text-lead mt-3 text-white/80">{copy.joinText}</p>
             </div>
             <ButtonLink href="/volunteer" variant="gold" className="shrink-0">

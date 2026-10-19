@@ -1,11 +1,13 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
-import { CaseStatus, DonationFrequency, DonationMethod, MessageStatus } from "@prisma/client";
+import { CaseStatus, DonationFrequency, DonationMethod, ItemCategory, ItemHandoff, MessageStatus } from "@prisma/client";
 import {
   ArrayMaxSize,
+  ArrayMinSize,
   IsArray,
   IsBoolean,
   IsEmail,
   IsEnum,
+  IsInt,
   IsNumber,
   IsOptional,
   IsString,
@@ -13,6 +15,7 @@ import {
   MaxLength,
   Min,
   MinLength,
+  ValidateIf,
 } from "class-validator";
 
 import { PageQueryDto } from "../common/pagination";
@@ -141,6 +144,62 @@ export class CreateDonationDto extends ContactFields {
   @IsOptional()
   @IsBoolean()
   anonymous?: boolean;
+}
+
+export class CreateItemDonationDto extends ContactFields {
+  @ApiProperty({ enum: ItemCategory, isArray: true })
+  @IsArray()
+  @ArrayMinSize(1)
+  @ArrayMaxSize(5)
+  @IsEnum(ItemCategory, { each: true })
+  categories!: ItemCategory[];
+
+  @ApiProperty({ description: "What they're giving, quantity and condition" })
+  @IsString()
+  @MinLength(5)
+  @MaxLength(3000)
+  description!: string;
+
+  @ApiProperty({ enum: ItemHandoff })
+  @IsEnum(ItemHandoff)
+  handoff!: ItemHandoff;
+
+  @ApiPropertyOptional({ description: "Required for pick-ups" })
+  @ValidateIf((dto: CreateItemDonationDto) => dto.handoff === ItemHandoff.PICK_UP)
+  @IsString()
+  @MinLength(5)
+  @MaxLength(300)
+  address?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  @MaxLength(10)
+  postalCode?: string;
+
+  @ApiPropertyOptional({ description: "Make and model, required when a vehicle is offered" })
+  @ValidateIf((dto: CreateItemDonationDto) => dto.categories?.includes(ItemCategory.VEHICLE))
+  @IsString()
+  @MinLength(2)
+  @MaxLength(160)
+  vehicle?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsInt()
+  @Min(1900)
+  @Max(2100)
+  vehicleYear?: number;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsBoolean()
+  vehicleRuns?: boolean;
+
+  @ApiPropertyOptional({ description: "Has the vehicle registration / ownership papers" })
+  @IsOptional()
+  @IsBoolean()
+  hasOwnership?: boolean;
 }
 
 export class SubscribeDto {

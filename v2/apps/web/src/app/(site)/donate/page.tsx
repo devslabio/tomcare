@@ -2,9 +2,9 @@ import { Award, Car, CreditCard, Mail, Package, Shirt } from "lucide-react";
 import type { Metadata } from "next";
 
 import { DonationForm } from "@/components/forms/donation-form";
+import { ItemDonationForm } from "@/components/forms/item-donation-form";
 import { Highlight } from "@/components/highlight";
 import { PageHero } from "@/components/page-hero";
-import { Photo } from "@/components/photo";
 import { ButtonLink, Eyebrow } from "@/components/ui";
 import { getPrograms, getSettings, lines } from "@/lib/cms";
 import { fill } from "@/lib/i18n";
@@ -112,8 +112,8 @@ export default async function DonatePage() {
       </section>
 
       <section className="section-y bg-sand">
-        <div className="container-x grid items-center gap-14 lg:grid-cols-2">
-          <div data-reveal>
+        <div className="container-x grid items-start gap-14 lg:grid-cols-2">
+          <div className="lg:sticky lg:top-32" data-reveal>
             <Eyebrow>{copy.thingsEyebrow}</Eyebrow>
             <h2 className="font-display text-h2 mt-5 text-ink">
               <Highlight text={copy.thingsTitle} className="text-indigo not-italic" />
@@ -151,9 +151,11 @@ export default async function DonatePage() {
               </div>
             ) : null}
           </div>
-          <div className="relative" data-reveal style={revealDelay(120)}>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[32px]">
-              <Photo src={photos.winter} alt={copy.winterAlt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+          <div id="give-things" className="scroll-mt-32">
+            <h3 className="font-display text-title text-ink">{copy.thingsFormTitle}</h3>
+            <p className="mt-3 text-[15px] leading-7 text-muted">{copy.thingsFormText}</p>
+            <div className="mt-6">
+              <ItemDonationForm />
             </div>
           </div>
         </div>

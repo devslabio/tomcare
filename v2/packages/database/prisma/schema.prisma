@@ -291,6 +291,45 @@ model DonationPledge {
   @@map("donation_pledges")
 }
 
+enum ItemCategory {
+  CLOTHING
+  HOUSEHOLD
+  FURNITURE
+  VEHICLE
+  OTHER
+}
+
+enum ItemHandoff {
+  DROP_OFF
+  PICK_UP
+}
+
+/// Clothes, household goods, furniture or a vehicle someone offered on the Donate page.
+model ItemDonation {
+  id           String         @id @default(uuid())
+  name         String
+  email        String
+  phone        String?
+  categories   ItemCategory[]
+  description  String
+  handoff      ItemHandoff
+  /// Only for pick-ups.
+  address      String?
+  postalCode   String?
+  /// Only when a vehicle is offered.
+  vehicle      String?
+  vehicleYear  Int?
+  vehicleRuns  Boolean?
+  hasOwnership Boolean?
+  status       CaseStatus     @default(NEW)
+  notes        String         @default("")
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  @@index([status, createdAt])
+  @@map("item_donations")
+}
+
 /// "Get help" registrations from newcomers and people in need.
 model AssistanceRequest {
   id        String     @id @default(uuid())

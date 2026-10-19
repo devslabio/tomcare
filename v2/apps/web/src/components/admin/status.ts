@@ -1,5 +1,5 @@
 import type { BadgeTone } from "@/components/admin/ui";
-import type { CaseStatus, DonationFrequency, DonationMethod, MessageStatus } from "@/lib/admin-types";
+import type { CaseStatus, DonationFrequency, DonationMethod, ItemCategory, ItemHandoff, MessageStatus } from "@/lib/admin-types";
 
 export const messageStatus: Record<MessageStatus, { label: string; tone: BadgeTone }> = {
   NEW: { label: "New", tone: "green" },
@@ -27,4 +27,17 @@ export const methodLabels: Record<DonationMethod, string> = {
   ETRANSFER: "Interac e-Transfer",
   ONLINE: "Online, by card",
   IN_PERSON: "Cheque or in person",
+};
+
+export const itemCategoryLabels: Record<ItemCategory, string> = {
+  CLOTHING: "Clothing",
+  HOUSEHOLD: "Household goods",
+  FURNITURE: "Furniture",
+  VEHICLE: "Vehicle",
+  OTHER: "Other",
+};
+
+export const handoffLabels: Record<ItemHandoff, string> = {
+  DROP_OFF: "Drop-off",
+  PICK_UP: "Pick-up",
 };

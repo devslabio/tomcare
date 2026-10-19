@@ -87,13 +87,35 @@ export type DonationPledge = {
   createdAt: string;
 };
 
+export type ItemCategory = "CLOTHING" | "HOUSEHOLD" | "FURNITURE" | "VEHICLE" | "OTHER";
+export type ItemHandoff = "DROP_OFF" | "PICK_UP";
+
+export type ItemDonation = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  categories: ItemCategory[];
+  description: string;
+  handoff: ItemHandoff;
+  address: string | null;
+  postalCode: string | null;
+  vehicle: string | null;
+  vehicleYear: number | null;
+  vehicleRuns: boolean | null;
+  hasOwnership: boolean | null;
+  status: CaseStatus;
+  notes: string;
+  createdAt: string;
+};
+
 export type Subscriber = { id: string; email: string; createdAt: string };
 
 export type AdminPost = Omit<Post, "body">;
 export type AdminPage = Omit<Page, "blocks"> & { createdAt: string };
 
 export type Dashboard = {
-  inbox: { messages: number; volunteers: number; requests: number; donations: number };
+  inbox: { messages: number; volunteers: number; requests: number; donations: number; items: number };
   subscribers: number;
   content: { programs: number; upcomingEvents: number; posts: number; pages: number };
   recentRequests: Pick<AssistanceRequest, "id" | "name" | "city" | "needs" | "status" | "createdAt">[];

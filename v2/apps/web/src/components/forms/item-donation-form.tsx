@@ -139,14 +139,19 @@ export function ItemDonationForm() {
       />
 
       {hasVehicle ? (
-        <fieldset className="space-y-5 rounded-2xl bg-paper p-5">
-          <legend className="float-left mb-1 w-full text-sm font-semibold text-ink">{copy.vehicleLegend}</legend>
-          <div className="grid gap-5 sm:grid-cols-[1fr_8rem]">
-            <Field label={copy.vehicle} name="vehicle" required maxLength={160} placeholder={copy.vehiclePlaceholder} />
-            <Field label={copy.vehicleYear} name="vehicleYear" type="number" maxLength={4} />
+        <fieldset className="rounded-2xl border border-line bg-paper p-5">
+          <legend className="sr-only">{copy.vehicleLegend}</legend>
+          <div className="space-y-5">
+            <p aria-hidden className="text-sm font-semibold text-ink">
+              {copy.vehicleLegend}
+            </p>
+            <div className="grid gap-5 sm:grid-cols-[1fr_9rem]">
+              <Field label={copy.vehicle} name="vehicle" required maxLength={160} placeholder={copy.vehiclePlaceholder} />
+              <Field label={copy.vehicleYear} name="vehicleYear" type="number" maxLength={4} />
+            </div>
+            <Choice legend={copy.vehicleRuns} name="vehicleRuns" value={runs} onChange={setRuns} />
+            <Choice legend={copy.ownership} name="hasOwnership" value={ownership} onChange={setOwnership} />
           </div>
-          <Choice legend={copy.vehicleRuns} name="vehicleRuns" value={runs} onChange={setRuns} />
-          <Choice legend={copy.ownership} name="hasOwnership" value={ownership} onChange={setOwnership} />
         </fieldset>
       ) : null}
 

@@ -45,7 +45,7 @@ export function HeroCarousel({ slides, children }: { slides: Slide[]; children: 
 
   return (
     <section
-      className="grain relative isolate flex flex-col overflow-hidden bg-ink text-white lg:min-h-[100svh]"
+      className="grain relative isolate flex flex-col overflow-hidden bg-ink text-white lg:min-h-[min(100svh,58rem)]"
       aria-roledescription={rotating ? "carousel" : undefined}
       aria-label={rotating ? copy.label : undefined}
       onTouchStart={(event) => {
@@ -79,7 +79,7 @@ export function HeroCarousel({ slides, children }: { slides: Slide[]; children: 
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/55 to-transparent" aria-hidden />
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/85 via-transparent to-ink/40" aria-hidden />
 
-      <div className="container-x flex flex-1 flex-col justify-center pb-10 pt-28 sm:pb-14 sm:pt-40 lg:pb-16 lg:pt-48">
+      <div className="container-x flex flex-1 flex-col justify-center pb-10 pt-28 sm:pb-14 sm:pt-36 lg:pb-12 lg:pt-36">
         <div
           className="max-w-3xl"
           onMouseEnter={() => setHovered(true)}

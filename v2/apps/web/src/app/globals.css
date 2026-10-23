@@ -183,11 +183,14 @@ select {
 
 @utility container-x {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1440px;
   margin-inline: auto;
   padding-inline: 1.25rem;
   @media (width >= 40rem) {
     padding-inline: 2rem;
+  }
+  @media (width >= 96rem) {
+    padding-inline: 3rem;
   }
 }
 
@@ -224,7 +227,7 @@ select {
 @utility section-y {
   padding-block: 4rem;
   @media (width >= 64rem) {
-    padding-block: 6rem;
+    padding-block: 5rem;
   }
 }
 

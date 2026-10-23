@@ -27,6 +27,15 @@ const swipeRow =
   "-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 no-scrollbar sm:mx-0 sm:grid sm:snap-none sm:overflow-visible sm:px-0 sm:pb-0";
 const swipeItem = "w-[82%] shrink-0 snap-start sm:w-auto";
 
+const wideColumns = { 3: "xl:grid-cols-3", 4: "xl:grid-cols-4", 5: "xl:grid-cols-5" } as const;
+
+/** The widest column count that leaves the fewest empty spots in the last row, so no card sits alone. */
+function balancedColumns(count: number) {
+  const options = [5, 4, 3] as const;
+  const gaps = (columns: number) => (columns - (count % columns)) % columns;
+  return wideColumns[options.reduce((best, columns) => (gaps(columns) < gaps(best) ? columns : best))];
+}
+
 export default async function HomePage() {
   const [{ locale, t }, settings, slides, programs, services, events, posts, testimonials, team] = await Promise.all([
     getI18n(),
@@ -89,8 +98,8 @@ export default async function HomePage() {
 
       {/* About and founder */}
       <section className="paper section-y relative overflow-hidden">
-        <div className="container-x grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-6" data-reveal>
+        <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-7" data-reveal>
             <Eyebrow>{copy.aboutEyebrow}</Eyebrow>
             <h2 className="font-display text-h2 mt-5 text-balance text-ink">
               <Highlight text={about.headline} className="text-indigo underline-brush" />
@@ -117,12 +126,12 @@ export default async function HomePage() {
               </div>
             ) : null}
           </div>
-          <div className="relative lg:col-span-6" data-reveal style={revealDelay(120)}>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[28px] bg-sand sm:aspect-[5/4] lg:aspect-[4/5]">
-              <Photo src={photos.family} alt={copy.familyAlt} fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
+          <div className="relative lg:col-span-5" data-reveal style={revealDelay(120)}>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[28px] bg-sand sm:aspect-[16/10] lg:aspect-auto lg:h-full">
+              <Photo src={photos.family} alt={copy.familyAlt} fill sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
             </div>
             {impact ? (
-              <div className="absolute -bottom-6 left-4 max-w-[60%] rounded-[20px] bg-white px-5 py-4 shadow-[0_30px_60px_-25px_rgba(11,21,55,0.45)] sm:left-8 sm:max-w-none sm:px-7 sm:py-5">
+              <div className="absolute -bottom-6 left-4 max-w-[60%] rounded-[20px] bg-white px-5 py-4 shadow-[0_30px_60px_-25px_rgba(11,21,55,0.45)] sm:left-8 sm:max-w-none lg:bottom-6 lg:left-6 sm:px-7 sm:py-5">
                 <p className="font-display text-5xl text-indigo">{impact.value}</p>
                 <p className="mt-1 max-w-[13rem] text-sm leading-5 text-muted">{impact.label}</p>
               </div>
@@ -198,11 +207,11 @@ export default async function HomePage() {
                 </ButtonLink>
               }
             />
-            <ul className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+            <ul className={`mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 ${balancedColumns(services.length)}`}>
               {services.map((service, index) => (
                 <li
                   key={service.id}
-                  className="flex items-center gap-3 rounded-[18px] border border-line/80 bg-white p-3.5 sm:items-start sm:gap-4 sm:rounded-[22px] sm:p-6"
+                  className="flex items-center gap-3 rounded-[18px] border border-line/80 bg-white p-3.5 sm:items-start sm:gap-4 sm:rounded-[22px] sm:p-6 xl:flex-col"
                   data-reveal
                   style={revealDelay((index % 3) * 60)}
                 >
@@ -222,13 +231,13 @@ export default async function HomePage() {
 
       {/* Give */}
       <section className="paper section-y">
-        <div className="container-x grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className="relative order-2 lg:order-1" data-reveal>
-            <div className="relative aspect-[5/4] overflow-hidden rounded-[28px] bg-sand lg:aspect-[4/5]">
-              <Photo src={photos.familyUnpacking} alt={copy.donatePhotoAlt} fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover" />
+        <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="relative order-2 lg:order-1 lg:col-span-5" data-reveal>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-[28px] bg-sand sm:aspect-[16/10] lg:aspect-auto lg:h-full">
+              <Photo src={photos.familyUnpacking} alt={copy.donatePhotoAlt} fill sizes="(min-width: 1024px) 560px, 100vw" className="object-cover" />
             </div>
           </div>
-          <div className="order-1 lg:order-2" data-reveal style={revealDelay(120)}>
+          <div className="order-1 lg:order-2 lg:col-span-7" data-reveal style={revealDelay(120)}>
             <Eyebrow>{copy.giveEyebrow}</Eyebrow>
             <h2 className="font-display text-h2 mt-5 text-balance text-ink">
               <Highlight text={donate.headline} className="text-indigo not-italic" />

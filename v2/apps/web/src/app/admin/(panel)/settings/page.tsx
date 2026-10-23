@@ -27,16 +27,6 @@ const statFields = [1, 2, 3, 4].flatMap((n) => [
 
 const sections: { key: Section; title: string; description: string; fields: FieldSpec[] }[] = [
   {
-    key: "hero",
-    title: "Home page headline",
-    description: "The large text over the photo at the top of the home page.",
-    fields: [
-      { key: "eyebrow", label: "Small line above", hint: "e.g. Montréal · Since 2024", wide: true },
-      { key: "title", label: "Headline", hint: highlightHint, wide: true },
-      { key: "subtitle", label: "Supporting text", multiline: true, wide: true },
-    ],
-  },
-  {
     key: "contact",
     title: "Contact details",
     description: "Used in the header, footer, contact page and call links.",
@@ -102,9 +92,6 @@ const sections: { key: Section; title: string; description: string; fields: Fiel
     title: "Français",
     description: "The French version of the text above, shown on the French site. Leave a field empty to show the English text there.",
     fields: [
-      { key: "heroEyebrow", label: "Home: small line above", english: ["hero", "eyebrow"], wide: true },
-      { key: "heroTitle", label: "Home: headline", hint: highlightHint, english: ["hero", "title"], wide: true },
-      { key: "heroSubtitle", label: "Home: supporting text", multiline: true, english: ["hero", "subtitle"], wide: true },
       { key: "aboutHeadline", label: "About: headline", hint: highlightHint, english: ["about", "headline"], wide: true },
       { key: "aboutIntro", label: "About: introduction", multiline: true, english: ["about", "intro"], wide: true },
       { key: "aboutStory", label: "About: our story", multiline: true, english: ["about", "story"], wide: true },
@@ -128,7 +115,10 @@ export default function SettingsPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Site settings" description="Text and details used across the website. Changes go live immediately." />
+      <PageHeader
+        title="Site settings"
+        description="Text and details used across the website. Changes go live immediately. The home page headlines are edited under Home slideshow."
+      />
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
       {!data && !error ? <LoadingState /> : null}
       {data

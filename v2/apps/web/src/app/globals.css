@@ -92,6 +92,16 @@
   }
 }
 
+/* Fills the active hero carousel indicator; the slide advances when it ends. */
+@keyframes hero-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;

@@ -2,6 +2,7 @@ import {
   CalendarDays,
   CircleDollarSign,
   FileText,
+  GalleryHorizontal,
   HandHeart,
   Handshake,
   HeartHandshake,
@@ -43,6 +44,7 @@ export const adminNav: NavSection[] = [
   {
     title: "Website",
     items: [
+      { href: "/admin/hero-slides", label: "Home slideshow", icon: GalleryHorizontal, roles: ["EDITOR"] },
       { href: "/admin/pages", label: "Pages", icon: FileText, roles: ["EDITOR"] },
       { href: "/admin/programs", label: "Programs", icon: HeartHandshake, roles: ["EDITOR"] },
       { href: "/admin/services", label: "Everyday services", icon: ListChecks, roles: ["EDITOR"] },

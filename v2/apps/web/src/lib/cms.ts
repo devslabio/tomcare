@@ -2,6 +2,7 @@ import { cache } from "react";
 
 import type {
   Event,
+  HeroSlide,
   NavPage,
   Page,
   Partner,
@@ -110,6 +111,7 @@ export const getPage = cache((slug: string) => orNull(localized<Page>(slugPath("
 export const getTeam = cache(() => localized<TeamMember>("team", true));
 export const getTestimonials = cache(() => localized<Testimonial>("testimonials", true));
 export const getPartners = cache(() => localized<Partner>("partners", true));
+export const getHeroSlides = cache(() => localized<HeroSlide>("hero-slides", true));
 export const getVolunteerRoles = cache(() => localized<VolunteerRole>("volunteer-roles", true));
 
 export function stats(settings: SiteSettings) {

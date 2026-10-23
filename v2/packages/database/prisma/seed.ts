@@ -491,6 +491,89 @@ const testimonials = [
   },
 ];
 
+const unsplash = (id: string) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&q=85`;
+
+const heroSlides = [
+  {
+    eyebrow: "Programs",
+    title: "Practical help, from the first week to the *first job*.",
+    subtitle: "French classes, digital skills, job training and legal guidance — free programs for newcomers and families in Montréal.",
+    image: unsplash("1758525226597-6263703aca5f"),
+    imageAlt: "A mentor helping a newcomer at a laptop",
+    ctaLabel: "Explore our programs",
+    ctaHref: "/programs",
+    fr: {
+      eyebrow: "Programmes",
+      title: "Une aide concrète, de la première semaine au *premier emploi*.",
+      subtitle:
+        "Cours de français, compétences numériques, formation à l’emploi et conseils juridiques — des programmes gratuits pour les nouveaux arrivants et les familles à Montréal.",
+      imageAlt: "Une mentore aide une nouvelle arrivante devant un ordinateur portable",
+      ctaLabel: "Découvrir nos programmes",
+    },
+  },
+  {
+    eyebrow: "Give things",
+    title: "Your spare coat is someone’s *first winter*.",
+    subtitle: "Clothes, furniture, household goods, even a car — tell us what you have and we’ll arrange drop-off or pick-up.",
+    image: unsplash("1545885785-910f3bbf07a8"),
+    imageAlt: "Warm winter clothes ready to be given",
+    ctaLabel: "Offer an item",
+    ctaHref: "/donate#give-things",
+    fr: {
+      eyebrow: "Donner des biens",
+      title: "Votre manteau en trop est le *premier hiver* de quelqu’un.",
+      subtitle:
+        "Vêtements, meubles, articles ménagers, et même une voiture — dites-nous ce que vous avez et nous organisons le dépôt ou la cueillette.",
+      imageAlt: "Des vêtements d’hiver chauds prêts à être donnés",
+      ctaLabel: "Proposer un article",
+    },
+  },
+  {
+    eyebrow: "Community",
+    title: "A table where *everyone* has a seat.",
+    subtitle: "Shared meals, social activities and events that turn new arrivals into neighbours and friends.",
+    image: unsplash("1683549200177-e60855969f29"),
+    imageAlt: "Friends sharing a meal around a table",
+    ctaLabel: "See upcoming events",
+    ctaHref: "/events",
+    fr: {
+      eyebrow: "Communauté",
+      title: "Une table où *chacun* a sa place.",
+      subtitle: "Repas partagés, activités sociales et événements qui font des nouveaux arrivants des voisins et des amis.",
+      imageAlt: "Des amis partagent un repas autour d’une table",
+      ctaLabel: "Voir les événements",
+    },
+  },
+];
+
+/** The first slide reuses the home page headline from Site settings, so earlier edits carry over. */
+async function createHeroSlides() {
+  const rows = await prisma.setting.findMany({ where: { key: { in: ["hero", "fr"] } } });
+  const stored = Object.fromEntries(rows.map((row) => [row.key, row.value as Record<string, string>]));
+  const hero = stored.hero ?? {};
+  const fr = stored.fr ?? {};
+  const welcome = {
+    eyebrow: hero.eyebrow || "Montréal · Since 2024",
+    title: hero.title || "No one should have to start over *alone*.",
+    subtitle:
+      hero.subtitle ||
+      "TOMCARE Foundation walks beside newcomers, people living with disabilities and families facing hardship in Quebec — with practical help, honest guidance and a community that shows up.",
+    image: unsplash("1643818650011-93880bbe1ec2"),
+    imageAlt: "A smiling woman in Montréal",
+    ctaLabel: "",
+    ctaHref: "",
+    fr: {
+      eyebrow: fr.heroEyebrow || "Montréal · Depuis 2024",
+      title: fr.heroTitle || "Personne ne devrait recommencer sa vie *seul*.",
+      subtitle:
+        fr.heroSubtitle ||
+        "La Fondation TOMCARE accompagne les nouveaux arrivants, les personnes vivant avec un handicap et les familles en difficulté au Québec — avec une aide concrète, des conseils honnêtes et une communauté présente.",
+      imageAlt: "Une femme souriante à Montréal",
+    },
+  };
+  await prisma.heroSlide.createMany({ data: [welcome, ...heroSlides].map((slide, sortOrder) => ({ ...slide, sortOrder })) });
+}
+
 async function fillIfEmpty(label: string, count: () => Promise<number>, create: () => Promise<unknown>) {
   if ((await count()) > 0) return;
   await create();
@@ -600,6 +683,7 @@ async function main() {
       },
     }),
   );
+  await fillIfEmpty("hero slides", () => prisma.heroSlide.count(), createHeroSlides);
   await backfillAllFrench();
   await migrateContactEmail();
 }

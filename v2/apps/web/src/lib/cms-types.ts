@@ -103,6 +103,20 @@ export type Testimonial = {
   fr?: French<Testimonial, "quote" | "role">;
 };
 
+export type HeroSlide = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  imageAlt: string;
+  ctaLabel: string;
+  ctaHref: string;
+  visible: boolean;
+  sortOrder: number;
+  fr?: French<HeroSlide, "eyebrow" | "title" | "subtitle" | "imageAlt" | "ctaLabel">;
+};
+
 export type Partner = {
   id: string;
   name: string;

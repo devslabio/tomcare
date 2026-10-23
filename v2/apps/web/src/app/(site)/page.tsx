@@ -1,11 +1,12 @@
 import { ArrowRight, CalendarDays, HandHeart, Heart, Quote, ReceiptText, Sparkles } from "lucide-react";
 
 import { EventCard, ProgramCard } from "@/components/cards";
+import { HeroCarousel, type Slide } from "@/components/hero-carousel";
 import { Highlight } from "@/components/highlight";
 import { Link } from "@/components/link";
 import { Photo } from "@/components/photo";
 import { Avatar, ButtonLink, Eyebrow, SectionHeading } from "@/components/ui";
-import { getEvents, getPosts, getPrograms, getServices, getSettings, getTeam, getTestimonials, lines, stats } from "@/lib/cms";
+import { getEvents, getHeroSlides, getPosts, getPrograms, getServices, getSettings, getTeam, getTestimonials, lines, stats } from "@/lib/cms";
 import { formatDate } from "@/lib/format";
 import { fill } from "@/lib/i18n";
 import { quoteMarks } from "@/lib/i18n/config";
@@ -27,9 +28,10 @@ const swipeRow =
 const swipeItem = "w-[82%] shrink-0 snap-start sm:w-auto";
 
 export default async function HomePage() {
-  const [{ locale, t }, settings, programs, services, events, posts, testimonials, team] = await Promise.all([
+  const [{ locale, t }, settings, slides, programs, services, events, posts, testimonials, team] = await Promise.all([
     getI18n(),
     getSettings(),
+    getHeroSlides(),
     getPrograms(),
     getServices(),
     getEvents(),
@@ -39,6 +41,9 @@ export default async function HomePage() {
   ]);
   const copy = t.home;
   const { hero, about, donate } = settings;
+  const heroSlides: Slide[] = slides.length
+    ? slides.map(({ id, eyebrow, title, subtitle, image, imageAlt, ctaLabel, ctaHref }) => ({ id, eyebrow, title, subtitle, image, imageAlt, ctaLabel, ctaHref }))
+    : [{ id: "hero", ...hero, image: photos.hero, imageAlt: copy.heroAlt, ctaLabel: "", ctaHref: "" }];
   const [open, close] = quoteMarks(locale);
   const featured = (programs.some((program) => program.featured) ? programs.filter((program) => program.featured) : programs).slice(0, 6);
   const [impact] = stats(settings);
@@ -52,33 +57,7 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="grain relative isolate flex flex-col overflow-hidden bg-ink text-white lg:min-h-[100svh]">
-        <Photo
-          src={photos.hero}
-          alt={copy.heroAlt}
-          fill
-          priority
-          sizes="100vw"
-          quality={90}
-          className="animate-kenburns -z-20 object-cover object-[46%_center] lg:object-[60%_center]"
-        />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/90 via-ink/55 to-transparent" aria-hidden />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/85 via-transparent to-ink/40" aria-hidden />
-
-        <div className="container-x flex flex-1 flex-col justify-center pb-10 pt-28 sm:pb-14 sm:pt-40 lg:pb-16 lg:pt-48">
-          <div className="max-w-3xl">
-            <div className="animate-rise">
-              <Eyebrow light>{hero.eyebrow}</Eyebrow>
-            </div>
-            <h1 className="animate-rise font-display text-display mt-5 text-balance font-normal [animation-delay:80ms]">
-              <Highlight text={hero.title} />
-            </h1>
-            <p className="animate-rise text-lead mt-6 hidden max-w-2xl text-white/85 [animation-delay:160ms] sm:block sm:text-xl sm:leading-9">
-              {hero.subtitle}
-            </p>
-          </div>
-        </div>
-
+      <HeroCarousel slides={heroSlides}>
         <div className="container-x relative pb-6 sm:pb-10 lg:pb-14">
           <div className="grid gap-3 md:grid-cols-3 md:gap-4">
             {copy.paths.map((path, index) => {
@@ -106,7 +85,7 @@ export default async function HomePage() {
             })}
           </div>
         </div>
-      </section>
+      </HeroCarousel>
 
       {/* About and founder */}
       <section className="paper section-y relative overflow-hidden">

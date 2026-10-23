@@ -15,6 +15,7 @@ import {
   Matches,
   MaxLength,
   MinLength,
+  ValidateIf,
 } from "class-validator";
 
 /** Site-relative paths (/images/..., /v1/files/...) or absolute http(s) URLs. */
@@ -404,6 +405,56 @@ export class PartnerDto {
   @IsString()
   @MaxLength(400)
   description?: string;
+
+  @ApiProperty()
+  @IsBoolean()
+  visible!: boolean;
+}
+
+export class HeroSlideDto {
+  @ApiPropertyOptional({ type: Object, description: "French version of the text fields; empty fields fall back to English" })
+  @IsOptional()
+  @IsObject()
+  fr?: Record<string, unknown>;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  @MaxLength(80)
+  eyebrow?: string;
+
+  @ApiProperty()
+  @IsString()
+  @MinLength(3)
+  @MaxLength(160)
+  title!: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  @MaxLength(400)
+  subtitle?: string;
+
+  @ApiProperty()
+  @Matches(URL_LIKE, { message: "image must be an uploaded image or a full URL" })
+  image!: string;
+
+  @ApiPropertyOptional({ description: "Describes the photo for people using screen readers" })
+  @IsOptional()
+  @IsString()
+  @MaxLength(200)
+  imageAlt?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  @MaxLength(40)
+  ctaLabel?: string;
+
+  @ApiPropertyOptional({ description: "Required with a button label: a page on the site (/donate) or a full URL" })
+  @ValidateIf((dto: HeroSlideDto) => Boolean(dto.ctaLabel?.trim()))
+  @Matches(HREF, { message: "button link must be a page on the site (e.g. /donate) or a full URL" })
+  ctaHref?: string;
 
   @ApiProperty()
   @IsBoolean()

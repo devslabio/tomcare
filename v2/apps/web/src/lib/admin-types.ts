@@ -1,6 +1,7 @@
 import type { StaffRole } from "./admin-api";
 import type {
   Event,
+  HeroSlide,
   Page,
   Partner,
   Post,
@@ -13,7 +14,7 @@ import type {
   VolunteerRole,
 } from "./cms-types";
 
-export type { Event, Page, Partner, Post, Program, Service, SiteSettings, TeamGroup, TeamMember, Testimonial, VolunteerRole };
+export type { Event, HeroSlide, Page, Partner, Post, Program, Service, SiteSettings, TeamGroup, TeamMember, Testimonial, VolunteerRole };
 
 export type MessageStatus = "NEW" | "READ" | "REPLIED" | "ARCHIVED";
 export type CaseStatus = "NEW" | "IN_PROGRESS" | "ACCEPTED" | "CLOSED" | "ARCHIVED";

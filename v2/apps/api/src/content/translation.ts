@@ -53,5 +53,6 @@ export const TRANSLATIONS = {
   teamMember: { role: 120, bio: 1500 },
   testimonial: { quote: 1000, role: 120 },
   partner: { description: 400 },
+  heroSlide: { eyebrow: 80, title: 160, subtitle: 400, imageAlt: 200, ctaLabel: 40 },
   volunteerRole: { title: 120, description: 500, commitment: 80, location: 80, skills: { lines: 40 } },
 } satisfies Record<string, TranslationSpec>;

@@ -1,6 +1,6 @@
 import type { PrismaService } from "../prisma/prisma.service";
 
-export type Sortable = "program" | "service" | "teamMember" | "testimonial" | "partner" | "volunteerRole" | "page";
+export type Sortable = "program" | "service" | "teamMember" | "testimonial" | "partner" | "heroSlide" | "volunteerRole" | "page";
 
 /** Persists a drag-and-drop order by rewriting sortOrder to each ID's position. */
 export function reorder(prisma: PrismaService, model: Sortable, ids: string[]) {

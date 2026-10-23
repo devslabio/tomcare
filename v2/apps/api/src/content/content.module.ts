@@ -5,6 +5,7 @@ import { PagesController } from "./pages.controller";
 import { PostsController } from "./posts.controller";
 import { ProgramsController } from "./programs.controller";
 import {
+  HeroSlidesController,
   PartnersController,
   ServicesController,
   TeamController,
@@ -22,6 +23,7 @@ import {
     TeamController,
     TestimonialsController,
     PartnersController,
+    HeroSlidesController,
     VolunteerRolesController,
   ],
 })

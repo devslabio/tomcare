@@ -16,6 +16,7 @@ import { ApiBody, ApiTags } from "@nestjs/swagger";
 import { Staff } from "../auth/roles.decorator";
 import { PrismaService } from "../prisma/prisma.service";
 import {
+  HeroSlideDto,
   PartnerDto,
   ReorderDto,
   ServiceDto,
@@ -149,6 +150,26 @@ export const PartnersController = sortableController({
     visible: dto.visible,
     ...withTranslation(dto.fr, TRANSLATIONS.partner),
   }),
+});
+
+export const HeroSlidesController = sortableController({
+  model: "heroSlide",
+  path: "hero-slides",
+  dto: HeroSlideDto,
+  data: (dto) => {
+    const ctaLabel = dto.ctaLabel?.trim() ?? "";
+    return {
+      eyebrow: dto.eyebrow?.trim() ?? "",
+      title: dto.title.trim(),
+      subtitle: dto.subtitle?.trim() ?? "",
+      image: dto.image.trim(),
+      imageAlt: dto.imageAlt?.trim() ?? "",
+      ctaLabel,
+      ctaHref: ctaLabel ? (dto.ctaHref?.trim() ?? "") : "",
+      visible: dto.visible,
+      ...withTranslation(dto.fr, TRANSLATIONS.heroSlide),
+    };
+  },
 });
 
 export const VolunteerRolesController = sortableController({

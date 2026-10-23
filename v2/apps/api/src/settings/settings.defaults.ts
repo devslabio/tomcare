@@ -134,9 +134,9 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     stat4Label: "Founded in Montréal",
   },
   donate: {
-    headline: "Your gift becomes a winter coat, a lease signed, *a first job*.",
+    headline: "Give money, or give *things*.",
     intro:
-      "Every donation goes directly to the people we serve — newcomers settling in, seniors living alone, families stretched thin. Give money, or give the things a household needs: clothes, furniture, school supplies, even a car.",
+      "Every donation goes directly toward supporting the people we serve, including newcomers settling in Canada, single mothers and their children, and individuals living with chronic illnesses — by providing clothing, furniture, school supplies and other necessities, including vehicles when available.",
     etransferEmail: "",
     donationUrl: "",
     dropOffDays:
@@ -165,9 +165,9 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     stat2Label: "Programmes de soutien",
     stat3Label: "Services du quotidien, gratuits",
     stat4Label: "Fondée à Montréal",
-    donateHeadline: "Votre don devient un manteau d’hiver, un bail signé, *un premier emploi*.",
+    donateHeadline: "Donnez de l’argent, ou donnez des *biens*.",
     donateIntro:
-      "Chaque don va directement aux personnes que nous servons — des nouveaux arrivants qui s’installent, des aînés qui vivent seuls, des familles à bout de souffle. Donnez de l’argent, ou les biens dont un foyer a besoin : vêtements, meubles, fournitures scolaires, et même une voiture.",
+      "Chaque don sert directement à soutenir les personnes que nous accompagnons, notamment les nouveaux arrivants qui s’installent au Canada, les mères seules et leurs enfants, et les personnes vivant avec une maladie chronique — en leur fournissant des vêtements, des meubles, des fournitures scolaires et d’autres biens essentiels, y compris des véhicules lorsque c’est possible.",
     donateDropOffDays:
       "Lundi – mercredi · 9 h – 17 h · Dons généraux\nJeudi · 10 h – 18 h · Heures prolongées pour les donateurs qui travaillent\nSamedi · 10 h – 15 h · Dépôt communautaire de fin de semaine",
     donateRecognition:

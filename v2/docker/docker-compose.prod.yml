@@ -45,6 +45,11 @@ services:
       SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL:-admin@tomcarefoundation.org}
       SEED_ADMIN_NAME: ${SEED_ADMIN_NAME:-TOMCARE Admin}
       SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD:-}
+      # Card donations. All empty keeps the Donate form as a pledge form.
+      SITE_URL: ${SITE_URL:-https://tomcarefoundation.org}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_PUBLISHABLE_KEY: ${STRIPE_PUBLISHABLE_KEY:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
     ports:
       - "127.0.0.1:3072:3072"
     volumes:

@@ -283,31 +283,37 @@ enum DonationFrequency {
 }
 
 enum DonationMethod {
+  CARD
   ETRANSFER
   ONLINE
   IN_PERSON
 }
 
-/// A gift someone pledged on the Donate page. No payment is taken on the site; staff follow up.
+/// A gift made on the Donate page. CARD gifts are paid through Stripe Checkout; the others are pledges staff follow up.
 model DonationPledge {
-  id          String            @id @default(uuid())
-  name        String
-  email       String
-  phone       String?
+  id                   String            @id @default(uuid())
+  name                 String
+  email                String
+  phone                String?
   /// Canadian dollars, in cents.
-  amountCents Int
-  frequency   DonationFrequency @default(ONCE)
+  amountCents          Int
+  frequency            DonationFrequency @default(ONCE)
   /// English title of the program the gift is for; null means where it's needed most.
-  cause       String?
-  method      DonationMethod
-  message     String?
-  anonymous   Boolean           @default(false)
-  status      CaseStatus        @default(NEW)
-  notes       String            @default("")
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
+  cause                String?
+  method               DonationMethod
+  message              String?
+  anonymous            Boolean           @default(false)
+  status               CaseStatus        @default(NEW)
+  notes                String            @default("")
+  stripeSessionId      String?
+  stripeSubscriptionId String?
+  /// Set once Stripe confirms the (first) payment; a CARD gift without it was abandoned at checkout.
+  paidAt               DateTime?
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
 
   @@index([status, createdAt])
+  @@index([stripeSessionId])
   @@map("donation_pledges")
 }
 

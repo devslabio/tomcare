@@ -12,7 +12,8 @@ export function useSubmit(path: string) {
   const { t } = useI18n();
   const [status, setStatus] = useState<Status>({ state: "idle" });
 
-  async function submit(body: Record<string, unknown>) {
+  /** Resolves to the API's JSON reply, or null when the request failed (the error is shown through `status`). */
+  async function submit(body: Record<string, unknown>): Promise<Record<string, unknown> | null> {
     setStatus({ state: "sending" });
     try {
       const response = await fetch(`/v1/public/${path}`, {
@@ -21,15 +22,15 @@ export function useSubmit(path: string) {
         body: JSON.stringify(body),
       });
       if (response.status === 429) throw new Error(t.forms.tooMany);
+      const data = (await response.json().catch(() => ({}))) as Record<string, unknown> & { message?: string | string[] };
       if (!response.ok) {
-        const data = (await response.json().catch(() => ({}))) as { message?: string | string[] };
         throw new Error(Array.isArray(data.message) ? data.message.join(", ") : data.message || t.forms.failed);
       }
       setStatus({ state: "sent" });
-      return true;
+      return data;
     } catch (error) {
       setStatus({ state: "error", message: (error as Error).message });
-      return false;
+      return null;
     }
   }
 

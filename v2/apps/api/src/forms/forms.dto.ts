@@ -7,10 +7,12 @@ import {
   IsBoolean,
   IsEmail,
   IsEnum,
+  IsIn,
   IsInt,
   IsNumber,
   IsOptional,
   IsString,
+  Matches,
   Max,
   MaxLength,
   Min,
@@ -144,6 +146,18 @@ export class CreateDonationDto extends ContactFields {
   @IsOptional()
   @IsBoolean()
   anonymous?: boolean;
+
+  @ApiPropertyOptional({ enum: ["en", "fr"], description: "Language of the card payment page" })
+  @IsOptional()
+  @IsIn(["en", "fr"])
+  locale?: "en" | "fr";
+}
+
+export class ConfirmDonationDto {
+  @ApiProperty({ description: "Stripe Checkout Session id" })
+  @IsString()
+  @Matches(/^cs_[A-Za-z0-9_]{10,250}$/)
+  sessionId!: string;
 }
 
 export class CreateItemDonationDto extends ContactFields {

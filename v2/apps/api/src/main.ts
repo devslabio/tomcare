@@ -12,7 +12,8 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  // rawBody: Stripe signs the exact bytes it sends, so the webhook needs them unparsed.
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, { rawBody: true });
   // Requests arrive via nginx and then the web app's /v1 rewrite. Trusting exactly those hops keeps
   // per-client rate limits working without letting callers spoof their IP through X-Forwarded-For.
   app.set("trust proxy", Number(process.env.TRUST_PROXY_HOPS ?? 2));

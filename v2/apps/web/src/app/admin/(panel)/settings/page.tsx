@@ -81,7 +81,7 @@ const sections: { key: Section; title: string; description: string; fields: Fiel
       { key: "headline", label: "Headline", hint: highlightHint, wide: true },
       { key: "intro", label: "Introduction", multiline: true, wide: true },
       { key: "etransferEmail", label: "Interac e-Transfer email", type: "email", hint: "Empty hides the e-Transfer option." },
-      { key: "donationUrl", label: "Online donation link", type: "url", hint: "e.g. CanadaHelps or Zeffy page. Empty hides the button." },
+      { key: "donationUrl", label: "Online donation link", type: "url", hint: "Only shown while card payments (Stripe) aren't set up. e.g. CanadaHelps or Zeffy page." },
       { key: "charityNumber", label: "Charity registration number", hint: "Only once the CRA has issued one. Empty hides it." },
       { key: "dropOffDays", label: "Goods drop-off times", multiline: true, hint: "One per line: Day · time · note" },
       { key: "recognition", label: "Thank-you note", multiline: true, wide: true },

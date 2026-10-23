@@ -24,10 +24,17 @@ export const frequencyLabels: Record<DonationFrequency, string> = {
 };
 
 export const methodLabels: Record<DonationMethod, string> = {
+  CARD: "Card, on the website",
   ETRANSFER: "Interac e-Transfer",
-  ONLINE: "Online, by card",
+  ONLINE: "Online donation page",
   IN_PERSON: "Cheque or in person",
 };
+
+/** Card gifts are paid on the website; the rest are pledges staff confirm by hand. */
+export function payment(donation: { method: DonationMethod; paidAt: string | null }): { label: string; tone: BadgeTone } | null {
+  if (donation.method !== "CARD") return null;
+  return donation.paidAt ? { label: "Paid", tone: "green" } : { label: "Payment not completed", tone: "amber" };
+}
 
 export const itemCategoryLabels: Record<ItemCategory, string> = {
   CLOTHING: "Clothing",

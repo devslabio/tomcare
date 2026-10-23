@@ -70,7 +70,7 @@ export type AssistanceRequest = {
 };
 
 export type DonationFrequency = "ONCE" | "MONTHLY" | "QUARTERLY" | "YEARLY";
-export type DonationMethod = "ETRANSFER" | "ONLINE" | "IN_PERSON";
+export type DonationMethod = "CARD" | "ETRANSFER" | "ONLINE" | "IN_PERSON";
 
 export type DonationPledge = {
   id: string;
@@ -85,6 +85,9 @@ export type DonationPledge = {
   anonymous: boolean;
   status: CaseStatus;
   notes: string;
+  stripeSessionId: string | null;
+  stripeSubscriptionId: string | null;
+  paidAt: string | null;
   createdAt: string;
 };
 

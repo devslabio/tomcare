@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import { DataTable, type Column } from "@/components/admin/data-table";
 import { caseFilters, StatusFilter } from "@/components/admin/inbox";
-import { caseStatus, frequencyLabels, methodLabels } from "@/components/admin/status";
+import { caseStatus, frequencyLabels, methodLabels, payment } from "@/components/admin/status";
 import { Badge, PageHeader } from "@/components/admin/ui";
 import type { CaseStatus, DonationPledge } from "@/lib/admin-types";
 import { formatDateTime, formatMoney } from "@/lib/format";
@@ -41,8 +41,16 @@ const columns: Column<DonationPledge>[] = [
   },
   {
     header: "Paying by",
-    value: (d) => methodLabels[d.method],
-    cell: (d) => <span className="whitespace-nowrap text-sm">{methodLabels[d.method]}</span>,
+    value: (d) => [methodLabels[d.method], payment(d)?.label].filter(Boolean).join(" · "),
+    cell: (d) => {
+      const paid = payment(d);
+      return (
+        <span className="flex flex-wrap items-center gap-2 whitespace-nowrap text-sm">
+          {methodLabels[d.method]}
+          {paid ? <Badge tone={paid.tone}>{paid.label}</Badge> : null}
+        </span>
+      );
+    },
   },
   {
     header: "Email",
@@ -73,7 +81,7 @@ export default function DonationsPage() {
     <div className="space-y-6">
       <PageHeader
         title="Donations"
-        description="Gifts pledged on the Donate page. No payment is taken on the website — confirm each gift when it arrives and mark it accepted."
+        description="Gifts made on the Donate page. Card gifts are paid on the website (see the Stripe dashboard for payouts and refunds); confirm any other gift when it arrives and mark it accepted."
       />
       <DataTable
         path="/donations"

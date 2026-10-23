@@ -113,6 +113,8 @@ export const getTestimonials = cache(() => localized<Testimonial>("testimonials"
 export const getPartners = cache(() => localized<Partner>("partners", true));
 export const getHeroSlides = cache(() => localized<HeroSlide>("hero-slides", true));
 export const getVolunteerRoles = cache(() => localized<VolunteerRole>("volunteer-roles", true));
+/** `card` is true once Stripe is configured on the API, so the Donate form can take payment itself. */
+export const getDonationOptions = cache(() => apiGet<{ card: boolean }>("donations/options").catch(() => ({ card: false })));
 
 export function stats(settings: SiteSettings) {
   const s = settings.stats;

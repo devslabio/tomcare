@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 
 import { CasePanel, ContactDetails } from "@/components/admin/inbox";
-import { caseStatus, frequencyLabels, methodLabels } from "@/components/admin/status";
+import { caseStatus, frequencyLabels, methodLabels, payment } from "@/components/admin/status";
 import { useToast } from "@/components/admin/toast";
 import { Badge, Button, Card, ErrorState, LoadingState } from "@/components/admin/ui";
 import { api, useResource } from "@/lib/admin-api";
@@ -34,7 +34,11 @@ export default function DonationPage() {
         { label: "Amount", value: formatMoney(donation.amountCents / 100) },
         { label: "How often", value: frequencyLabels[donation.frequency] },
         { label: "For", value: donation.cause ?? "Where it’s needed most" },
-        { label: "Paying by", value: methodLabels[donation.method] },
+        {
+          label: "Paying by",
+          value: [methodLabels[donation.method], payment(donation)?.label].filter(Boolean).join(" · "),
+        },
+        ...(donation.paidAt ? [{ label: "Paid", value: formatDateTime(donation.paidAt) }] : []),
         {
           label: "Recognition",
           value: donation.anonymous ? "Keep anonymous" : "Can be thanked publicly",
@@ -96,7 +100,11 @@ export default function DonationPage() {
                 </div>
               ) : null}
               <p className="rounded-xl bg-sand px-4 py-3 text-sm text-navy">
-                No payment is taken on the website. Mark this gift as accepted once the money arrives, and send the tax receipt.
+                {donation.method !== "CARD"
+                  ? "This gift wasn’t paid on the website. Mark it as accepted once the money arrives, and send the tax receipt."
+                  : donation.paidAt
+                    ? "Paid by card through Stripe. Find the payment, payouts and refunds in the Stripe dashboard."
+                    : "The donor started paying by card but didn’t finish. You may want to email them."}
               </p>
             </div>
           </Card>
